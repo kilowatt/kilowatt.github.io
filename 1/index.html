@@ -165,7 +165,7 @@ This project implements algorithmic colorization techniques to bring life to Pro
     <center><h1>Process</h1></center>
 </table>
 
-The first iteration of my alignment algorithm was a brute-force search to align the red and green images to the blue, with up to 15 pixels of deviation in either dimension. I elected to use normalized cross-correlation (NCC) rather than Euclidean distance as my image matching metric. This first iteration was able to align the smaller .jpg input images.
+The first iteration of my alignment algorithm was a brute-force search to align the red and green images to the blue, with up to 18 pixels of deviation in either dimension. I elected to use normalized cross-correlation (NCC) rather than Euclidean distance as my image matching metric. To avoid overfitting to the messy edges of the images, the area around the margins was excluded from the calculation. This first iteration was able to align the smaller .jpg input images.
 <br>
 <br>
 To allow my code to handle the much-larger .tif images, I implemented an image pyramid optimization. This was implemented recursively: if an image's dimensions were less than 500 pixels, the original search would be used, but otherwise, the function would recursively align a half-scale version of the images. Multiplying the resulting offsets by two, it would then exhaustively search a small area around the target offset for the best alignment. The maximum allowable offset (and therefore the search area) decreases with increasing image size, due to the recursive subcalls becoming more and more precise.
@@ -173,18 +173,34 @@ To allow my code to handle the much-larger .tif images, I implemented an image p
 <br>
 I also attempted to crop the oddly-colored edges of the images, testing a method which would delete lines from the edges if they were too saturated with any particular color. However, I found that this had the side-effect of removing the sky from some images, so I decided to remove this change. Instead, I added a simple-but-effective crop on the images by chopping off areas where the aligned images do not overlap, noticeably improving the borders but not completely erasing the black borders on the left and right sides.
 
+
+
+<table align=center></table>
+    <center><h1 id="viz">Edge Detection</h1></center>
+</table>
+
+Finally, I used the Canny edge detection algorithm to preprocess the red, green, and blue images before alignment, which helps avoid issues where images have differing contrast (especially prominent in emir.jpg). This tends to produce offsets close to, but slightly different from the original base NCC implementation. For most images, the difference is not easily visible, but edge detection substantially improves emir.jpg. However, a close inspection suggests that for several of the images, like three_generations.png and train.jpg, the quality was slightly decreased. Therefore I have generally chosen to display the base NCC result images, except for emir.jpg and self_portrait.jpg, which use edge detection.
+<br>
+<br>
+
+<table style="text-align: center;font-weight: bold;">
+    <tr><th>Edge Detection</th><th>Basic NCC</th></tr>
+    <tr><td colspan="2">emir.jpg</td></tr>
+    <tr><td><img src="canny/emir.jpg"> R[107, 40] G[49, 24]</td><td><img src="pyramid/emir.jpg">R[0, 0] G[0, 0]</td></tr> <!--DONE-->
+</table>
+
 <table align=center>
     <center><h1 id="viz">Results and Visualization</h1></center>
 </table>
 <p>
-    Here are the results of the algorithm, with the offset shown below each image
+    Here are the results of the algorithm, with the offset shown below each image.
 </p>
 <table style="text-align: center;font-weight: bold;">
     <tr><th>Aligned + Cropped</th><th>Naive Stacking</th></tr>
     <tr><td colspan="2">church.jpg</td></tr>
     <tr><td><img src="pyramid/church.jpg"> R[58, -4] G[25, 4]</td><td><img src="naive/church.jpg">R[0, 0] G[0, 0]</td></tr> <!--DONE-->
-    <tr><td colspan="2">emir.jpg</td></tr>
-    <tr><td><img src="pyramid/emir.jpg"> R[104, 57] G[49, 24]</td><td><img src="naive/emir.jpg">R[0, 0] G[0, 0]</td></tr> <!--DONE-->
+    <tr><td colspan="2">emir.jpg (edge detection)</td></tr>
+    <tr><td><img src="canny/emir.jpg"> R[107, 40] G[49, 24]</td><td><img src="naive/emir.jpg">R[0, 0] G[0, 0]</td></tr> <!--DONE-->
     <tr><td colspan="2">harvesters.jpg</td></tr>
     <tr><td><img src="pyramid/harvesters.jpg"> R[124, 13] G[60, 17]</td><td><img src="naive/harvesters.jpg">R[0, 0] G[0, 0]</td></tr> <!--DONE-->
     <tr><td colspan="2">icon.jpg</td></tr>
@@ -197,8 +213,8 @@ I also attempted to crop the oddly-colored edges of the images, testing a method
     <tr><td><img src="pyramid/onion_church.jpg"> R[108, 36] G[51, 27]</td><td><img src="naive/onion_church.jpg">R[0, 0] G[0, 0]</td></tr> <!--DONE-->
     <tr><td colspan="2">sculpture.jpg</td></tr>
     <tr><td><img src="pyramid/sculpture.jpg"> R[140, -27] G[33, -11]</td><td><img src="naive/sculpture.jpg">R[0, 0] G[0, 0]</td></tr> <!--DONE-->
-    <tr><td colspan="2">self_portrait.jpg</td></tr>
-    <tr><td><img src="pyramid/self_portrait.jpg"> R[176, 37] G[79, 29]</td><td><img src="naive/self_portrait.jpg">R[0, 0] G[0, 0]</td></tr> <!--DONE-->
+    <tr><td colspan="2">self_portrait.jpg (edge detection)</td></tr>
+    <tr><td><img src="canny/self_portrait.jpg"> R[176, 37] G[79, 29]</td><td><img src="naive/self_portrait.jpg">R[0, 0] G[0, 0]</td></tr> <!--DONE-->
     <tr><td colspan="2">three_generations.jpg</td></tr>
     <tr><td><img src="pyramid/three_generations.jpg"> R[111, 11] G[53, 14]</td><td><img src="naive/three_generations.jpg">R[0, 0] G[0, 0]</td></tr> <!--DONE-->
     <tr><td colspan="2">train.jpg</td></tr>
@@ -209,7 +225,6 @@ I also attempted to crop the oddly-colored edges of the images, testing a method
     <tr><td><img src="pyramid/monastery.jpg"> R[3, 2] G[-3, 2]</td><td><img src="naive/monastery.jpg">R[0, 0] G[0, 0]</td></tr> <!--DONE-->
     <tr><td colspan="2">tobolsk.jpg</td></tr>
     <tr><td><img src="pyramid/tobolsk.jpg"> R[6, 3] G[3, 3]</td><td><img src="naive/tobolsk.jpg">R[0, 0] G[0, 0]</td></tr> <!--DONE-->
-
 </table>
 
 <table align=center style="margin-bottom: 50px">
