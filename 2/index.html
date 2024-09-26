@@ -1,0 +1,468 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<style type="text/css">
+    table {
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+    body {
+        font-family: "Titillium Web", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 300;
+        font-size: 18px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+    }
+
+    h1 {
+        font-weight: 300;
+    }
+
+    .disclaimerbox {
+        background-color: #eee;
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        padding: 20px;
+    }
+
+    video.header-vid {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    img {
+        width: 100%
+    }
+
+    img.header-img {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    img.rounded {
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    a:link, a:visited {
+        color: #1367a7;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #208799;
+    }
+
+    td.dl-link {
+        height: 160px;
+        text-align: center;
+        font-size: 22px;
+    }
+
+    .layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35), /* The third layer shadow */ 15px 15px 0 0px #fff, /* The fourth layer */ 15px 15px 1px 1px rgba(0, 0, 0, 0.35), /* The fourth layer shadow */ 20px 20px 0 0px #fff, /* The fifth layer */ 20px 20px 1px 1px rgba(0, 0, 0, 0.35), /* The fifth layer shadow */ 25px 25px 0 0px #fff, /* The fifth layer */ 25px 25px 1px 1px rgba(0, 0, 0, 0.35); /* The fifth layer shadow */
+        margin-left: 10px;
+        margin-right: 45px;
+    }
+
+
+    .layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35); /* The third layer shadow */
+        margin-top: 5px;
+        margin-left: 10px;
+        margin-right: 30px;
+        margin-bottom: 5px;
+    }
+
+    .vert-cent {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+
+
+    #authors td {
+        padding-bottom: 5px;
+        padding-top: 30px;
+    }
+</style>
+
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108048997-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-108048997-1');
+    </script>
+
+    <title>Fun with Filters and Frequencies</title>
+    <meta property="og:title" content="Fun with Filters and Frequencies"/>
+</head>
+
+<body>
+<br>
+<center>
+    <span style="font-size:36px">Fun with Filters and Frequencies</span>
+    <br>
+    <br>
+    <table align=center>
+        <tr>
+            <span style="font-size:24px"><a >Kenny Wang</a></span> &nbsp;
+            
+        </tr><br>
+        <tr>
+            <span style="font-size:16px"><a>SID: 3037341680</a></span> &nbsp;
+        </tr><br>
+        <tr>
+    </tr>
+    </table>
+
+    <table align=center></table>
+        <tr>
+            <td align=center>
+                <center>
+                    <span style="font-size:20px">
+                        UC Berkeley 
+                    </span>
+                </center>
+            </td>
+        </tr>
+    </table>
+</center>
+<br>
+
+<!-- <center>
+<div class="row"></div>
+    <div class="column">
+        <img src="2.3/apple.jpeg" style="width:25%"><img src="2.3/orange.jpeg" style="width:25%"><img src="2.4/orapple.jpg" style="width:25%">
+    </div>
+</div>
+</center> -->
+
+<center>
+<div class="row">
+    <div class="column">
+        <img src="./2.2/bread.jpg" style="width:33.3%"><img src="./2.2/tiger.jpg" style="width:33.3%">
+    </div>
+    <div class="column"></div>
+        <img src="./2.4/bread_tiger.jpg" style="width:66.6%">
+    </div>
+</div>
+</center>
+
+<hr>
+
+<table align=center></table>
+    <center><h1>Overview</h1></center>
+</table>
+
+Let's mix an apple and an orange, yay!!!!
+<br>
+<br>
+<hr>
+
+<table align=center></table>
+    <center><h1>Section 1: Fun with Filters!</h1></center>
+</table>
+
+<h2 id="model">1.1: Finite Difference Operator</h2>
+
+<center>
+<div class="row"></div>
+    <div class="column">
+        <img src="./1.1/cameraman.png" style="width:25%">
+    </div>
+</div>
+</center>
+
+<br>
+
+Using the simple finite difference operator, we can extract partial derivatives in x and y from an image, calculate gradient magnitude, and make a basic edge detection algorithm.
+<br>
+The filters used for dX and dY are D_x = [[1, -1], [0, 0]] and D_y = [[1, 0], [-1, 0]]. The D_x filter finds differences between horizontally adjacent pixels, and the D_y filter finds differences between vertically adjacent ones.
+<br>
+<br>
+
+<div class="row">
+    <div class="column">
+        <img src="./1.1/dx.jpg" style="width:25%"><img src="./1.1/dy.jpg" style="width:25%"><img src="./1.1/mag.jpg" style="width:25%"><img src="./1.1/bin.jpg" style="width:25%">
+    </div>
+</div>
+<br>
+Above: dX, dY, gradient magnitude, and binarized magnitude (cutoff 0.1)
+<br>
+<br>
+<hr>
+
+<h2>1.2: Derivative of Gaussian (DoG) Filter</h2>
+
+The previous approach ends up producing noisy results. Thankfully, we can reduce noise by convolving the image with the Gaussian filter, seen here with size 15 and standard deviation 1.5.
+
+<br>
+<br>
+
+<center>
+<div class="row"></div>
+    <div class="column">
+        <img src="./1.2/cameraman_blur.jpg" style="width:25%"> <img src="./1.2/g.png" style="width:28%">
+    </div>
+</div>
+</center>
+<br>
+
+
+<div class="row">
+    <div class="column">
+        <img src="./1.2/dx.jpg" style="width:25%"><img src="./1.2/dy.jpg" style="width:25%"><img src="./1.2/mag.jpg" style="width:25%"><img src="./1.2/bin.jpg" style="width:25%">
+    </div>
+</div>
+<br>
+Above: dX, dY, gradient magnitude, and binarized magnitude (cutoff 0.15)
+
+<br>
+<br>
+Alternatively, instead of convolving the image with the Gaussian filter G, we can convolve G with the Dx and Dy filters. The filters look funny, but the results are the exact same.
+
+
+<br>
+<br>
+<center>
+<div class="row"></div>
+    <div class="column">
+        <img src="./1.2/dx_g.png" style="width:28%"><img src="./1.2/dy_g.png" style="width:28%">
+    </div>
+</div>
+</center>
+<br>
+
+<div class="row">
+    <div class="column">
+        <img src="./1.2/dx_alt.jpg" style="width:25%"><img src="./1.2/dy_alt.jpg" style="width:25%"><img src="./1.2/mag_alt.jpg" style="width:25%"><img src="./1.2/bin_alt.jpg" style="width:25%">
+    </div>
+</div>
+<br>
+Above: dX, dY, gradient magnitude, and binarized magnitude (cutoff 0.15)
+<br>
+<br>
+<hr>
+
+<table align=center></table>
+    <center><h1>Section 2: Fun with Frequencies!</h1></center>
+</table>
+
+<h2>2.1: Image Sharpening</h2>
+
+By amplifying the high frequencies of an image, we can create an "unsharp filter", which makes images appear sharper. Results shown use alpha = 0, 1, 2, and 5.
+
+<h3>Taj Mahal</h3>
+
+<div class="row">
+    <div class="column">
+        <img src="./2.1/taj_0.jpg" style="width:25%"><img src="./2.1/taj_1.jpg" style="width:25%"><img src="./2.1/taj_2.jpg" style="width:25%"><img src="./2.1/taj_5.jpg" style="width:25%">
+    </div>
+</div>
+
+<h3>Li Ka Shing</h3>
+
+<div class="row">
+    <div class="column">
+        <img src="./2.1/li_ka_shing_0.jpg" style="width:25%"><img src="./2.1/li_ka_shing_1.jpg" style="width:25%"><img src="./2.1/li_ka_shing_2.jpg" style="width:25%"><img src="./2.1/li_ka_shing_5.jpg" style="width:25%">
+    </div>
+</div>
+
+<h3>Midday (Blurred and Resharpened)</h3>
+
+<div class="row">
+    <div class="column">
+        <img src="./2.1/midday.jpg" style="width:33.3%"><img src="./2.1/midday_blur.jpg" style="width:33.3%"><img src="./2.1/midday_resharp.jpg" style="width:33.3%">
+    </div>
+</div>
+
+For this picture, I first applied a Gaussian blur before resharpening it with the unsharp filter. While some of the original detail was still lost, the resharpening did manage to recover much of the sharp features of the original image.
+
+<hr>
+
+<h2>2.2: Hybrid Images</h2>
+
+Hybrid images are static images that change in interpretation based on viewing distance. By overlaying the high-frequency elements of one image on top of the low-frequency elements of another, we can create a hybrid image.
+
+<h3>Derek + Nutmeg</h3>
+
+<div class="row">
+    <div class="column">
+        <img src="./2.2/DerekPicture_align.jpg" style="width:33.3%"><img src="./2.2/nutmeg_align.jpg" style="width:33.3%"><img src="./2.2/nutmeg_DerekPicture_hybrid.jpg" style="width:33.3%">
+    </div>
+</div>
+
+<h3>Tiger + Bread</h3>
+
+<center>
+<div class="row">
+    <div class="column">
+        <img src="./2.2/bread.jpg" style="width:33.3%"><img src="./2.2/tiger.jpg" style="width:33.3%">
+    </div>
+    <div class="column"></div>
+        <img src="./2.2/tiger_bread_hybrid.jpg" style="width:66.6%">
+    </div>
+</div>
+<br>
+loaf
+<br>
+<br>
+</center>
+
+<h3>Alexei Efros + Boris Yeltsin (Failure Case, kinda)</h3>
+
+<div class="row">
+    <div class="column">
+        <img src="./2.2/efros.jpg" style="width:32%"><img src="./2.2/yeltsin.jpg" style="width:32%"><img src="./2.2/yeltsin_efros_hybrid.jpg" style="width:36%">
+    </div>
+</div>
+
+<br>
+
+This one was alright, but not as good as my other attempts due to noticeably mismatching head shapes and orientation. Still not too bad though.
+<br>
+<br>
+<hr>
+
+<h2>2.3: Gaussian and Laplacian Stacks</h2>
+
+The first step in combining the apple and orange is to create Gaussian and Laplacian stacks for them. Here, our Gaussian filter has size 25 and standard deviation 4.
+
+<h3>Apple</h3>
+
+<center>
+<div class="row"></div>
+    <div class="column">
+        <img src="./2.3/apple_gauss_0.jpg" style="width:15%"><img src="./2.3/apple_gauss_1.jpg" style="width:15%"><img src="./2.3/apple_gauss_2.jpg" style="width:15%"><img src="./2.3/apple_gauss_3.jpg" style="width:15%"><img src="./2.3/apple_gauss_4.jpg" style="width:15%">
+    </div>
+    <div class="column"></div>
+        <img src="./2.3/apple_lap_0.jpg" style="width:15%"><img src="./2.3/apple_lap_1.jpg" style="width:15%"><img src="./2.3/apple_lap_2.jpg" style="width:15%"><img src="./2.3/apple_lap_3.jpg" style="width:15%"><img src="./2.3/apple_lap_4.jpg" style="width:15%">
+    </div>
+</div>
+</center>
+
+<h3>Orange</h3>
+
+<center>
+<div class="row"></div>
+    <div class="column">
+        <img src="./2.3/orange_gauss_0.jpg" style="width:15%"><img src="./2.3/orange_gauss_1.jpg" style="width:15%"><img src="./2.3/orange_gauss_2.jpg" style="width:15%"><img src="./2.3/orange_gauss_3.jpg" style="width:15%"><img src="./2.3/orange_gauss_4.jpg" style="width:15%">
+    </div>
+    <div class="column"></div>
+        <img src="./2.3/orange_lap_0.jpg" style="width:15%"><img src="./2.3/orange_lap_1.jpg" style="width:15%"><img src="./2.3/orange_lap_2.jpg" style="width:15%"><img src="./2.3/orange_lap_3.jpg" style="width:15%"><img src="./2.3/orange_lap_4.jpg" style="width:15%">
+    </div>
+</div>
+</center>
+
+<hr>
+
+<h2>2.4: Multiresolution Blending</h2>
+
+Collapsing the stacks gives us awesome blended images!
+
+<h3>Apple + Orange</h3>
+
+<div class="row"></div>
+    <div class="column">
+        <img src="./2.4/apple_stacked.jpg" style="width:33.3%"><img src="./2.4/orange_stacked.jpg" style="width:33.3%"><img src="./2.4/orapple.jpg" style="width:33.3%">
+    </div>
+</div>
+
+<h3>Tiger + Bread</h3>
+
+<center>
+<div class="row">
+    <div class="column">
+        <img src="./2.2/bread.jpg" style="width:33.3%"><img src="./2.2/tiger.jpg" style="width:33.3%">
+    </div>
+    <div class="column"></div>
+        <img src="./2.4/bread_tiger.jpg" style="width:66.6%">
+    </div>
+</div>
+<br>
+loaf
+<br>
+<br>
+</center>
+
+<h3>Orange + Pink</h3>
+
+<div class="row"></div>
+    <div class="column">
+        <img src="./2.4/sunset.jpg" style="width:33.3%"><img src="./2.4/pink.jpg" style="width:33.3%"><img src="./2.4/final_sunset_pink.jpg" style="width:33.3%">
+    </div>
+</div>
+
+<h3>Henge + Clear</h3>
+
+<div class="row"></div>
+    <div class="column">
+        <img src="./2.4/henge.jpg" style="width:33.3%"><img src="./2.4/clear.jpg" style="width:33.3%"><img src="./2.4/final_henge_clear.jpg" style="width:33.3%">
+    </div>
+</div>
+
+<h3>Teletubbies + Baby</h3>
+
+<center>
+<div class="row"></div>
+    <div class="column">
+        <img src="./2.4/teletubbies_baby_mask.jpg" style="width:40%">
+    </div>
+</div>
+<br>
+We can use a circular mask to insert one image into another.
+<br>
+<br>
+</center>
+
+
+
+
+
+<center>
+<div class="row"></div>
+    <div class="column">
+        <img src="./2.4/teletubbies.jpg" style="width:55%"><img src="./2.4/baby.jpg" style="width:40%">
+    </div>
+    <div class="column"></div>
+        <img src="./2.4/baby_teletubbies.jpg" style="width:66.6%">
+    </div>
+</div>
+</center>
+
+<hr>
+
+<table align=center style="margin-bottom: 50px">
+    <tr>
+        <td>
+            <left>
+                <center><h1>Acknowledgements</h1></center>
+            This project is a course project for CS 180. A small portion of the code was provided by course staff. Website template is used with permission from Bill Zheng in the Fall 2023 iteration of the class.
+            </left>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

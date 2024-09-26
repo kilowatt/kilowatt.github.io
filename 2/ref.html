@@ -1,0 +1,1678 @@
+<html><!-- ======================================================================= --><head><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-JQP1X5LM8Y&amp;l=dataLayer&amp;cx=c"></script><script src="http://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">google.load("jquery", "1.3.2");</script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js">
+      </script>
+    <style type="text/css">
+        table {
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+        body {
+            font-family: "Titillium Web", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            font-weight: 300;
+            font-size: 18px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
+        }
+    
+        h1 {
+            font-weight: 300;
+        }
+    
+        .disclaimerbox {
+            background-color: #eee;
+            border: 1px solid #eeeeee;
+            border-radius: 10px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            padding: 20px;
+        }
+    
+        video.header-vid {
+            height: 140px;
+            border: 1px solid black;
+            border-radius: 10px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+        }
+    
+        img {
+            width: 100%
+        }
+    
+        img.header-img {
+            height: 140px;
+            border: 1px solid black;
+            border-radius: 10px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+        }
+    
+        img.rounded {
+            border: 1px solid #eeeeee;
+            border-radius: 10px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+        }
+    
+        a:link, a:visited {
+            color: #1367a7;
+            text-decoration: none;
+        }
+    
+        a:hover {
+            color: #208799;
+        }
+    
+        td.dl-link {
+            height: 160px;
+            text-align: center;
+            font-size: 22px;
+        }
+    
+        .layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+            box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35), /* The third layer shadow */ 15px 15px 0 0px #fff, /* The fourth layer */ 15px 15px 1px 1px rgba(0, 0, 0, 0.35), /* The fourth layer shadow */ 20px 20px 0 0px #fff, /* The fifth layer */ 20px 20px 1px 1px rgba(0, 0, 0, 0.35), /* The fifth layer shadow */ 25px 25px 0 0px #fff, /* The fifth layer */ 25px 25px 1px 1px rgba(0, 0, 0, 0.35); /* The fifth layer shadow */
+            margin-left: 10px;
+            margin-right: 45px;
+        }
+    
+    
+        .layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+            box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35); /* The third layer shadow */
+            margin-top: 5px;
+            margin-left: 10px;
+            margin-right: 30px;
+            margin-bottom: 5px;
+        }
+    
+        .vert-cent {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+        }
+    
+        .mask{
+            background-color:aqua
+        }
+    
+    
+        #authors td {
+            padding-bottom: 5px;
+            padding-top: 30px;
+        }
+    </style>
+    
+    
+    
+      <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-108048997-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'UA-108048997-1');
+      </script>
+    
+        <title>Fun with Filters and Frequencies</title>
+        <meta property="og:title" content="CS180 Project 2">
+    <style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+    .CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+    .CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+    .CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+    </style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+    .CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+    .CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+    .CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+    .CtxtMenu_MenuClose:hover:focus {  outline:none}
+    </style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+    .CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+    .CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+    .CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+    .CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+    .CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+    .CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+    .CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+    .CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+    .CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+    .CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+    .CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+    .CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+    .CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+    .CtxtMenu_MenuDisabled {  color:GrayText}
+    .CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+    .CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+    .CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+    .CtxtMenu_ContextMenu:focus {  outline:none}
+    .CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+    .CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+    </style><style id="MJX-CHTML-styles">
+    mjx-container[jax="CHTML"] {
+      line-height: 0;
+    }
+    
+    mjx-container [space="1"] {
+      margin-left: .111em;
+    }
+    
+    mjx-container [space="2"] {
+      margin-left: .167em;
+    }
+    
+    mjx-container [space="3"] {
+      margin-left: .222em;
+    }
+    
+    mjx-container [space="4"] {
+      margin-left: .278em;
+    }
+    
+    mjx-container [space="5"] {
+      margin-left: .333em;
+    }
+    
+    mjx-container [rspace="1"] {
+      margin-right: .111em;
+    }
+    
+    mjx-container [rspace="2"] {
+      margin-right: .167em;
+    }
+    
+    mjx-container [rspace="3"] {
+      margin-right: .222em;
+    }
+    
+    mjx-container [rspace="4"] {
+      margin-right: .278em;
+    }
+    
+    mjx-container [rspace="5"] {
+      margin-right: .333em;
+    }
+    
+    mjx-container [size="s"] {
+      font-size: 70.7%;
+    }
+    
+    mjx-container [size="ss"] {
+      font-size: 50%;
+    }
+    
+    mjx-container [size="Tn"] {
+      font-size: 60%;
+    }
+    
+    mjx-container [size="sm"] {
+      font-size: 85%;
+    }
+    
+    mjx-container [size="lg"] {
+      font-size: 120%;
+    }
+    
+    mjx-container [size="Lg"] {
+      font-size: 144%;
+    }
+    
+    mjx-container [size="LG"] {
+      font-size: 173%;
+    }
+    
+    mjx-container [size="hg"] {
+      font-size: 207%;
+    }
+    
+    mjx-container [size="HG"] {
+      font-size: 249%;
+    }
+    
+    mjx-container [width="full"] {
+      width: 100%;
+    }
+    
+    mjx-box {
+      display: inline-block;
+    }
+    
+    mjx-block {
+      display: block;
+    }
+    
+    mjx-itable {
+      display: inline-table;
+    }
+    
+    mjx-row {
+      display: table-row;
+    }
+    
+    mjx-row > * {
+      display: table-cell;
+    }
+    
+    mjx-mtext {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-mstyle {
+      display: inline-block;
+    }
+    
+    mjx-merror {
+      display: inline-block;
+      color: red;
+      background-color: yellow;
+    }
+    
+    mjx-mphantom {
+      visibility: hidden;
+    }
+    
+    mjx-assistive-mml {
+      position: absolute !important;
+      top: 0px;
+      left: 0px;
+      clip: rect(1px, 1px, 1px, 1px);
+      padding: 1px 0px 0px 0px !important;
+      border: 0px !important;
+      display: block !important;
+      width: auto !important;
+      overflow: hidden !important;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    mjx-assistive-mml[display="block"] {
+      width: 100% !important;
+    }
+    
+    mjx-math {
+      display: inline-block;
+      text-align: left;
+      line-height: 0;
+      text-indent: 0;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 100%;
+      font-size-adjust: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      word-spacing: normal;
+      white-space: nowrap;
+      direction: ltr;
+      padding: 1px 0;
+    }
+    
+    mjx-container[jax="CHTML"][display="true"] {
+      display: block;
+      text-align: center;
+      margin: 1em 0;
+    }
+    
+    mjx-container[jax="CHTML"][display="true"] mjx-math {
+      padding: 0;
+    }
+    
+    mjx-container[jax="CHTML"][justify="left"] {
+      text-align: left;
+    }
+    
+    mjx-container[jax="CHTML"][justify="right"] {
+      text-align: right;
+    }
+    
+    mjx-mrow {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-inferredMrow {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-mi {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-mo {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-stretchy-h {
+      display: inline-table;
+      width: 100%;
+    }
+    
+    mjx-stretchy-h > * {
+      display: table-cell;
+      width: 0;
+    }
+    
+    mjx-stretchy-h > * > mjx-c {
+      display: inline-block;
+    }
+    
+    mjx-stretchy-h > * > mjx-c::before {
+      padding: .001em 0;
+      width: initial;
+    }
+    
+    mjx-stretchy-h > mjx-ext {
+      overflow: hidden;
+      width: 100%;
+    }
+    
+    mjx-stretchy-h > mjx-ext > mjx-c::before {
+      transform: scalex(500);
+    }
+    
+    mjx-stretchy-h > mjx-ext > mjx-c {
+      width: 0;
+    }
+    
+    mjx-stretchy-h > mjx-beg > mjx-c {
+      margin-right: -.1em;
+    }
+    
+    mjx-stretchy-h > mjx-end > mjx-c {
+      margin-left: -.1em;
+    }
+    
+    mjx-stretchy-v {
+      display: inline-block;
+    }
+    
+    mjx-stretchy-v > * {
+      display: block;
+    }
+    
+    mjx-stretchy-v > mjx-beg {
+      height: 0;
+    }
+    
+    mjx-stretchy-v > mjx-end > mjx-c {
+      display: block;
+    }
+    
+    mjx-stretchy-v > * > mjx-c {
+      transform: scale(1);
+      transform-origin: left center;
+      overflow: hidden;
+    }
+    
+    mjx-stretchy-v > mjx-ext {
+      display: block;
+      height: 100%;
+      box-sizing: border-box;
+      border: 0px solid transparent;
+      overflow: hidden;
+    }
+    
+    mjx-stretchy-v > mjx-ext > mjx-c::before {
+      width: initial;
+    }
+    
+    mjx-stretchy-v > mjx-ext > mjx-c {
+      transform: scaleY(500) translateY(.1em);
+      overflow: visible;
+    }
+    
+    mjx-mark {
+      display: inline-block;
+      height: 0px;
+    }
+    
+    mjx-mn {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-mfrac {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-frac {
+      display: inline-block;
+      vertical-align: 0.17em;
+      padding: 0 .22em;
+    }
+    
+    mjx-frac[type="d"] {
+      vertical-align: .04em;
+    }
+    
+    mjx-frac[delims] {
+      padding: 0 .1em;
+    }
+    
+    mjx-frac[atop] {
+      padding: 0 .12em;
+    }
+    
+    mjx-frac[atop][delims] {
+      padding: 0;
+    }
+    
+    mjx-dtable {
+      display: inline-table;
+      width: 100%;
+    }
+    
+    mjx-dtable > * {
+      font-size: 2000%;
+    }
+    
+    mjx-dbox {
+      display: block;
+      font-size: 5%;
+    }
+    
+    mjx-num {
+      display: block;
+      text-align: center;
+    }
+    
+    mjx-den {
+      display: block;
+      text-align: center;
+    }
+    
+    mjx-mfrac[bevelled] > mjx-num {
+      display: inline-block;
+    }
+    
+    mjx-mfrac[bevelled] > mjx-den {
+      display: inline-block;
+    }
+    
+    mjx-den[align="right"], mjx-num[align="right"] {
+      text-align: right;
+    }
+    
+    mjx-den[align="left"], mjx-num[align="left"] {
+      text-align: left;
+    }
+    
+    mjx-nstrut {
+      display: inline-block;
+      height: .054em;
+      width: 0;
+      vertical-align: -.054em;
+    }
+    
+    mjx-nstrut[type="d"] {
+      height: .217em;
+      vertical-align: -.217em;
+    }
+    
+    mjx-dstrut {
+      display: inline-block;
+      height: .505em;
+      width: 0;
+    }
+    
+    mjx-dstrut[type="d"] {
+      height: .726em;
+    }
+    
+    mjx-line {
+      display: block;
+      box-sizing: border-box;
+      min-height: 1px;
+      height: .06em;
+      border-top: .06em solid;
+      margin: .06em -.1em;
+      overflow: hidden;
+    }
+    
+    mjx-line[type="d"] {
+      margin: .18em -.1em;
+    }
+    
+    mjx-msqrt {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-root {
+      display: inline-block;
+      white-space: nowrap;
+    }
+    
+    mjx-surd {
+      display: inline-block;
+      vertical-align: top;
+    }
+    
+    mjx-sqrt {
+      display: inline-block;
+      padding-top: .07em;
+    }
+    
+    mjx-sqrt > mjx-box {
+      border-top: .07em solid;
+    }
+    
+    mjx-sqrt.mjx-tall > mjx-box {
+      padding-left: .3em;
+      margin-left: -.3em;
+    }
+    
+    mjx-mroot {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-msub {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-msup {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-munder {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-over {
+      text-align: left;
+    }
+    
+    mjx-munder:not([limits="false"]) {
+      display: inline-table;
+    }
+    
+    mjx-munder > mjx-row {
+      text-align: left;
+    }
+    
+    mjx-under {
+      padding-bottom: .1em;
+    }
+    
+    mjx-mover {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-mover:not([limits="false"]) {
+      padding-top: .1em;
+    }
+    
+    mjx-mover:not([limits="false"]) > * {
+      display: block;
+      text-align: left;
+    }
+    
+    mjx-mtable {
+      display: inline-block;
+      text-align: center;
+      vertical-align: .25em;
+      position: relative;
+      box-sizing: border-box;
+    }
+    
+    mjx-labels {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    
+    mjx-table {
+      display: inline-block;
+      vertical-align: -.5ex;
+    }
+    
+    mjx-table > mjx-itable {
+      vertical-align: middle;
+      text-align: left;
+      box-sizing: border-box;
+    }
+    
+    mjx-labels > mjx-itable {
+      position: absolute;
+      top: 0;
+    }
+    
+    mjx-mtable[justify="left"] {
+      text-align: left;
+    }
+    
+    mjx-mtable[justify="right"] {
+      text-align: right;
+    }
+    
+    mjx-mtable[justify="left"][side="left"] {
+      padding-right: 0 ! important;
+    }
+    
+    mjx-mtable[justify="left"][side="right"] {
+      padding-left: 0 ! important;
+    }
+    
+    mjx-mtable[justify="right"][side="left"] {
+      padding-right: 0 ! important;
+    }
+    
+    mjx-mtable[justify="right"][side="right"] {
+      padding-left: 0 ! important;
+    }
+    
+    mjx-mtable[align] {
+      vertical-align: baseline;
+    }
+    
+    mjx-mtable[align="top"] > mjx-table {
+      vertical-align: top;
+    }
+    
+    mjx-mtable[align="bottom"] > mjx-table {
+      vertical-align: bottom;
+    }
+    
+    mjx-mtr {
+      display: table-row;
+      text-align: left;
+    }
+    
+    mjx-mtr[rowalign="top"] > mjx-mtd {
+      vertical-align: top;
+    }
+    
+    mjx-mtr[rowalign="center"] > mjx-mtd {
+      vertical-align: middle;
+    }
+    
+    mjx-mtr[rowalign="bottom"] > mjx-mtd {
+      vertical-align: bottom;
+    }
+    
+    mjx-mtr[rowalign="baseline"] > mjx-mtd {
+      vertical-align: baseline;
+    }
+    
+    mjx-mtr[rowalign="axis"] > mjx-mtd {
+      vertical-align: .25em;
+    }
+    
+    mjx-mlabeledtr {
+      display: table-row;
+      text-align: left;
+    }
+    
+    mjx-mlabeledtr[rowalign="top"] > mjx-mtd {
+      vertical-align: top;
+    }
+    
+    mjx-mlabeledtr[rowalign="center"] > mjx-mtd {
+      vertical-align: middle;
+    }
+    
+    mjx-mlabeledtr[rowalign="bottom"] > mjx-mtd {
+      vertical-align: bottom;
+    }
+    
+    mjx-mlabeledtr[rowalign="baseline"] > mjx-mtd {
+      vertical-align: baseline;
+    }
+    
+    mjx-mlabeledtr[rowalign="axis"] > mjx-mtd {
+      vertical-align: .25em;
+    }
+    
+    mjx-mtd {
+      display: table-cell;
+      text-align: center;
+      padding: .215em .4em;
+    }
+    
+    mjx-mtd:first-child {
+      padding-left: 0;
+    }
+    
+    mjx-mtd:last-child {
+      padding-right: 0;
+    }
+    
+    mjx-mtable > * > mjx-itable > *:first-child > mjx-mtd {
+      padding-top: 0;
+    }
+    
+    mjx-mtable > * > mjx-itable > *:last-child > mjx-mtd {
+      padding-bottom: 0;
+    }
+    
+    mjx-tstrut {
+      display: inline-block;
+      height: 1em;
+      vertical-align: -.25em;
+    }
+    
+    mjx-labels[align="left"] > mjx-mtr > mjx-mtd {
+      text-align: left;
+    }
+    
+    mjx-labels[align="right"] > mjx-mtr > mjx-mtd {
+      text-align: right;
+    }
+    
+    mjx-mtr mjx-mtd[rowalign="top"], mjx-mlabeledtr mjx-mtd[rowalign="top"] {
+      vertical-align: top;
+    }
+    
+    mjx-mtr mjx-mtd[rowalign="center"], mjx-mlabeledtr mjx-mtd[rowalign="center"] {
+      vertical-align: middle;
+    }
+    
+    mjx-mtr mjx-mtd[rowalign="bottom"], mjx-mlabeledtr mjx-mtd[rowalign="bottom"] {
+      vertical-align: bottom;
+    }
+    
+    mjx-mtr mjx-mtd[rowalign="baseline"], mjx-mlabeledtr mjx-mtd[rowalign="baseline"] {
+      vertical-align: baseline;
+    }
+    
+    mjx-mtr mjx-mtd[rowalign="axis"], mjx-mlabeledtr mjx-mtd[rowalign="axis"] {
+      vertical-align: .25em;
+    }
+    
+    mjx-TeXAtom {
+      display: inline-block;
+      text-align: left;
+    }
+    
+    mjx-c {
+      display: inline-block;
+    }
+    
+    mjx-utext {
+      display: inline-block;
+      padding: .75em 0 .2em 0;
+    }
+    
+    mjx-c::before {
+      display: inline-block;
+      width: 0;
+    }
+    
+    .mjx-n mjx-c {
+      font-family: MJXZERO, MJXTEX, MJXTEX-I, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-i mjx-c {
+      font-family: MJXZERO, MJXTEX-I, MJXTEX-MI, MJXTEX, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-b mjx-c {
+      font-family: MJXZERO, MJXTEX-B, MJXTEX-BI, MJXTEX, MJXTEX-I, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-b.mjx-i mjx-c {
+      font-family: MJXZERO, MJXTEX-BI, MJXTEX-B, MJXTEX-I, MJXTEX, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-cal mjx-c {
+      font-family: MJXZERO, MJXTEX-C, MJXTEX-I, MJXTEX, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-cal.mjx-b mjx-c {
+      font-family: MJXZERO, MJXTEX-C-B, MJXTEX-C, MJXTEX-B, MJXTEX-BI, MJXTEX, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-ds mjx-c {
+      font-family: MJXZERO, MJXTEX-A, MJXTEX-B, MJXTEX-BI, MJXTEX, MJXTEX-I, MJXTEX-S1;
+    }
+    
+    .mjx-fr mjx-c {
+      font-family: MJXZERO, MJXTEX-FR, MJXTEX, MJXTEX-I, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-fr.mjx-b mjx-c {
+      font-family: MJXZERO, MJXTEX-FR-B, MJXTEX-FR, MJXTEX-B, MJXTEX-BI, MJXTEX, MJXTEX-I, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-sc mjx-c {
+      font-family: MJXZERO, MJXTEX-SC, MJXTEX, MJXTEX-I, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-sc.mjx-b mjx-c {
+      font-family: MJXZERO, MJXTEX-SC-B, MJXTEX-SC, MJXTEX-B, MJXTEX-BI, MJXTEX, MJXTEX-I, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-ss mjx-c {
+      font-family: MJXZERO, MJXTEX-SS, MJXTEX, MJXTEX-I, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-ss.mjx-b mjx-c {
+      font-family: MJXZERO, MJXTEX-SS-B, MJXTEX-SS, MJXTEX-B, MJXTEX-BI, MJXTEX, MJXTEX-I, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-ss.mjx-i mjx-c {
+      font-family: MJXZERO, MJXTEX-SS-I, MJXTEX-I, MJXTEX, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-ss.mjx-b.mjx-i mjx-c {
+      font-family: MJXZERO, MJXTEX-SS-B, MJXTEX-SS-I, MJXTEX-BI, MJXTEX-B, MJXTEX-I, MJXTEX, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-ty mjx-c {
+      font-family: MJXZERO, MJXTEX-T, MJXTEX, MJXTEX-I, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-var mjx-c {
+      font-family: MJXZERO, MJXTEX-A, MJXTEX, MJXTEX-I, MJXTEX-S1;
+    }
+    
+    .mjx-os mjx-c {
+      font-family: MJXZERO, MJXTEX-C, MJXTEX, MJXTEX-I, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-os.mjx-b mjx-c {
+      font-family: MJXZERO, MJXTEX-C-B, MJXTEX-C, MJXTEX-B, MJXTEX-BI, MJXTEX, MJXTEX-I, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-mit mjx-c {
+      font-family: MJXZERO, MJXTEX-MI, MJXTEX-I, MJXTEX, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-lop mjx-c {
+      font-family: MJXZERO, MJXTEX-S2, MJXTEX-S1, MJXTEX, MJXTEX-I, MJXTEX-A;
+    }
+    
+    .mjx-sop mjx-c {
+      font-family: MJXZERO, MJXTEX-S1, MJXTEX, MJXTEX-I, MJXTEX-A;
+    }
+    
+    .mjx-s3 mjx-c {
+      font-family: MJXZERO, MJXTEX-S3, MJXTEX, MJXTEX-I, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .mjx-s4 mjx-c {
+      font-family: MJXZERO, MJXTEX-S4, MJXTEX, MJXTEX-I, MJXTEX-S1, MJXTEX-A;
+    }
+    
+    .MJX-TEX {
+      font-family: MJXZERO;
+    }
+    
+    mjx-stretchy-v mjx-c, mjx-stretchy-h mjx-c {
+      font-family: MJXZERO, MJXTEX-S1, MJXTEX-S4, MJXTEX, MJXTEX-A ! important;
+    }
+    
+    @font-face /* 0 */ {
+      font-family: MJXZERO;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Zero.woff") format("woff");
+    }
+    
+    @font-face /* 1 */ {
+      font-family: MJXTEX;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff") format("woff");
+    }
+    
+    @font-face /* 2 */ {
+      font-family: MJXTEX-B;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Main-Bold.woff") format("woff");
+    }
+    
+    @font-face /* 3 */ {
+      font-family: MJXTEX-I;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Main-Italic.woff") format("woff");
+    }
+    
+    @font-face /* 4 */ {
+      font-family: MJXTEX-MI;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Math-Italic.woff") format("woff");
+    }
+    
+    @font-face /* 5 */ {
+      font-family: MJXTEX-BI;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Math-BoldItalic.woff") format("woff");
+    }
+    
+    @font-face /* 6 */ {
+      font-family: MJXTEX-S1;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Size1-Regular.woff") format("woff");
+    }
+    
+    @font-face /* 7 */ {
+      font-family: MJXTEX-S2;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Size2-Regular.woff") format("woff");
+    }
+    
+    @font-face /* 8 */ {
+      font-family: MJXTEX-S3;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Size3-Regular.woff") format("woff");
+    }
+    
+    @font-face /* 9 */ {
+      font-family: MJXTEX-S4;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Size4-Regular.woff") format("woff");
+    }
+    
+    @font-face /* 10 */ {
+      font-family: MJXTEX-A;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_AMS-Regular.woff") format("woff");
+    }
+    
+    @font-face /* 11 */ {
+      font-family: MJXTEX-C;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Regular.woff") format("woff");
+    }
+    
+    @font-face /* 12 */ {
+      font-family: MJXTEX-C-B;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Bold.woff") format("woff");
+    }
+    
+    @font-face /* 13 */ {
+      font-family: MJXTEX-FR;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Regular.woff") format("woff");
+    }
+    
+    @font-face /* 14 */ {
+      font-family: MJXTEX-FR-B;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Bold.woff") format("woff");
+    }
+    
+    @font-face /* 15 */ {
+      font-family: MJXTEX-SS;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Regular.woff") format("woff");
+    }
+    
+    @font-face /* 16 */ {
+      font-family: MJXTEX-SS-B;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Bold.woff") format("woff");
+    }
+    
+    @font-face /* 17 */ {
+      font-family: MJXTEX-SS-I;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Italic.woff") format("woff");
+    }
+    
+    @font-face /* 18 */ {
+      font-family: MJXTEX-SC;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Script-Regular.woff") format("woff");
+    }
+    
+    @font-face /* 19 */ {
+      font-family: MJXTEX-T;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Typewriter-Regular.woff") format("woff");
+    }
+    
+    @font-face /* 20 */ {
+      font-family: MJXTEX-V;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Regular.woff") format("woff");
+    }
+    
+    @font-face /* 21 */ {
+      font-family: MJXTEX-VB;
+      src: url("https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Bold.woff") format("woff");
+    }
+    
+     mjx-c.mjx-c20::before {
+      content: " ";
+    }
+    
+    mjx-c.mjx-c20 {
+      padding: 0 0.25em 0 0;
+    }
+    
+     mjx-c.mjx-c28::before {
+      content: "(";
+    }
+    
+    mjx-c.mjx-c28 {
+      padding: 0.75em 0.389em 0.25em 0;
+    }
+    
+     mjx-c.mjx-c29::before {
+      content: ")";
+    }
+    
+    mjx-c.mjx-c29 {
+      padding: 0.75em 0.389em 0.25em 0;
+    }
+    
+     mjx-c.mjx-c2B::before {
+      content: "+";
+    }
+    
+    mjx-c.mjx-c2B {
+      padding: 0.583em 0.778em 0.082em 0;
+    }
+    
+     mjx-c.mjx-c2C::before {
+      content: ",";
+    }
+    
+    mjx-c.mjx-c2C {
+      padding: 0.121em 0.278em 0.194em 0;
+    }
+    
+     mjx-c.mjx-c30::before {
+      content: "0";
+    }
+    
+    mjx-c.mjx-c30 {
+      padding: 0.666em 0.5em 0.022em 0;
+    }
+    
+     mjx-c.mjx-c31::before {
+      content: "1";
+    }
+    
+    mjx-c.mjx-c31 {
+      padding: 0.666em 0.5em 0 0;
+    }
+    
+     mjx-c.mjx-c32::before {
+      content: "2";
+    }
+    
+    mjx-c.mjx-c32 {
+      padding: 0.666em 0.5em 0 0;
+    }
+    
+     mjx-c.mjx-c35::before {
+      content: "5";
+    }
+    
+    mjx-c.mjx-c35 {
+      padding: 0.666em 0.5em 0.022em 0;
+    }
+    
+     mjx-c.mjx-c3D::before {
+      content: "=";
+    }
+    
+    mjx-c.mjx-c3D {
+      padding: 0.583em 0.778em 0.082em 0;
+    }
+    
+     mjx-c.mjx-c49::before {
+      content: "I";
+    }
+    
+    mjx-c.mjx-c49 {
+      padding: 0.683em 0.361em 0 0;
+    }
+    
+     mjx-c.mjx-c61::before {
+      content: "a";
+    }
+    
+    mjx-c.mjx-c61 {
+      padding: 0.448em 0.5em 0.011em 0;
+    }
+    
+     mjx-c.mjx-c64::before {
+      content: "d";
+    }
+    
+    mjx-c.mjx-c64 {
+      padding: 0.694em 0.556em 0.011em 0;
+    }
+    
+     mjx-c.mjx-c65::before {
+      content: "e";
+    }
+    
+    mjx-c.mjx-c65 {
+      padding: 0.448em 0.444em 0.011em 0;
+    }
+    
+     mjx-c.mjx-c67::before {
+      content: "g";
+    }
+    
+    mjx-c.mjx-c67 {
+      padding: 0.453em 0.5em 0.206em 0;
+    }
+    
+     mjx-c.mjx-c68::before {
+      content: "h";
+    }
+    
+    mjx-c.mjx-c68 {
+      padding: 0.694em 0.556em 0 0;
+    }
+    
+     mjx-c.mjx-c6D::before {
+      content: "m";
+    }
+    
+    mjx-c.mjx-c6D {
+      padding: 0.442em 0.833em 0 0;
+    }
+    
+     mjx-c.mjx-c6E::before {
+      content: "n";
+    }
+    
+    mjx-c.mjx-c6E {
+      padding: 0.442em 0.556em 0 0;
+    }
+    
+     mjx-c.mjx-c6F::before {
+      content: "o";
+    }
+    
+    mjx-c.mjx-c6F {
+      padding: 0.448em 0.5em 0.01em 0;
+    }
+    
+     mjx-c.mjx-c70::before {
+      content: "p";
+    }
+    
+    mjx-c.mjx-c70 {
+      padding: 0.442em 0.556em 0.194em 0;
+    }
+    
+     mjx-c.mjx-c72::before {
+      content: "r";
+    }
+    
+    mjx-c.mjx-c72 {
+      padding: 0.442em 0.392em 0 0;
+    }
+    
+     mjx-c.mjx-c73::before {
+      content: "s";
+    }
+    
+    mjx-c.mjx-c73 {
+      padding: 0.448em 0.394em 0.011em 0;
+    }
+    
+     mjx-c.mjx-c74::before {
+      content: "t";
+    }
+    
+    mjx-c.mjx-c74 {
+      padding: 0.615em 0.389em 0.01em 0;
+    }
+    
+    mjx-c.mjx-cA0::before {
+      content: "\A0";
+    }
+    
+    mjx-c.mjx-cA0 {
+      padding: 0 0.25em 0 0;
+    }
+    
+    mjx-c.mjx-c2202::before {
+      content: "\2202";
+    }
+    
+    mjx-c.mjx-c2202 {
+      padding: 0.715em 0.566em 0.022em 0;
+    }
+    
+    mjx-mo[noIC]mjx-c.mjx-c2202:last-child {
+      padding-right: 0.531em;
+    }
+    
+    mjx-mi[noIC]mjx-c.mjx-c2202:last-child {
+      padding-right: 0.531em;
+    }
+    
+    mjx-c.mjx-c2212::before {
+      content: "\2212";
+    }
+    
+    mjx-c.mjx-c2212 {
+      padding: 0.583em 0.778em 0.082em 0;
+    }
+    
+    mjx-c.mjx-c2217::before {
+      content: "\2217";
+    }
+    
+    mjx-c.mjx-c2217 {
+      padding: 0.465em 0.5em 0 0;
+    }
+    
+    .mjx-i mjx-c.mjx-c58::before {
+      content: "X";
+    }
+    
+    .mjx-i mjx-c.mjx-c58 {
+      padding: 0.683em 0.852em 0 0;
+    }
+    
+    mjx-mo[noIC].mjx-i mjx-c.mjx-c58:last-child {
+      padding-right: 0.828em;
+    }
+    
+    mjx-mi[noIC].mjx-i mjx-c.mjx-c58:last-child {
+      padding-right: 0.828em;
+    }
+    
+    .mjx-i mjx-c.mjx-c59::before {
+      content: "Y";
+    }
+    
+    .mjx-i mjx-c.mjx-c59 {
+      padding: 0.683em 0.763em 0 0;
+    }
+    
+    mjx-mo[noIC].mjx-i mjx-c.mjx-c59:last-child {
+      padding-right: 0.581em;
+    }
+    
+    mjx-mi[noIC].mjx-i mjx-c.mjx-c59:last-child {
+      padding-right: 0.581em;
+    }
+    
+    .mjx-i mjx-c.mjx-c64::before {
+      content: "d";
+    }
+    
+    .mjx-i mjx-c.mjx-c64 {
+      padding: 0.694em 0.52em 0.01em 0;
+    }
+    
+    .mjx-i mjx-c.mjx-c65::before {
+      content: "e";
+    }
+    
+    .mjx-i mjx-c.mjx-c65 {
+      padding: 0.442em 0.466em 0.011em 0;
+    }
+    
+    .mjx-i mjx-c.mjx-c66::before {
+      content: "f";
+    }
+    
+    .mjx-i mjx-c.mjx-c66 {
+      padding: 0.705em 0.55em 0.205em 0;
+    }
+    
+    mjx-mo[noIC].mjx-i mjx-c.mjx-c66:last-child {
+      padding-right: 0.49em;
+    }
+    
+    mjx-mi[noIC].mjx-i mjx-c.mjx-c66:last-child {
+      padding-right: 0.49em;
+    }
+    
+    .mjx-i mjx-c.mjx-c67::before {
+      content: "g";
+    }
+    
+    .mjx-i mjx-c.mjx-c67 {
+      padding: 0.442em 0.477em 0.205em 0;
+    }
+    
+    mjx-c.mjx-c3B1::before {
+      content: "\3B1";
+    }
+    
+    .mjx-i mjx-c.mjx-c3B1 {
+      padding: 0.442em 0.64em 0.011em 0;
+    }
+    
+    .mjx-s3 mjx-c.mjx-c5B::before {
+      content: "[";
+    }
+    
+    .mjx-s3 mjx-c.mjx-c5B {
+      padding: 1.45em 0.528em 0.949em 0;
+    }
+    
+    .mjx-s3 mjx-c.mjx-c5D::before {
+      content: "]";
+    }
+    
+    .mjx-s3 mjx-c.mjx-c5D {
+      padding: 1.45em 0.528em 0.949em 0;
+    }
+    
+    mjx-c.mjx-c221A::before {
+      content: "\221A";
+    }
+    
+    .mjx-s3 mjx-c.mjx-c221A {
+      padding: 1.45em 1.02em 0.95em 0;
+    }
+    
+    mjx-mo[noIC].mjx-s3 mjx-c.mjx-c221A:last-child {
+      padding-right: 1em;
+    }
+    
+    mjx-mi[noIC].mjx-s3 mjx-c.mjx-c221A:last-child {
+      padding-right: 1em;
+    }
+    </style></head>
+    
+    <body>
+    <br>
+    <center>
+        <span style="font-size:36px">CS180 Project 2: Fun with Filters and Frequencies</span>
+    
+        <br>
+        <br>
+    
+            <!-- <span style="font-size:24px">CVPR 2022</span> -->
+    
+    
+        <br>
+        <br>
+        <span style="font-size:24px"><a>Bill Zheng</a><sup>1</sup></span> &nbsp;
+                
+            <br><span style="font-size:16px"><a>SID:3036580418</a></span> &nbsp;
+            <br><table align="center">
+            <tbody><tr>
+                </tr>
+            <tr>
+                </tr>
+            <tr>
+       </tr>
+        </tbody></table>
+    
+    
+    <!--    <br><br><br>-->
+    
+    <!--    <br><br>-->
+    
+    
+        <table align="center">
+            <tbody><tr>
+                <td align="center">
+                    <center>
+                        <span style="font-size:20px">
+                            <sup>1</sup>UC Berkeley 
+                        </span>
+                    </center>
+                </td>
+            </tr>
+        </tbody></table>
+    <!--    <br>-->
+    
+    
+    
+    
+    </center>
+    <!--<left>    <span style="font-size:18px"><sup>*</sup>Equally contributed</span> </left>-->
+    <hr>
+    
+    <center><h1>Overview</h1></center><table align="center">
+        
+    </table>
+    
+    In this project, I implemented methods that would:
+    
+    <p>1. Run edge detection for images</p>
+    
+    <p>2. Blur and sharpen images</p>
+    
+    <p>3. Combine images by frequencies</p>
+    
+    <p>4. Run multiresolution blending and image splining</p>
+    
+    <br><br><br>
+    
+    <hr>
+    <br>
+    
+    <center><h1 id="model">Section 1: Gaussian Filters and Edge Detectors</h1></center><table align="center">
+        
+    </table>
+    <h2 id="model">1.1: Finite Difference Operator</h2>
+    <p>
+        The finite difference filter is defined as:
+        <mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" role="presentation" tabindex="0" ctxtmenu_counter="0" style="font-size: 117.3%; position: relative;"><mjx-math display="true" class="MJX-TEX" aria-hidden="true"><mjx-mi class="mjx-i"><mjx-c class="mjx-c64"></mjx-c></mjx-mi><mjx-mi class="mjx-i"><mjx-c class="mjx-c58"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="4"><mjx-c class="mjx-c3D"></mjx-c></mjx-mo><mjx-mrow space="4"><mjx-mo class="mjx-s3"><mjx-c class="mjx-c5B"></mjx-c></mjx-mo><mjx-mtable style="min-width: 2.778em;"><mjx-table><mjx-itable><mjx-mtr><mjx-mtd style="padding-right: 0.5em; padding-bottom: 0.2em;"><mjx-mo class="mjx-n"><mjx-c class="mjx-c2212"></mjx-c></mjx-mo><mjx-mn class="mjx-n"><mjx-c class="mjx-c31"></mjx-c></mjx-mn><mjx-tstrut></mjx-tstrut></mjx-mtd><mjx-mtd style="padding-left: 0.5em; padding-bottom: 0.2em;"><mjx-mn class="mjx-n"><mjx-c class="mjx-c31"></mjx-c></mjx-mn><mjx-tstrut></mjx-tstrut></mjx-mtd></mjx-mtr><mjx-mtr><mjx-mtd style="padding-right: 0.5em; padding-top: 0.2em;"><mjx-mn class="mjx-n"><mjx-c class="mjx-c30"></mjx-c></mjx-mn><mjx-tstrut></mjx-tstrut></mjx-mtd><mjx-mtd style="padding-left: 0.5em; padding-top: 0.2em;"><mjx-mn class="mjx-n"><mjx-c class="mjx-c30"></mjx-c></mjx-mn><mjx-tstrut></mjx-tstrut></mjx-mtd></mjx-mtr></mjx-itable></mjx-table></mjx-mtable><mjx-mo class="mjx-s3"><mjx-c class="mjx-c5D"></mjx-c></mjx-mo></mjx-mrow></mjx-math><mjx-assistive-mml role="presentation" unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>d</mi><mi>X</mi><mo>=</mo><mrow data-mjx-texclass="INNER"><mo data-mjx-texclass="OPEN">[</mo><mtable columnspacing="1em" rowspacing="4pt"><mtr><mtd><mo>−</mo><mn>1</mn></mtd><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr></mtable><mo data-mjx-texclass="CLOSE">]</mo></mrow></math></mjx-assistive-mml></mjx-container> <mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" role="presentation" tabindex="0" ctxtmenu_counter="1" style="font-size: 117.3%; position: relative;"><mjx-math display="true" class="MJX-TEX" aria-hidden="true"><mjx-mi class="mjx-i"><mjx-c class="mjx-c64"></mjx-c></mjx-mi><mjx-mi class="mjx-i"><mjx-c class="mjx-c59"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="4"><mjx-c class="mjx-c3D"></mjx-c></mjx-mo><mjx-mrow space="4"><mjx-mo class="mjx-s3"><mjx-c class="mjx-c5B"></mjx-c></mjx-mo><mjx-mtable style="min-width: 2.778em;"><mjx-table><mjx-itable><mjx-mtr><mjx-mtd style="padding-right: 0.5em; padding-bottom: 0.2em;"><mjx-mo class="mjx-n"><mjx-c class="mjx-c2212"></mjx-c></mjx-mo><mjx-mn class="mjx-n"><mjx-c class="mjx-c31"></mjx-c></mjx-mn><mjx-tstrut></mjx-tstrut></mjx-mtd><mjx-mtd style="padding-left: 0.5em; padding-bottom: 0.2em;"><mjx-mn class="mjx-n"><mjx-c class="mjx-c30"></mjx-c></mjx-mn><mjx-tstrut></mjx-tstrut></mjx-mtd></mjx-mtr><mjx-mtr><mjx-mtd style="padding-right: 0.5em; padding-top: 0.2em;"><mjx-mn class="mjx-n"><mjx-c class="mjx-c31"></mjx-c></mjx-mn><mjx-tstrut></mjx-tstrut></mjx-mtd><mjx-mtd style="padding-left: 0.5em; padding-top: 0.2em;"><mjx-mn class="mjx-n"><mjx-c class="mjx-c30"></mjx-c></mjx-mn><mjx-tstrut></mjx-tstrut></mjx-mtd></mjx-mtr></mjx-itable></mjx-table></mjx-mtable><mjx-mo class="mjx-s3"><mjx-c class="mjx-c5D"></mjx-c></mjx-mo></mjx-mrow></mjx-math><mjx-assistive-mml role="presentation" unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>d</mi><mi>Y</mi><mo>=</mo><mrow data-mjx-texclass="INNER"><mo data-mjx-texclass="OPEN">[</mo><mtable columnspacing="1em" rowspacing="4pt"><mtr><mtd><mo>−</mo><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr></mtable><mo data-mjx-texclass="CLOSE">]</mo></mrow></math></mjx-assistive-mml></mjx-container>
+    </p>
+    <p> While the second column/row isn't necessary for the finite difference filter for each filter respectively, I kept them to keep dimensions consistent. Consequently, the "partial derivative" with respect to x and y is defined as:</p>
+    <p>
+        <mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" role="presentation" tabindex="0" ctxtmenu_counter="2" style="font-size: 117.3%; position: relative;"><mjx-math display="true" class="MJX-TEX" aria-hidden="true"><mjx-mfrac><mjx-frac type="d"><mjx-num><mjx-nstrut type="d"></mjx-nstrut><mjx-mrow><mjx-mi class="mjx-n"><mjx-c class="mjx-c2202"></mjx-c></mjx-mi><mjx-mtext class="mjx-n"><mjx-c class="mjx-c49"></mjx-c><mjx-c class="mjx-c6D"></mjx-c><mjx-c class="mjx-c67"></mjx-c></mjx-mtext></mjx-mrow></mjx-num><mjx-dbox><mjx-dtable><mjx-line type="d"></mjx-line><mjx-row><mjx-den><mjx-dstrut type="d"></mjx-dstrut><mjx-mrow><mjx-mi class="mjx-n"><mjx-c class="mjx-c2202"></mjx-c></mjx-mi><mjx-mi class="mjx-i"><mjx-c class="mjx-c58"></mjx-c></mjx-mi></mjx-mrow></mjx-den></mjx-row></mjx-dtable></mjx-dbox></mjx-frac></mjx-mfrac><mjx-mo class="mjx-n" space="4"><mjx-c class="mjx-c3D"></mjx-c></mjx-mo><mjx-mtext class="mjx-n" space="4"><mjx-c class="mjx-c49"></mjx-c><mjx-c class="mjx-c6D"></mjx-c><mjx-c class="mjx-c67"></mjx-c></mjx-mtext><mjx-mo class="mjx-n" space="3"><mjx-c class="mjx-c2217"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="3"><mjx-c class="mjx-c64"></mjx-c></mjx-mi><mjx-mi class="mjx-i"><mjx-c class="mjx-c58"></mjx-c></mjx-mi></mjx-math><mjx-assistive-mml role="presentation" unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mfrac><mrow><mi mathvariant="normal">∂</mi><mtext>Img</mtext></mrow><mrow><mi mathvariant="normal">∂</mi><mi>X</mi></mrow></mfrac><mo>=</mo><mtext>Img</mtext><mo>∗</mo><mi>d</mi><mi>X</mi></math></mjx-assistive-mml></mjx-container> <mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" role="presentation" tabindex="0" ctxtmenu_counter="3" style="font-size: 117.3%; position: relative;"><mjx-math display="true" class="MJX-TEX" aria-hidden="true"><mjx-mfrac><mjx-frac type="d"><mjx-num><mjx-nstrut type="d"></mjx-nstrut><mjx-mrow><mjx-mi class="mjx-n"><mjx-c class="mjx-c2202"></mjx-c></mjx-mi><mjx-mtext class="mjx-n"><mjx-c class="mjx-c49"></mjx-c><mjx-c class="mjx-c6D"></mjx-c><mjx-c class="mjx-c67"></mjx-c></mjx-mtext></mjx-mrow></mjx-num><mjx-dbox><mjx-dtable><mjx-line type="d"></mjx-line><mjx-row><mjx-den><mjx-dstrut type="d"></mjx-dstrut><mjx-mrow><mjx-mi class="mjx-n"><mjx-c class="mjx-c2202"></mjx-c></mjx-mi><mjx-mi class="mjx-i"><mjx-c class="mjx-c59"></mjx-c></mjx-mi></mjx-mrow></mjx-den></mjx-row></mjx-dtable></mjx-dbox></mjx-frac></mjx-mfrac><mjx-mo class="mjx-n" space="4"><mjx-c class="mjx-c3D"></mjx-c></mjx-mo><mjx-mtext class="mjx-n" space="4"><mjx-c class="mjx-c49"></mjx-c><mjx-c class="mjx-c6D"></mjx-c><mjx-c class="mjx-c67"></mjx-c></mjx-mtext><mjx-mo class="mjx-n" space="3"><mjx-c class="mjx-c2217"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="3"><mjx-c class="mjx-c64"></mjx-c></mjx-mi><mjx-mi class="mjx-i"><mjx-c class="mjx-c59"></mjx-c></mjx-mi></mjx-math><mjx-assistive-mml role="presentation" unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mfrac><mrow><mi mathvariant="normal">∂</mi><mtext>Img</mtext></mrow><mrow><mi mathvariant="normal">∂</mi><mi>Y</mi></mrow></mfrac><mo>=</mo><mtext>Img</mtext><mo>∗</mo><mi>d</mi><mi>Y</mi></math></mjx-assistive-mml></mjx-container>
+    </p>
+    <p>
+        And just like the continuous case, we can define the magnitude of the gradient as:
+    </p>
+    <p>
+        <mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" role="presentation" tabindex="0" ctxtmenu_counter="4" style="font-size: 117.3%; position: relative;"><mjx-math display="true" class="MJX-TEX" aria-hidden="true"><mjx-msqrt><mjx-sqrt><mjx-surd><mjx-mo class="mjx-s3"><mjx-c class="mjx-c221A"></mjx-c></mjx-mo></mjx-surd><mjx-box style="padding-top: 0.206em;"><mjx-mo class="mjx-n"><mjx-c class="mjx-c28"></mjx-c></mjx-mo><mjx-mfrac><mjx-frac type="d"><mjx-num><mjx-nstrut type="d"></mjx-nstrut><mjx-mrow><mjx-mi class="mjx-n"><mjx-c class="mjx-c2202"></mjx-c></mjx-mi><mjx-mtext class="mjx-n"><mjx-c class="mjx-c49"></mjx-c><mjx-c class="mjx-c6D"></mjx-c><mjx-c class="mjx-c67"></mjx-c></mjx-mtext></mjx-mrow></mjx-num><mjx-dbox><mjx-dtable><mjx-line type="d"></mjx-line><mjx-row><mjx-den><mjx-dstrut type="d"></mjx-dstrut><mjx-mrow><mjx-mi class="mjx-n"><mjx-c class="mjx-c2202"></mjx-c></mjx-mi><mjx-mi class="mjx-i"><mjx-c class="mjx-c58"></mjx-c></mjx-mi></mjx-mrow></mjx-den></mjx-row></mjx-dtable></mjx-dbox></mjx-frac></mjx-mfrac><mjx-msup><mjx-mo class="mjx-n"><mjx-c class="mjx-c29"></mjx-c></mjx-mo><mjx-script style="vertical-align: 0.413em;"><mjx-mn class="mjx-n" size="s"><mjx-c class="mjx-c32"></mjx-c></mjx-mn></mjx-script></mjx-msup><mjx-mo class="mjx-n" space="3"><mjx-c class="mjx-c2B"></mjx-c></mjx-mo><mjx-mo class="mjx-n" space="3"><mjx-c class="mjx-c28"></mjx-c></mjx-mo><mjx-mfrac><mjx-frac type="d"><mjx-num><mjx-nstrut type="d"></mjx-nstrut><mjx-mrow><mjx-mi class="mjx-n"><mjx-c class="mjx-c2202"></mjx-c></mjx-mi><mjx-mtext class="mjx-n"><mjx-c class="mjx-c49"></mjx-c><mjx-c class="mjx-c6D"></mjx-c><mjx-c class="mjx-c67"></mjx-c></mjx-mtext></mjx-mrow></mjx-num><mjx-dbox><mjx-dtable><mjx-line type="d"></mjx-line><mjx-row><mjx-den><mjx-dstrut type="d"></mjx-dstrut><mjx-mrow><mjx-mi class="mjx-n"><mjx-c class="mjx-c2202"></mjx-c></mjx-mi><mjx-mi class="mjx-i"><mjx-c class="mjx-c59"></mjx-c></mjx-mi></mjx-mrow></mjx-den></mjx-row></mjx-dtable></mjx-dbox></mjx-frac></mjx-mfrac><mjx-msup><mjx-mo class="mjx-n"><mjx-c class="mjx-c29"></mjx-c></mjx-mo><mjx-script style="vertical-align: 0.413em;"><mjx-mn class="mjx-n" size="s"><mjx-c class="mjx-c32"></mjx-c></mjx-mn></mjx-script></mjx-msup></mjx-box></mjx-sqrt></mjx-msqrt></mjx-math><mjx-assistive-mml role="presentation" unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><msqrt><mo stretchy="false">(</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mtext>Img</mtext></mrow><mrow><mi mathvariant="normal">∂</mi><mi>X</mi></mrow></mfrac><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mtext>Img</mtext></mrow><mrow><mi mathvariant="normal">∂</mi><mi>Y</mi></mrow></mfrac><msup><mo stretchy="false">)</mo><mn>2</mn></msup></msqrt></math></mjx-assistive-mml></mjx-container>
+    </p>
+    Running it on the cameraman will give us the following results. The cutoff used for binarizing gradient magnitude is 0.3, and the order of images are running through dX, dY, mag, and binarized mag:
+    <p></p>
+    <div class="row">
+        <div class="column">
+            <img src="./Part1/vanilla_dx.jpg" style="width:25%"><img src="./Part1/vanilla_dy.jpg" style="width:25%"><img src="./Part1/Grad_mag_vanilla_nobin.jpg" style="width:25%"><img src="./Part1/vanilla_grad_mag_bin.jpg" style="width:25%">
+        </div>
+    </div>
+    <br><br>
+    
+    <hr>
+    
+    <h2 id="model">1.2: Derivative of Gaussian (DoG)</h2>
+    
+    <p>Running the vanilla finite difference filter will give us unstable results due to small disturbances that are not accounted for, and we want to make the outputs smoother. As a result, we will convolve the image with a Gaussian filter for a smoother output.</p>
+    <p>The Gaussian filter used here has a size of 15 and standard deviation of 2.5.</p>
+    <center><img src="./Part1/filter.jpg" style="width:25%"></center>
+    
+    <p>After dragging the Gaussian filter through, we arrive at the following output, with the same ordering and a threshold of 0.04 for binarization. Given that the filter that I dragged through is large, please increase the screen brightness in order to see the edges more clearly: </p>
+    <div class="row">
+        <div class="column">
+            <img src="./Part1/Gaussian_dx.jpg" style="width:25%"><img src="./Part1/Gaussian_dy.jpg" style="width:25%"><img src="./Part1/Gaussian_mag_nobin.jpg" style="width:25%"><img src="./Part1/Gaussian_mag_bin.jpg" style="width:25%">
+        </div>
+    </div>
+    
+    <p>After convolving the image with a Gaussian filter, we see that the resulting outputs of the finite difference filter are much more smoothed out. The binarized gradient magnitude is also much thicker, since the Gaussian filter "spreads out" the effects of the edge into the surrounding pixels.</p>
+    
+    <p>We can alternatively drag dX and dY through the Gaussian filter and derive a new filter, therefore we only need to drag a filter through the whole image once. Below are the new "Gaussian" dX and dY filters after being convolved by the simple finite difference filter: </p>
+    <center><img src="./Part1/dx.jpg" style="width:25%"><img src="./Part1/dy.jpg" style="width: 25%"></center>
+    <p>We can verify we get the same results, using the same parameters from vanilla Gaussian convolution then finite difference: </p>
+    <div class="row">
+        <div class="column">
+            <img src="./Part1/Gaussian_dx_conv.jpg" style="width:25%"><img src="./Part1/Gaussian_dy_conv.jpg" style="width:25%"><img src="./Part1/Gaussian_mag_nobin_conv.jpg" style="width:25%"><img src="./Part1/Gaussian_mag_bin_conv.jpg" style="width:25%">
+        </div>
+    </div>
+    <hr>
+    <br>
+    
+    <center><hi id="model"></hi></center><table align="center">
+        
+    </table>
+    
+    <center><h1>Section 2: Fun with Frequencies</h1></center><h2>2.1: Blurring/Sharpening Images</h2><p>Given that we have an image <i>f</i>, we can define sharpening the image as the following: </p><p><mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" role="presentation" tabindex="0" ctxtmenu_counter="5" style="font-size: 117.3%; position: relative;"><mjx-math display="true" class="MJX-TEX" aria-hidden="true"><mjx-msub><mjx-mi class="mjx-i" noic="true"><mjx-c class="mjx-c66"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em;"><mjx-texatom size="s" texclass="ORD"><mjx-mtext class="mjx-n"><mjx-c class="mjx-c73"></mjx-c><mjx-c class="mjx-c68"></mjx-c><mjx-c class="mjx-c61"></mjx-c><mjx-c class="mjx-c72"></mjx-c><mjx-c class="mjx-c70"></mjx-c></mjx-mtext></mjx-texatom></mjx-script></mjx-msub><mjx-mo class="mjx-n" space="4"><mjx-c class="mjx-c3D"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="4"><mjx-c class="mjx-c66"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="3"><mjx-c class="mjx-c2B"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="3"><mjx-c class="mjx-c3B1"></mjx-c></mjx-mi><mjx-mo class="mjx-n"><mjx-c class="mjx-c28"></mjx-c></mjx-mo><mjx-mi class="mjx-i"><mjx-c class="mjx-c66"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="3"><mjx-c class="mjx-c2212"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="3"><mjx-c class="mjx-c66"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="3"><mjx-c class="mjx-c2217"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="3"><mjx-c class="mjx-c67"></mjx-c></mjx-mi><mjx-mo class="mjx-n"><mjx-c class="mjx-c29"></mjx-c></mjx-mo><mjx-mo class="mjx-n" space="4"><mjx-c class="mjx-c3D"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="4"><mjx-c class="mjx-c66"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="3"><mjx-c class="mjx-c2217"></mjx-c></mjx-mo><mjx-mo class="mjx-n" space="3"><mjx-c class="mjx-c28"></mjx-c></mjx-mo><mjx-mo class="mjx-n"><mjx-c class="mjx-c28"></mjx-c></mjx-mo><mjx-mn class="mjx-n"><mjx-c class="mjx-c31"></mjx-c></mjx-mn><mjx-mo class="mjx-n" space="3"><mjx-c class="mjx-c2B"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="3"><mjx-c class="mjx-c3B1"></mjx-c></mjx-mi><mjx-mo class="mjx-n"><mjx-c class="mjx-c29"></mjx-c></mjx-mo><mjx-mi class="mjx-i"><mjx-c class="mjx-c65"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="3"><mjx-c class="mjx-c2212"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="3"><mjx-c class="mjx-c3B1"></mjx-c></mjx-mi><mjx-mi class="mjx-i"><mjx-c class="mjx-c67"></mjx-c></mjx-mi><mjx-mo class="mjx-n"><mjx-c class="mjx-c29"></mjx-c></mjx-mo></mjx-math><mjx-assistive-mml role="presentation" unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><msub><mi>f</mi><mrow><mtext>sharp</mtext></mrow></msub><mo>=</mo><mi>f</mi><mo>+</mo><mi>α</mi><mo stretchy="false">(</mo><mi>f</mi><mo>−</mo><mi>f</mi><mo>∗</mo><mi>g</mi><mo stretchy="false">)</mo><mo>=</mo><mi>f</mi><mo>∗</mo><mo stretchy="false">(</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>α</mi><mo stretchy="false">)</mo><mi>e</mi><mo>−</mo><mi>α</mi><mi>g</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></p><p>Where <i>g</i> is a Gaussian filter and <i>e</i> is a unit impulse filter with the size of Gaussian Filter (1 at center and 0 everywhere else). We can then sharpen the image with this technique</p><p>The following images are in this order: <mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" role="presentation" tabindex="0" ctxtmenu_counter="6" style="font-size: 117.3%; position: relative;"><mjx-math display="true" class="MJX-TEX" aria-hidden="true"><mjx-mi class="mjx-i"><mjx-c class="mjx-c3B1"></mjx-c></mjx-mi><mjx-mtext class="mjx-n"><mjx-c class="mjx-cA0"></mjx-c><mjx-c class="mjx-c3D"></mjx-c><mjx-c class="mjx-c20"></mjx-c><mjx-c class="mjx-c30"></mjx-c><mjx-c class="mjx-c20"></mjx-c><mjx-c class="mjx-c28"></mjx-c><mjx-c class="mjx-c6E"></mjx-c><mjx-c class="mjx-c6F"></mjx-c><mjx-c class="mjx-c74"></mjx-c><mjx-c class="mjx-c20"></mjx-c><mjx-c class="mjx-c73"></mjx-c><mjx-c class="mjx-c68"></mjx-c><mjx-c class="mjx-c61"></mjx-c><mjx-c class="mjx-c72"></mjx-c><mjx-c class="mjx-c70"></mjx-c><mjx-c class="mjx-c65"></mjx-c><mjx-c class="mjx-c6E"></mjx-c><mjx-c class="mjx-c65"></mjx-c><mjx-c class="mjx-c64"></mjx-c><mjx-c class="mjx-c29"></mjx-c></mjx-mtext><mjx-mo class="mjx-n"><mjx-c class="mjx-c2C"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="2"><mjx-c class="mjx-c3B1"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="4"><mjx-c class="mjx-c3D"></mjx-c></mjx-mo><mjx-mn class="mjx-n" space="4"><mjx-c class="mjx-c31"></mjx-c></mjx-mn><mjx-mo class="mjx-n"><mjx-c class="mjx-c2C"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="2"><mjx-c class="mjx-c3B1"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="4"><mjx-c class="mjx-c3D"></mjx-c></mjx-mo><mjx-mn class="mjx-n" space="4"><mjx-c class="mjx-c32"></mjx-c></mjx-mn><mjx-mo class="mjx-n"><mjx-c class="mjx-c2C"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="2"><mjx-c class="mjx-c3B1"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="4"><mjx-c class="mjx-c3D"></mjx-c></mjx-mo><mjx-mn class="mjx-n" space="4"><mjx-c class="mjx-c35"></mjx-c></mjx-mn></mjx-math><mjx-assistive-mml role="presentation" unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>α</mi><mtext>&nbsp;= 0 (not sharpened)</mtext><mo>,</mo><mi>α</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>α</mi><mo>=</mo><mn>2</mn><mo>,</mo><mi>α</mi><mo>=</mo><mn>5</mn></math></mjx-assistive-mml></mjx-container> </p><h3>Taj Mahal: </h3><div class="row">
+            <div class="column">
+                <img src="./Part2/Taj.png" style="width:25%"><img src="./Part2/Taj_a1.png" style="width:25%"><img src="./Part2/Taj_a2.png" style="width:25%"><img src="./Part2/Taj_a5.png" style="width:25%">
+            </div>
+        </div><h3>Lotte World Tower: </h3><div class="row">
+            <div class="column">
+                <img src="./Part2/Lotte.png" style="width:50%"><img src="./Part2/Lotte_a1.png" style="width:50%">
+            </div>
+            <div class="column">
+                <img src="./Part2/Lotte_a2.png" style="width:50%"><img src="./Part2/Lotte_a5.png" style="width:50%">
+            </div>
+        </div><h3>Blurring and Sharpening</h3><p>Here, I compared a sharpened the Brandenburg Gate and a Brandenburg Gate that is blurred and then sharpened, the alpha value is set to 3. They are presented in different rows below: </p><div class="row">
+            <div class="column">
+                <img src="./Part2/BG.jpg" style="width:50%"><img src="./Part2/BG_a3_noblur.jpg" style="width:50%">
+            </div>
+            <div class="column">
+                <img src="./Part2/BG_blur.jpg" style="width:50%"><img src="./Part2/BG_a3_blur.jpg" style="width:50%">
+            </div>
+        </div><p>Sharpening the blurred image does recover some of the high-frequency components of the image, however the effects of blurring still persisted. </p><hr><h2>2.2: Hybrid Images</h2><p>Using high pass and low pass filters, we can create hybrid images by passing an image through a filter to extract its high frequency and low frequency component, and then overlaying them together.</p><h3>1: Derek Hoiem and Nutmeg</h3><p>Derek Hoiem and Nutmeg, in which Hoiem is passed through the LP filter and Nutmeg is passed through the HP filter:</p><div class="column">
+                <img src="./Part2/Hoiem_BW.jpg" style="width:33.3%"><img src="./Part2/Nutmeg_BW.jpg" style="width:33.3%"><img src="./Part2/HN.jpg" style="width:33.3%">
+            </div><h3>2 (Failure Case): Walter White and Heisenberg</h3><p>Walter White from Season 1 and Season 5 of Breaking Bad:</p><div class="column">
+                <img src="./Part2/Walter_BW.jpg" style="width:33.3%"><img src="./Part2/Heisenberg_BW.jpg" style="width:33.3%"><img src="./Part2/WH.jpg" style="width:33.3%">
+            </div><p>No matter how is the cutoff frequency changed, I could not get a desirable outcome, I presume this is due to Season 5 Walter's goatee having too big of a frequency range to force it to one frequency, causing Season 5 Walter's appearance to dominate over Season 1's Walter's persona (just like in the show). </p><h3>3 (Favorite): Cinderella Castle and St. Basil's Cathedral</h3><p>Here are the original photos and its Fourier transform into the frequency domain:</p><div class="column">
+                <img src="./Part2/Cathedral_BW.jpg" style="width:25%"><img src="./Part2/Cathedral_fft.jpg" style="width:25%"><img src="./Part2/Castle_BW.jpg" style="width:25%"><img src="./Part2/Castle_fft.jpg" style="width:25%">
+            </div><p>Here are the photos after being passed through the HP filter (Cathedral) and LP filter (Castle) and their respective Fourier Transforms: </p><div class="column">
+                <img src="./Part2/High_freq_cathedral.jpg" style="width:25%"><img src="./Part2/Cathedral_sharp_fft.jpg" style="width:25%"><img src="./Part2/Low_freq_castle.jpg" style="width:25%"><img src="./Part2/Castle_blur_fft.jpg" style="width:25%">
+            </div><p>After combining the 2 together, we would get the following image and the Fourier transform:</p><div class="column">
+                <img src="./Part2/CC.jpg" style="width:50%"><img src="./Part2/CC_fft.jpg" style="width:50%">
+            </div><hr><h2>2.3: Gaussian and Laplacian Stacks</h2><p>A Gaussian stack is defined by a sequence of images in which it is continually being blurred by a Gaussian filter. A Lagrangian stack on the other hand, extracts the difference between 2 adjacent images within the Gaussian stack. While Gaussian stack continues to downsample the images, the Lagrangian stack preserves the high-level details of the image.</p><p>Forming the Gaussian and Laplacian stack on the example apple and orange images, I get the following, note that the Laplacian stack is normalized to capture the high-level differences </p><h3>Apple:</h3><div class="column">
+                <img src="./Part2/Spline/Apple_Gaussian_stack_p0.jpg" style="width:16.6%"><img src="./Part2/Spline/Apple_Gaussian_stack_p1.jpg" style="width:16.6%"><img src="./Part2/Spline/Apple_Gaussian_stack_p2.jpg" style="width:16.6%"><img src="./Part2/Spline/Apple_Gaussian_stack_p3.jpg" style="width:16.6%"><img src="./Part2/Spline/Apple_Gaussian_stack_p4.jpg" style="width:16.6%"><img src="./Part2/Spline/Apple_Gaussian_stack_p5.jpg" style="width:16.6%">
+            </div><div class="column">
+                <img src="./Part2/Spline/Apple_Laplacian_stack_p0.jpg" style="width:16.6%"><img src="./Part2/Spline/Apple_Laplacian_stack_p1.jpg" style="width:16.6%"><img src="./Part2/Spline/Apple_Laplacian_stack_p2.jpg" style="width:16.6%"><img src="./Part2/Spline/Apple_Laplacian_stack_p3.jpg" style="width:16.6%"><img src="./Part2/Spline/Apple_Laplacian_stack_p4.jpg" style="width:16.6%"><img src="./Part2/Spline/Apple_Laplacian_stack_p5.jpg" style="width:16.6%">
+            </div><h3>Orange:</h3><div class="column">
+                <img src="./Part2/Spline/Orang_Gaussian_stack_p0.jpg" style="width:16.6%"><img src="./Part2/Spline/Orang_Gaussian_stack_p1.jpg" style="width:16.6%"><img src="./Part2/Spline/Orang_Gaussian_stack_p2.jpg" style="width:16.6%"><img src="./Part2/Spline/Orang_Gaussian_stack_p3.jpg" style="width:16.6%"><img src="./Part2/Spline/Orang_Gaussian_stack_p4.jpg" style="width:16.6%"><img src="./Part2/Spline/Orang_Gaussian_stack_p5.jpg" style="width:16.6%">
+            </div><div class="column">
+                <img src="./Part2/Spline/Orang_Laplacian_stack_p0.jpg" style="width:16.6%"><img src="./Part2/Spline/Orang_Laplacian_stack_p1.jpg" style="width:16.6%"><img src="./Part2/Spline/Orang_Laplacian_stack_p2.jpg" style="width:16.6%"><img src="./Part2/Spline/Orang_Laplacian_stack_p3.jpg" style="width:16.6%"><img src="./Part2/Spline/Orang_Laplacian_stack_p4.jpg" style="width:16.6%"><img src="./Part2/Spline/Orang_Laplacian_stack_p5.jpg" style="width:16.6%">
+            </div><h2>2.4: Image Splining</h2><p>Below visually demonstrates the splining procedure: </p><div class="mask">
+                <h4>Masks (first one not used)</h4>
+                <img src="./Part2/Spline/mask_0.jpg" ,="" style="width:14.2%"><img src="./Part2/Spline/mask_1.jpg" ,="" style="width:14.2%"><img src="./Part2/Spline/mask_2.jpg" ,="" style="width:14.2%"><img src="./Part2/Spline/mask_3.jpg" ,="" style="width:14.2%"><img src="./Part2/Spline/mask_4.jpg" ,="" style="width:14.2%"><img src="./Part2/Spline/mask_5.jpg" ,="" style="width:14.2%"><img src="./Part2/Spline/mask_6.jpg" ,="" style="width:14.2%">
+                <p></p>
+            </div><div>
+                <h4>Left Images (separated)</h4>
+                <img src="./Part2/Spline/left_im_0.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/left_im_1.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/left_im_2.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/left_im_3.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/left_im_4.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/left_im_5.jpg" ,="" style="width:16.6%">
+            </div><div>
+                <h4>Right Images (separated)</h4>
+                <img src="./Part2/Spline/right_im_0.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/right_im_1.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/right_im_2.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/right_im_3.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/right_im_4.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/right_im_5.jpg" ,="" style="width:16.6%">
+            </div><p>Combining them together by collapsing the stack, we get:</p><center><img src="./Part2/Spline/oraple.jpg" ,="" style="width:40%"></center><hr><h3>Example 2: Eiffel Tower and Transamerica Pyramid splined together</h3><p>I employed a vertical mask at the center to implement this algorithm</p><div>
+                <img src="eiffel_aligned.jpg" ,="" style="width:33.3%"><img src="pyramid_aligned.jpg" ,="" style="width:33.3%"><img src="./Part2/Spline/ep.jpg" ,="" style="width:33.3%">
+            </div><hr><h3>Example 3: Auroraborealis in NYC? </h3><p>In order to get a non-linear mask, I used FAIR's <a href="https://segment-anything.com/">Segment Anything</a> model to get a mask of the sky of NYC. </p><h4>NYC:</h4><center><img src="./nyc.jpg" ,="" style="width:60%"></center><h4>Aurora:</h4><center><img src="./aurora.jpg" ,="" style="width:60%"></center><h4>Mask:</h4><center><img src="./new_mask.jpg" ,="" style="width:60%"></center><h4>Result:</h4><center><img src="./Part2/Spline/nyc_aurora.jpg" ,="" style="width:80%"></center><h3>Example 4: Air Bud with Corgi!</h3><h4>Corgi:</h4><center><img src="./Cutout.png" ,="" style="width:40%"></center><h4>Rim:</h4><center><img src="./Basketball-on-Rim.jpg" ,="" style="width:40%"></center><div>
+                <h4>Corgi Laplacians: </h4>
+                <img src="./Part2/Spline/corgi_left_im_0.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_left_im_1.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_left_im_2.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_left_im_3.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_left_im_4.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_left_im_5.jpg" ,="" style="width:16.6%">
+            </div><div>
+                <h4>Rim Laplacians: </h4>
+                <img src="./Part2/Spline/corgi_right_im_0.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_right_im_1.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_right_im_2.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_right_im_3.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_right_im_4.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_right_im_5.jpg" ,="" style="width:16.6%">
+            </div><div>
+                <h4>Iterative Results: </h4>
+                <img src="./Part2/Spline/corgi_out_ims_0.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_out_ims_1.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_out_ims_2.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_out_ims_3.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_out_ims_4.jpg" ,="" style="width:16.6%"><img src="./Part2/Spline/corgi_out_ims_5.jpg" ,="" style="width:16.6%">
+            </div><h4>Final Result: </h4><center><img src="./Part2/Spline/Corgi_airbud.jpg" ,="" style="width:60%"></center><hr><h2>Bells and Whistles / Reflection: </h2><p>All implementation of Gaussian/Laplacian pyramids and multiresolution blending is done with color. </p><p>In this project, my biggest takeaway is how to transform images through the lens of frequency: while I have dealt with a good amount of circuits and signals in the frequency domain, this is my first implementation of using frequency to blend images together and use rudimentary techniques to produce effects brought by photo editing softwares.</p><table align="center">
+        
+        <tbody><tr>
+            
+        </tr>
+    
+        
+        
+        
+    
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+        
+        
+        
+        <tr>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        </tr>
+    
+        
+    
+        <tr>
+            
+            
+            
+    
+            
+            
+            
+            
+            
+            
+            
+        </tr>
+    
+        <tr>
+            
+    
+            
+            
+    
+            
+    
+            
+    
+            
+    
+            
+    
+            
+    
+            
+            
+            
+    
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+    
+            
+            
+        </tr>
+    
+    
+    
+    
+    
+    
+    
+    </tbody></table><table align="center" style="margin-bottom: 50px">
+        <tbody><tr>
+            <td>
+                <left>
+                    <center><h1>Acknowledgements</h1></center>
+    This project is a course project for CS 180. Part of the code is provided by course staff. Website template is referenced from Shufan Li in Fall 2022 iteration of the class
+    </left>
+            </td>
+        </tr>
+    </tbody></table>
+    
+    
+    
+    
+    </body></html>
