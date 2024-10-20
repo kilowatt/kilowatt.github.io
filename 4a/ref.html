@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<!-- ======================================================================= -->
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js">
+  </script>
+<style type="text/css">
+    table {
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+    body {
+        font-family: "Titillium Web", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 300;
+        font-size: 18px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+    }
+
+    h1 {
+        font-weight: 300;
+    }
+
+    .disclaimerbox {
+        background-color: #eee;
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        padding: 20px;
+    }
+
+    video.header-vid {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    img {
+        width: 100%
+    }
+
+    img.header-img {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    img.rounded {
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    a:link, a:visited {
+        color: #1367a7;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #208799;
+    }
+
+    td.dl-link {
+        height: 160px;
+        text-align: center;
+        font-size: 22px;
+    }
+
+    .layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35), /* The third layer shadow */ 15px 15px 0 0px #fff, /* The fourth layer */ 15px 15px 1px 1px rgba(0, 0, 0, 0.35), /* The fourth layer shadow */ 20px 20px 0 0px #fff, /* The fifth layer */ 20px 20px 1px 1px rgba(0, 0, 0, 0.35), /* The fifth layer shadow */ 25px 25px 0 0px #fff, /* The fifth layer */ 25px 25px 1px 1px rgba(0, 0, 0, 0.35); /* The fifth layer shadow */
+        margin-left: 10px;
+        margin-right: 45px;
+    }
+
+
+    .layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35); /* The third layer shadow */
+        margin-top: 5px;
+        margin-left: 10px;
+        margin-right: 30px;
+        margin-bottom: 5px;
+    }
+
+    .vert-cent {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+
+    .mask{
+        background-color:aqua
+    }
+
+
+    #authors td {
+        padding-bottom: 5px;
+        padding-top: 30px;
+    }
+</style>
+
+
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108048997-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-108048997-1');
+  </script>
+
+    <title>Image Stitching</title>
+    <meta property="og:title" content="CS180 Project 3"/>
+</head>
+
+<body>
+<br>
+<center>
+    <span style="font-size:36px">CS180 Project 4a: Image Stitching and Mosaics</span>
+
+    <br>
+    <br>
+
+        <!-- <span style="font-size:24px">CVPR 2022</span> -->
+
+
+    <br>
+    <br>
+    <table align=center>
+        <tr>
+            <span style="font-size:24px"><a >Bill Zheng</a><sup>1</sup></span> &nbsp;
+            
+        </tr><br>
+        <tr>
+            <span style="font-size:16px"><a>SID:3036580418</a></span> &nbsp;
+        </tr><br>
+        <tr>
+   </tr>
+    </table>
+
+
+<!--    <br><br><br>-->
+
+<!--    <br><br>-->
+
+
+    <table align=center>
+        <tr>
+            <td align=center>
+                <center>
+                    <span style="font-size:20px">
+                        <sup>1</sup>UC Berkeley 
+                    </span>
+                </center>
+            </td>
+        </tr>
+    </table>
+<!--    <br>-->
+
+
+
+
+</center>
+<!--<left>    <span style="font-size:18px"><sup>*</sup>Equally contributed</span> </left>-->
+<hr>
+
+<table align=center>
+    <center><h1>Overview</h1></center>
+</table>
+
+In this project, I implemented methods that would:
+
+<p>1. Find Homographies</p>
+
+<p>2. Rectify and Warp Images</p>
+
+<p>3. Stitch Images Together</p>
+
+<br><br><br>
+
+<hr>
+<br>
+
+<table align=center>
+    <center><h1 id="model">Section 1: Pictures and Finding Homographies</h1></center>
+</table>
+
+<p>I started off by taking some pictures of the campus: </p>
+<div class="row">
+    <div class="column">
+        <img src="./im1_1.jpg" style="width:50%"><img src="./im1_2.jpg" style="width:50%">
+    </div>
+</div>
+
+<p>After using matplotlib's ginput to derive the correspondences between the source and the desired images, I used this following equation to solve the homogeneous transformation between the 2 images (source: Kaitlyn Lee's Project 4a website in Fa2021), where the hat operator defines the transformed coordinates: </p>
+
+<div>
+    <div>
+        <img src="./homography.png">
+    </div>
+</div>
+
+<p>Afterwards, we can use np.linalg.lstsq() to solve for the 8 unknown elements, as we know that h_33 is 1.</p>
+
+<hr>
+
+
+<table align=center>
+    <center><h1>Section 2: Image Warping</h1></center>
+    <tr>
+        <h2>Rectifying Images</h2>
+    </tr>
+
+    <p>I first explored how can we rectify images by inverting the warp done between the current and the (theoretical) planar positions. I first defined the correspondence for a rectangle and find the affine transformation matrix between the 2 planes. I then interpolated the data within the region defined in my correspondence to recover the original data back. </p>
+
+    <p>Below shows my result applying rectification on a picture of my computer screen: </p>
+    <div>
+        <div>
+            <img src="./Rect.jpg" style="width:50%"><img src="rectify_example.jpg" style="width:50%">
+        </div>
+        <div>
+            <img src="./Rect2.jpg" style="width:50%"><img src="rectify2.jpg" style="width:50%">
+        </div>
+    </div>
+
+
+</table>
+<hr>
+
+<table align=center>
+    <center><h1>Section 3: Image Stitching and Mosaics</h1></center>
+    <h2>Image stitching</h2>
+    <p>To stitch images together, I first calculated the transformation between the left image and the right images (which I set as the reference frame) and warped it: </p>
+    <div align=center>
+        <div>
+            <img src="warped_berkeley.jpg" style="width:70%">
+        </div>
+    </div>
+    <h2>Image blending</h2>
+    <p>To blend the images together, I used a mask that would output 1 if only the warped image 1 had valid inputs to it, and 0.5 if both image 1 and image 2 have valid inputs to it.</p>
+    <p>I then used Gaussian and Laplacian stack to blend the images together, resulting in the following mosaic:</p>
+
+    <div>
+        <div>
+            <img src="mosaic_try.jpg">
+        </div>
+    </div>
+
+</table>
+
+<hr>
+
+<table align=center>
+    <center><h1>Conclusion</h1></center>
+    <p>I learned that linear algebra is a great deal of fun, and I realized that this project also helps with robotics applications by using homogeneous transformations.</p>
+
+</table>
+
+<hr>
