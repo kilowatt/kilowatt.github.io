@@ -1,0 +1,488 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<!-- ======================================================================= -->
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js">
+  </script>
+<style type="text/css">
+    table {
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+    body {
+        font-family: "Titillium Web", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 300;
+        font-size: 18px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+    }
+
+    h1 {
+        font-weight: 300;
+    }
+
+    .disclaimerbox {
+        background-color: #eee;
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        padding: 20px;
+    }
+
+    video.header-vid {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    img {
+        width: 100%
+    }
+
+    img.header-img {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    img.rounded {
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    a:link, a:visited {
+        color: #1367a7;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #208799;
+    }
+
+    td.dl-link {
+        height: 160px;
+        text-align: center;
+        font-size: 22px;
+    }
+
+    .layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35), /* The third layer shadow */ 15px 15px 0 0px #fff, /* The fourth layer */ 15px 15px 1px 1px rgba(0, 0, 0, 0.35), /* The fourth layer shadow */ 20px 20px 0 0px #fff, /* The fifth layer */ 20px 20px 1px 1px rgba(0, 0, 0, 0.35), /* The fifth layer shadow */ 25px 25px 0 0px #fff, /* The fifth layer */ 25px 25px 1px 1px rgba(0, 0, 0, 0.35); /* The fifth layer shadow */
+        margin-left: 10px;
+        margin-right: 45px;
+    }
+
+
+    .layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35); /* The third layer shadow */
+        margin-top: 5px;
+        margin-left: 10px;
+        margin-right: 30px;
+        margin-bottom: 5px;
+    }
+
+    .vert-cent {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+
+    .mask{
+        background-color:aqua
+    }
+
+
+    #authors td {
+        padding-bottom: 5px;
+        padding-top: 30px;
+    }
+</style>
+
+
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108048997-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-108048997-1');
+  </script>
+
+    <title>(Auto)stitching and Image Mosaics</title>
+    <meta property="og:title" content="CS180 Project 4A"/>
+</head>
+
+<body>
+<center>
+    <span style="font-size:36px">CS180 Project 4: (Auto)stitching and Image Mosaics</span>
+    <br>
+    <br>
+    <table align=center>
+        <tr>
+            <span style="font-size:24px"><a >Kenny Wang</a></span> &nbsp;
+            
+        </tr><br>
+        <tr>
+            <span style="font-size:16px"><a>SID: 3037341680</a></span> &nbsp;
+        </tr><br>
+        <tr>
+    </tr>
+    </table>
+
+    <table align=center></table>
+        <tr>
+            <td align=center>
+                <center>
+                    <span style="font-size:20px">
+                        UC Berkeley 
+                    </span>
+                </center>
+            </td>
+        </tr>
+    </table>
+    <br>
+</center>
+
+<div align=center>
+    <div>
+        <img src="media/sf_pano.png" style="width:75%">
+    </div>
+</div>
+
+<hr>
+<hr>
+<hr>
+
+<table align=center></table>
+    <center><h1>Project 4A: Image Warping and Mosaicing</h1></center>
+</table>
+
+<hr>
+<hr>
+<hr>
+
+<hr>
+
+<table align=center></table>
+    <center><h1>1. Shooting the pictures</h1></center>
+</table>
+
+<div align=center>
+    <div class="column">
+        <img src="media/sf-1.jpg" style="width:40%"><img src ="media/sf-2.jpg" style="width:40%">
+    </div>
+</div>
+
+<br>
+Here's some photos taken from the AMC Metreon Theater in San Francisco, from CalHacks 11.0. I spent most of the hackathon finishing this project, though the vibes were pretty great.
+<br>
+<br>
+Let's make panoramas!! Yay!!
+<br>
+<br>
+<hr>
+
+<table align=center></table>
+    <center><h1>2. Image Warping</h1></center>
+</table>
+<br>
+
+The main step in creating our image mosaics is computing the homography that determines the transformation between the two images. With our pre- and post- transformation points as (x, y) and (x', y'), we have:
+
+<br>
+<br>
+
+<div align=center>
+    <div class="column">
+        <img src="media/equation1.jpg" style="width:30%">
+    </div>
+</div>
+
+<br>
+
+To find the values a, b, etc to build our matrix, we solve the following equation using least squares:
+
+<br>
+<br>
+
+<div align=center>
+    <div class="column">
+        <img src="media/equation2.jpg" style="width:60%">
+    </div>
+</div>
+
+<br>
+
+(Equation images from Aayush Gupta's Fall 2023 project <a href="https://inst.eecs.berkeley.edu/~cs180/fa23/upload/files/proj4A/aayush.gupta/">website</a>)
+
+<br>
+<br>
+
+Warping image 1 to meet image 2, and image 2 to meet image 1, produces the following.
+
+<br>
+<br>
+
+<div align=center>
+    <div class="column">
+        <img src="media/sf-1-tf.jpg" style="width:30%"><img src="media/sf-2-tf.jpg" style="width:29.55%">
+    </div>
+</div>
+
+<br>
+<hr>
+
+<table align=center></table>
+    <center><h1>3. Image Rectification</h1></center>
+</table>
+<br>
+
+Here's a picture of some pretty creatively decorated trash cans from CalHacks.
+
+<br>
+<br>
+
+<div align=center>
+    <div class="column">
+        <img src="media/trash.jpg" style="width:44.5%"><img src="media/trash_rect.jpg" style="width:40%">
+    </div>
+</div>
+
+<br>
+
+By getting the coordinates for the 4 corners of the trash sign and computing a homography between those corners and a rectangle, we can rectify the sign quite nicely (figure on the right).
+
+<br>
+<br>
+
+<hr>
+
+<table align=center></table>
+    <center><h1>4. Image Mosaics</h1></center>
+</table>
+<br>
+
+To complete our final mosaic, we first need to generate a set of masks to help composite the images together. Here are masks representing the locations of data from only image 1, only image 2, their intersection, and their union.
+
+<br>
+<br>
+
+Additionally, to make the transition between the images more natural, we have a linear seam Gaussian mask centered on the mean of the centroids of the two images.
+
+<br>
+<br>
+
+<div align=center>
+    <div class="column">
+        <img src="media/mask1.jpg" style="width:20%"><img src="media/mask2.jpg" style="width:20%"><img src="media/mask_intersect.jpg" style="width:20%"><img src="media/mask_union.jpg" style="width:20%"><img src="media/mask_gauss.jpg" style="width:20%">
+    </div>
+</div>
+
+<br>
+
+Combining the two images gives us the following:
+
+<br>
+<br>
+
+<div align=center>
+    <div class="column">
+        <img src="media/sf-1.jpg" style="width:40%"><img src ="media/sf-2.jpg" style="width:40%">
+    </div>
+</div>
+
+<br>
+
+<div align=center>
+    <div class="column">
+        <img src="media/sf_pano.png" style="width:75%">
+    </div>
+</div>
+
+<br>
+
+Here's a similar mosaic of photos of the familiar Soda Hall.
+
+<br>
+<br>
+
+<div align=center>
+    <div class="column">
+        <img src="media/soda-1.jpg" style="width:40%"><img src ="media/soda-2.jpg" style="width:40%">
+    </div>
+</div>
+
+<br>
+
+<div align=center>
+    <div class="column">
+        <img src="media/soda_pano.png" style="width:75%">
+    </div>
+</div>
+
+<br>
+<hr>
+<hr>
+<hr>
+
+<table align=center></table>
+    <center><h1>Project 4B: Feature Matching for Autostitching</h1></center>
+</table>
+
+<hr>
+<hr>
+<hr>
+<br>
+
+In the second part of the project, we implement automatic interest point detection and matching for auto-stitching. Great, it saves me the trouble of manually clicking corresponding points!!
+
+<table align=center></table>
+    <center><h1>5: Interest Point Detection</h1></center>
+</table>
+<br>
+
+First, we use Harris corner detection to detect potential points of interest that can be matched between the two images. Instead of simply taking the strongest Harris corners, we also implement Adaptive Non-Maximal Suppression to select good points that are spread out. Before applying ANMS, I also filter out potential corners with intensity less than 0.05, to avoid detecting superfluous points in the sky.
+
+<br>
+<br>
+
+Here, observe an image with all 15496 Harris points, the image with only the top 2500 Harris points, and the image with 500 points chosen using ANMS.
+
+<br>
+<br>
+
+<div align=center>
+    <div class="column">
+        <img src="media/sf_2_harris_all.png" style="width:33%"><img src="media/sf_2_harris_2500.png" style="width:33%"><img src ="media/sf_2_anms_500.png" style="width:33%">
+    </div>
+</div>
+
+<hr>
+
+<table align=center></table>
+    <center><h1>6: Extracting Feature Descriptors</h1></center>
+</table>
+<br>
+
+Once the potential points have been located, we then need to extract feature descriptors from them in order to perform matching between the two images. We accomplish this by extracting 8x8 patches from around each point, with a spacing of 5 pixels between points (so in reality, a 40x40 patch sampled at intervals 5 apart). I have chosen to sample the pixels with color, to make matching easier.
+
+<br>
+<br>
+
+Here's some example features.
+
+<br>
+<br>
+
+<div align=center>
+    <div class="column">
+        <img src="media/sf_2_feature12.png" style="width:20%"><img src="media/sf_2_feature15.png" style="width:20%"><img src ="media/sf_2_feature17.png" style="width:20%"><img src ="media/sf_2_feature25.png" style="width:20%"><img src ="media/sf_2_feature34.png" style="width:20%">
+    </div>
+</div>
+
+<hr>
+
+<table align=center></table>
+    <center><h1>7: Matching Features</h1></center>
+</table>
+<br>
+
+Now that we have features from both images, it's time to match them. Following the paper, we will use Lowe thresholding to determine what are good matches. Calculating the squared+summed differences between pairs of features, we detect matches where the distance to the 1st-nearest-neighbor is less than half the distance to the 2nd-nearest-neighbor (Lowe threshold 0.5).
+
+<br>
+<br>
+
+This actually seems to match features quite convincingly. Here's some matching pairs of features.
+
+<br>
+<br>
+
+<div align=center>
+    <div class="column">
+        <img src="media/sf_1_feature12.png" style="width:20%"><img src="media/sf_1_feature15.png" style="width:20%"><img src ="media/sf_1_feature17.png" style="width:20%"><img src ="media/sf_1_feature25.png" style="width:20%"><img src ="media/sf_1_feature34.png" style="width:20%">
+    </div>
+</div>
+<div align=center>
+    <div class="column">
+        <img src="media/sf_2_feature12.png" style="width:20%"><img src="media/sf_2_feature15.png" style="width:20%"><img src ="media/sf_2_feature17.png" style="width:20%"><img src ="media/sf_2_feature25.png" style="width:20%"><img src ="media/sf_2_feature34.png" style="width:20%">
+    </div>
+</div>
+
+<br>
+
+<hr>
+
+<table align=center></table>
+    <center><h1>8: Random Sample Consensus (RANSAC)</h1></center>
+</table>
+<br>
+
+Now, for the final step, we must actually derive the relevant homography between the two images using the matched pairs of points. We accomplish this using Random Sample Consensus (RANSAC).
+
+<br>
+<br>
+
+This works by repeatedly (1500 times) sampling 4 random matched point pairs, computing the homography between them, and seeing how many other matched pairs agree with the homography (within a distance threshold of 3). The largest set of agreeing points after this process is then used to generate a least-squares homography just like in Project 4A. The final results are quite good!
+
+<br>
+<br>
+
+I also took the liberty to switch the blending algorithm from the simple Gaussian blur used in Project 4A to a two-layer Laplacian pyramid technique like the one used in Project 2.
+
+<br>
+
+<div align=center>
+    <div class="column">
+        <img src="media/soda_pano_mops.png" style="width:75%">
+    </div>
+</div>
+
+<div align=center>
+    <div class="column">
+        <img src="media/sf_pano_mops.png" style="width:75%">
+    </div>
+</div>
+
+<div align=center>
+    <div class="column">
+        <img src="media/sunset_pano_mops.png" style="width:75%">
+    </div>
+</div>
+
+<br>
+
+I feel that the image alignment is very slightly worse than my painstakingly hand-annotated versions, but the MOPS images are still quite good and automatic.
+
+<br>
+<br>
+
+<table align=center style="margin-bottom: 50px">
+    <tr>
+        <td>
+            <left>
+                <center><h1>Acknowledgements</h1></center>
+            This project is a course project for CS 180. Website template is used with permission from Bill Zheng in the Fall 2023 iteration of the class.
+            </left>
+        </td>
+    </tr>
+</table>
+
+</body>
