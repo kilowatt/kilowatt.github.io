@@ -1,0 +1,1013 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<!-- ======================================================================= -->
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js">
+  </script>
+<style type="text/css">
+    table {
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+    body {
+        font-family: "Titillium Web", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 300;
+        font-size: 18px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+    }
+
+    h1 {
+        font-weight: 300;
+    }
+
+    .disclaimerbox {
+        background-color: #eee;
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        padding: 20px;
+    }
+
+    video.header-vid {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    img {
+        width: 100%
+    }
+
+    img.header-img {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    img.rounded {
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    a:link, a:visited {
+        color: #1367a7;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #208799;
+    }
+
+    td.dl-link {
+        height: 160px;
+        text-align: center;
+        font-size: 22px;
+    }
+
+    .layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35), /* The third layer shadow */ 15px 15px 0 0px #fff, /* The fourth layer */ 15px 15px 1px 1px rgba(0, 0, 0, 0.35), /* The fourth layer shadow */ 20px 20px 0 0px #fff, /* The fifth layer */ 20px 20px 1px 1px rgba(0, 0, 0, 0.35), /* The fifth layer shadow */ 25px 25px 0 0px #fff, /* The fifth layer */ 25px 25px 1px 1px rgba(0, 0, 0, 0.35); /* The fifth layer shadow */
+        margin-left: 10px;
+        margin-right: 45px;
+    }
+
+
+    .layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35); /* The third layer shadow */
+        margin-top: 5px;
+        margin-left: 10px;
+        margin-right: 30px;
+        margin-bottom: 5px;
+    }
+
+    .vert-cent {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+
+    .mask{
+        background-color:aqua
+    }
+
+
+    #authors td {
+        padding-bottom: 5px;
+        padding-top: 30px;
+    }
+
+</style>
+
+
+<head>
+    <title>Fun with Diffusion Models!</title>
+    <meta property="og:title" content="CS180 Project 5"/>
+</head>
+
+<body>
+<center>
+    <span style="font-size:36px">CS180 Project 5: Fun with Diffusion Models!</span>
+    <br>
+    <br>
+    <table align=center>
+        <tr>
+            <span style="font-size:24px"><a >Kenny Wang</a></span> &nbsp;
+            
+        </tr><br>
+        <tr>
+            <span style="font-size:16px"><a>SID: 3037341680</a></span> &nbsp;
+        </tr><br>
+        <tr>
+    </tr>
+    </table>
+
+    <table align=center></table>
+        <tr>
+            <td align=center>
+                <center>
+                    <span style="font-size:20px">
+                        UC Berkeley 
+                    </span>
+                </center>
+            </td>
+        </tr>
+    </table>
+    <br>
+</center>
+
+<div align=center>
+    <div>
+        <img src="media/2/class_cond/sampling-epoch-20.png" style="width:75%">
+    </div>
+</div>
+
+<table align=center></table>
+    <center><h1>Overview</h1></center>
+</table>
+
+In this project, we have some fun with diffusion models! In Part A, we use the pretrained DeepFloyd model to implement denoising algorithms and generate some cool images. In Part B, we train our very own diffusion model from scratch to generate images from the MNIST digits dataset.
+
+<hr>
+<hr>
+<hr>
+
+<table align=center></table>
+    <center><h1>Project 5A: The Power of Diffusion Models!</h1></center>
+</table>
+
+<hr>
+<hr>
+<hr>
+
+<table align=center></table>
+    <center><h1>Part 0: Setup</h1></center>
+</table>
+
+For Part A of this project, we'll be using the <a href="https://huggingface.co/docs/diffusers/api/pipelines/deepfloyd_if">DeepFloyd IF</a> diffusion model. Let's try generating some images using the prompts 'an oil painting of a snowy mountain village', 'a man wearing a hat', and 'a rocket ship'.
+
+<br>
+<br>
+<div align=center>
+    <div class="column">
+        <img src="media/snowy-20.png" style="width:25%"><img src ="media/hat-20.png" style="width:25%"><img src ="media/rocket-20.png" style="width:25%">
+    </div>
+</div>
+
+<div align=center>
+    <div class="column">
+        <img src="media/snowy-200.png" style="width:25%"><img src ="media/hat-200.png" style="width:25%"><img src ="media/rocket-200.png" style="width:25%">
+    </div>
+</div>
+
+<hr>
+
+<table align=center></table>
+    <center><h1>Part 1: Sampling Loops</h1></center>
+</table>
+
+<table align=center></table>
+    <left><h2>1.1. Implementing the Forward Process</h2></left>
+</table>
+
+The first thing we must implement in our journey towards diffusion is the forward process, which adds noise to a clean image.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/campanile-small.png" style="width: 100%;">
+            <p>Campanile</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.1/forward-250.png" style="width: 100%;">
+            <p>t=250</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.1/forward-500.png" style="width: 100%;">
+            <p>t=500</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.1/forward-750.png" style="width: 100%;">
+            <p>t=750</p>
+        </div>
+    </div>
+</div>
+
+<!-- <div align=center>
+    <div class="row">
+        <img src= "media/campanile-small.png" style="width:22%">
+        <img src ="media/1.1/forward-250.png" style="width:22%">
+        <img src ="media/1.1/forward-500.png" style="width:22%">
+        <img src ="media/1.1/forward-750.png" style="width:22%">
+    </div>
+</div> -->
+
+<table align=center></table>
+    <left><h2>1.2. Classical Denoising</h2></left>
+</table>
+
+One simple classical method we can use to denoise the images is Gaussian blur filtering, which is basically just a convolution with a Gaussian filter. The results aren't impressive.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.1/forward-250.png" style="width: 100%;">
+            <p>Noisy t=250</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.1/forward-500.png" style="width: 100%;">
+            <p>Noisy t=500</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.1/forward-750.png" style="width: 100%;">
+            <p>Noisy t=750</p>
+        </div>
+    </div>
+</div>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.2/gauss-250.png" style="width: 100%;">
+            <p>Denoised t=250</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.2/gauss-500.png" style="width: 100%;">
+            <p>Denoised t=500</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.2/gauss-750.png" style="width: 100%;">
+            <p>Denoised t=750</p>
+        </div>
+    </div>
+</div>
+
+<table align=center></table>
+    <left><h2>1.3. One-Step Denoising</h2></left>
+</table>
+
+We can now use the model to implement one-step denoising, which produces decent results.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.1/forward-250.png" style="width: 100%;">
+            <p>Noisy t=250</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.1/forward-500.png" style="width: 100%;">
+            <p>Noisy t=500</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.1/forward-750.png" style="width: 100%;">
+            <p>Noisy t=750</p>
+        </div>
+    </div>
+</div>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.3/one-step-250.png" style="width: 100%;">
+            <p>Denoised t=250</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.3/one-step-500.png" style="width: 100%;">
+            <p>Denoised t=500</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.3/one-step-750.png" style="width: 100%;">
+            <p>Denoised t=750</p>
+        </div>
+    </div>
+</div>
+
+<table align=center></table>
+    <left><h2>1.4. Iterative Denoising</h2></left>
+</table>
+
+Diffusion models are designed to denoise iteratively, so let's implement that. Here is the Campanile denoised iteratively.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.4/t-690.png" style="width: 100%;">
+            <p>Noisy t=690</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.4/t-540.png" style="width: 100%;">
+            <p>Noisy t=540</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.4/t-390.png" style="width: 100%;">
+            <p>Noisy t=390</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.4/t-240.png" style="width: 100%;">
+            <p>Noisy t=240</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.4/t-90.png" style="width: 100%;">
+            <p>Noisy t=90</p>
+        </div>
+    </div>
+</div>
+<br>
+
+Let's compare the iterative denoising with the one-step and Gaussian denoising we tried previously.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.4/forward-690.png" style="width: 100%;">
+            <p>Noisy t=690</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.4/gauss-690.png" style="width: 100%;">
+            <p>Gauss</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.4/one-step-690.png" style="width: 100%;">
+            <p>One-Step</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.4/iterative-690.png" style="width: 100%;">
+            <p>Iterative</p>
+        </div>
+    </div>
+</div>
+<br>
+
+We observe that the iterative denoising produces the clearest and most detailed image, although it kind of invents new details that weren't present in the original clean image.
+
+<table align=center></table>
+    <left><h2>1.5. Diffusion Model Sampling</h2></left>
+</table>
+
+By setting i_start=0 and starting with random noise for our iterative denoising, we can generate totally new images with diffusion! The prompt used is 'a high quality photo'. They are vaguely believable, but sometimes don't really look like anything when you examine them too closely.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.5/random-1.png" style="width: 100%;">
+            <p>Sample 1</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.5/random-2.png" style="width: 100%;">
+            <p>Sample 2</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.5/random-3.png" style="width: 100%;">
+            <p>Sample 3</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.5/random-4.png" style="width: 100%;">
+            <p>Sample 4</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.5/random-5.png" style="width: 100%;">
+            <p>Sample 5</p>
+        </div>
+    </div>
+</div>
+
+<table align=center></table>
+    <left><h2>1.6. Classifier-Free Guidance (CFG)</h2></left>
+</table>
+
+To improve image quality (at the expense of image diversity), we can use <a href="https://arxiv.org/abs/2207.12598">Classifier-Free Guidance</a>, or CFG. In CFG, we compute both a conditional and an unconditional noise estimate, and build our estimated error off of both of them. Why this works is apparently still up to debate. Here are some samples generated using CFG.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.6/cfg-1.png" style="width: 100%;">
+            <p>Sample 1 (CFG)</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.6/cfg-2.png" style="width: 100%;">
+            <p>Sample 2 (CFG)</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.6/cfg-3.png" style="width: 100%;">
+            <p>Sample 3 (CFG)</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.6/cfg-4.png" style="width: 100%;">
+            <p>Sample 4 (CFG)</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.6/cfg-5.png" style="width: 100%;">
+            <p>Sample 5 (CFG)</p>
+        </div>
+    </div>
+</div>
+
+<table align=center></table>
+    <left><h2>1.7. Image-to-Image Translation</h2></left>
+</table>
+
+In this part, we'll implement image-to-image translation following the <a href="https://sde-image-editing.github.io/">SDEdit</a> algorithm. We take our original clean image, add noise, and then run CFG to generate a realistic image. With different values of i_start, we get images that look variably similar to the originals.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/campanile-1.png" style="width: 100%;">
+            <p>i_start=1</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/campanile-3.png" style="width: 100%;">
+            <p>i_start=3</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/campanile-5.png" style="width: 100%;">
+            <p>i_start=5</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/campanile-7.png" style="width: 100%;">
+            <p>i_start=7</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/campanile-10.png" style="width: 100%;">
+            <p>i_start=10</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/campanile-20.png" style="width: 100%;">
+            <p>i_start=20</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/campanile-small.png" style="width: 100%;">
+            <p>Campanile</p>
+        </div>
+    </div>
+</div>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/berkeley-1.png" style="width: 100%;">
+            <p>i_start=1</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/berkeley-3.png" style="width: 100%;">
+            <p>i_start=3</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/berkeley-5.png" style="width: 100%;">
+            <p>i_start=5</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/berkeley-7.png" style="width: 100%;">
+            <p>i_start=7</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/berkeley-10.png" style="width: 100%;">
+            <p>i_start=10</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/berkeley-20.png" style="width: 100%;">
+            <p>i_start=20</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/berkeley.png" style="width: 100%;">
+            <p>Berkeley</p>
+        </div>
+    </div>
+</div>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/chinatown-1.png" style="width: 100%;">
+            <p>i_start=1</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/chinatown-3.png" style="width: 100%;">
+            <p>i_start=3</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/chinatown-5.png" style="width: 100%;">
+            <p>i_start=5</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/chinatown-7.png" style="width: 100%;">
+            <p>i_start=7</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/chinatown-10.png" style="width: 100%;">
+            <p>i_start=10</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/chinatown-20.png" style="width: 100%;">
+            <p>i_start=20</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7/chinatown.png" style="width: 100%;">
+            <p>Chinatown</p>
+        </div>
+    </div>
+</div>
+
+<table align=center></table>
+    <left><h2>1.7.1. Editing Hand-Drawn and Web Images</h2></left>
+</table>
+
+We can apply this same technique to images from the internet (brainrot) and hand-drawn images (circle Kenny and golden state). I also tried some digital art I drew of Berkeley (wallpaper), which I think turned out the best of them all.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/brainrot-1.png" style="width: 100%;">
+            <p>i_start=1</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/brainrot-3.png" style="width: 100%;">
+            <p>i_start=3</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/brainrot-5.png" style="width: 100%;">
+            <p>i_start=5</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/brainrot-7.png" style="width: 100%;">
+            <p>i_start=7</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/brainrot-10.png" style="width: 100%;">
+            <p>i_start=10</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/brainrot-20.png" style="width: 100%;">
+            <p>i_start=20</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/brainrot.png" style="width: 100%;">
+            <p>brainrot</p>
+        </div>
+    </div>
+</div>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/circle-1.png" style="width: 100%;">
+            <p>i_start=1</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/circle-3.png" style="width: 100%;">
+            <p>i_start=3</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/circle-5.png" style="width: 100%;">
+            <p>i_start=5</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/circle-7.png" style="width: 100%;">
+            <p>i_start=7</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/circle-10.png" style="width: 100%;">
+            <p>i_start=10</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/circle-20.png" style="width: 100%;">
+            <p>i_start=20</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/circle.png" style="width: 100%;">
+            <p>circle Kenny</p>
+        </div>
+    </div>
+</div>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/bay-1.png" style="width: 100%;">
+            <p>i_start=1</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/bay-3.png" style="width: 100%;">
+            <p>i_start=3</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/bay-5.png" style="width: 100%;">
+            <p>i_start=5</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/bay-7.png" style="width: 100%;">
+            <p>i_start=7</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/bay-10.png" style="width: 100%;">
+            <p>i_start=10</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/bay-20.png" style="width: 100%;">
+            <p>i_start=20</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/bay.png" style="width: 100%;">
+            <p>golden state</p>
+        </div>
+    </div>
+</div>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/berkeley-1.png" style="width: 100%;">
+            <p>i_start=1</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/berkeley-3.png" style="width: 100%;">
+            <p>i_start=3</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/berkeley-5.png" style="width: 100%;">
+            <p>i_start=5</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/berkeley-7.png" style="width: 100%;">
+            <p>i_start=7</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/berkeley-10.png" style="width: 100%;">
+            <p>i_start=10</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/berkeley-20.png" style="width: 100%;">
+            <p>i_start=20</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.1/berkeley.png" style="width: 100%;">
+            <p>wallpaper</p>
+        </div>
+    </div>
+</div>
+
+<table align=center></table>
+    <left><h2>1.7.2. Inpainting</h2></left>
+</table>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.2/inpainting-1.png" style="width: 100%;">
+            <p>i_start=1</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.2/inpainting-2.png" style="width: 100%;">
+            <p>i_start=3</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.2/inpainting-3.png" style="width: 100%;">
+            <p>i_start=5</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.2/inpainting-4.png" style="width: 100%;">
+            <p>i_start=7</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.2/inpainting-5.png" style="width: 100%;">
+            <p>i_start=10</p>
+        </div>
+    </div>
+</div>
+
+<table align=center></table>
+    <left><h2>1.7.3. Text-Conditional Image-to-Image Translation</h2></left>
+</table>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.3/campanile-rocket-1.png" style="width: 100%;">
+            <p>i_start=1</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.3/campanile-rocket-3.png" style="width: 100%;">
+            <p>i_start=3</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.3/campanile-rocket-5.png" style="width: 100%;">
+            <p>i_start=5</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.3/campanile-rocket-7.png" style="width: 100%;">
+            <p>i_start=7</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.3/campanile-rocket-10.png" style="width: 100%;">
+            <p>i_start=10</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.3/campanile-rocket-20.png" style="width: 100%;">
+            <p>i_start=20</p>
+        </div>
+    </div>
+</div>
+
+<table align=center></table>
+    <left><h2>1.8. Visual Anagrams</h2></left>
+</table>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.8/flip-man-campfire-2.png" style="width: 100%;">
+            <p>i_start=1</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.8/flip-snowy-campfire.png" style="width: 100%;">
+            <p>i_start=1</p>
+        </div>
+    </div>
+</div>
+
+<table align=center></table>
+    <left><h2>1.9. Hybrid Images</h2></left>
+</table>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.9/hybrid-skull-waterfalls.png" style="width: 100%;">
+            <p>i_start=1</p>
+        </div>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+
+<table align=center></table>
+    <center><h1>Project 5B: Diffusion Models from Scratch!</h1></center>
+</table>
+
+<hr>
+<hr>
+<hr>
+
+<table align=center></table>
+    <center><h1>Part 1: Training a Single-Step Denoising UNet</h1></center>
+</table>
+
+<!-- <table align=center></table>
+    <left><h2>1.1. Implementing the UNet</h2></left>
+</table> -->
+
+<table align=center></table>
+    <center><h1>Part 2: Training a Diffusion Model</h1></center>
+</table>
+
+In this part, we will implement and train our own diffusion model from scratch on the MNIST digits dataset!
+
+<table align=center></table>
+    <left><h2>Training a Denoiser</h2></left>
+</table>
+
+<div align=center>
+    <div class="column">
+        <img src="media/2/unconditional_arch.png" style="width:80%">
+    </div>
+</div>
+
+First, let's train a UNet for denoising. It has a few downsampling blocks and upsampling blocks with skip connections.
+<br>
+<br>
+We can generate noisy samples for training at various values of sigma.
+
+<br>
+<br>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:50%; text-align: center;">
+            <img src="media/2/noising/noising-sc.png" style="width: 80%;">
+            <p>Noising with sigma=0.0, 0.2, 0.4, 0.6, 0.8</p>
+        </div>
+    </div>
+</div>
+
+<br>
+
+Training our model with the Adam optimizer with learning rate 1e-4, we get FIXME.
+
+<br>
+<br>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:50%; text-align: center;">
+            <img src="media/2/uncond-sc.png" style="width: 100%;">
+            <p>Denoising results for sigma = 0.0, 0.2, 0.4, 0.6, 0.8, 1.0</p>
+        </div>
+    </div>
+</div>
+
+<table align=center></table>
+    <left><h2>Adding Time-Conditioning to the UNet</h2></left>
+</table>
+
+<div align=center>
+    <div class="column">
+        <img src="media/2/conditional_arch.png" style="width:80%">
+    </div>
+</div>
+
+<br>
+
+To inject scalar t into our UNet model, we modify the model as shown, using fully-connected layers to process t. Note that t is normalized before being fed into the model.
+
+<br>
+<br>
+
+<div align=left>
+    <div class="column">
+        <img src="media/2/time_conditioned_training.png" style="width:55%">
+    </div>
+</div>
+
+<div align=left>
+    <div class="column">
+        <img src="media/2/time_conditioned_sampling.png" style="width:30%">
+    </div>
+</div>
+<br>
+
+Using these algorithms from the DDPM paper, we can train our diffusion model and sample from it. Here are the sampling results after epochs 1, 5, 10, and 20.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:50%; text-align: center;">
+            <img src="media/2/time_cond/sampling-epoch-1.png" style="width: 90%;">
+            <p>Epoch 1</p>
+        </div>
+        <div class="column" style="width:50%; text-align: center;">
+            <img src="media/2/time_cond/sampling-epoch-5.png" style="width: 90%;">
+            <p>Epoch 5</p>
+        </div>
+    </div>
+</div>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:50%; text-align: center;">
+            <img src="media/2/time_cond/sampling-epoch-10.png" style="width: 90%;">
+            <p>Epoch 10</p>
+        </div>
+        <div class="column" style="width:50%; text-align: center;">
+            <img src="media/2/time_cond/sampling-epoch-15.png" style="width: 90%;">
+            <p>Epoch 15</p>
+        </div>
+    </div>
+</div>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:50%; text-align: center;">
+            <img src="media/2/time_cond/sampling-epoch-20.png" style="width: 90%;">
+            <p>Epoch 20</p>
+        </div>
+    </div>
+</div>
+
+<table align=center></table>
+    <left><h2>Adding Class-Conditioning to the UNet</h2></left>
+</table>
+
+We can condition the UNet on the digit 0-9 to allow us to generate specific digits, and improve the results. We input a one-hot vector encoding class (c) into the model and connect it using some fully-connected layers. However, because we would like our model to still work without being given the class, we will implement dropout for c 10% of the time.
+
+<br>
+<br>
+<div align=left>
+    <div class="column">
+        <img src="media/2/class_conditioned_training.png" style="width:50%">
+    </div>
+</div>
+<br>
+<div align=left>
+    <div class="column">
+        <img src="media/2/class_conditioned_sampling.png" style="width:50%">
+    </div>
+</div>
+<br>
+
+We can use these algorithms to modify our training and sampling code for our class-conditioned model. Shown are sampling results for various epochs of training.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:50%; text-align: center;">
+            <img src="media/2/class_cond/sampling-epoch-1.png" style="width: 90%;">
+            <p>Epoch 1</p>
+        </div>
+        <div class="column" style="width:50%; text-align: center;">
+            <img src="media/2/class_cond/sampling-epoch-5.png" style="width: 90%;">
+            <p>Epoch 5</p>
+        </div>
+    </div>
+</div>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:50%; text-align: center;">
+            <img src="media/2/class_cond/sampling-epoch-10.png" style="width: 90%;">
+            <p>Epoch 10</p>
+        </div>
+        <div class="column" style="width:50%; text-align: center;">
+            <img src="media/2/class_cond/sampling-epoch-15.png" style="width: 90%;">
+            <p>Epoch 15</p>
+        </div>
+    </div>
+</div>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:50%; text-align: center;">
+            <img src="media/2/class_cond/sampling-epoch-20.png" style="width: 90%;">
+            <p>Epoch 20</p>
+        </div>
+    </div>
+</div>
+
+It works!
+
+<table align=center></table>
+    <center><h1>Reflection</h1></center>
+</table>
+
+Possibly the most challenging solo project I've ever done. Debugging the neural networks in Part B was extremely difficult, as unlike other code, it's difficult to pinpoint where issues come from in ML. However, I also feel that this is one of the most worthwhile and interesting projects I've ever done. I learned a lot about PyTorch, diffusion models, and machine learning in general.
+<br>
+<br>
+
+<table align=center style="margin-bottom: 50px">
+    <tr>
+        <td>
+            <left>
+                <center><h1>Acknowledgements</h1></center>
+            This project is a course project for CS 180. Website template is used with permission from Bill Zheng in the Fall 2023 iteration of the class.
+            </left>
+        </td>
+    </tr>
+</table>
+
+</body>
