@@ -181,7 +181,7 @@ In this project, we have some fun with diffusion models! In Part A, we use the p
     <center><h1>Part 0: Setup</h1></center>
 </table>
 
-For Part A of this project, we'll be using the <a href="https://huggingface.co/docs/diffusers/api/pipelines/deepfloyd_if">DeepFloyd IF</a> diffusion model. Let's try generating some images using the prompts 'an oil painting of a snowy mountain village', 'a man wearing a hat', and 'a rocket ship'.
+For Part A of this project, we'll be using the <a href="https://huggingface.co/docs/diffusers/api/pipelines/deepfloyd_if">DeepFloyd IF</a> diffusion model. Let's try generating some images using the prompts 'an oil painting of a snowy mountain village', 'a man wearing a hat', and 'a rocket ship'. In the second row, num_inference_steps has been increased from 20 to 200 for both stages.
 
 <br>
 <br>
@@ -707,6 +707,27 @@ We can apply this same technique to images from the internet (brainrot) and hand
 <div align="center">
     <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
         <div class="column" style="width:20%; text-align: center;">
+            <img src="media/campanile-small.png" style="width: 100%;">
+            <p>Original</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.2/mask.png" style="width: 100%;">
+            <p>Mask</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.7.2/to-replace.png" style="width: 100%;">
+            <p>To Replace</p>
+        </div>
+    </div>
+</div>
+
+By forcing the image to remain the same except for a masked area, we can fill in an image in the masked area. Here, we generate a new top for the Campanile (which DeepFloyd seems to like to think is a lighthouse).
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
             <img src="media/1.7.2/inpainting-1.png" style="width: 100%;">
             <p>i_start=1</p>
         </div>
@@ -733,6 +754,10 @@ We can apply this same technique to images from the internet (brainrot) and hand
     <left><h2>1.7.3. Text-Conditional Image-to-Image Translation</h2></left>
 </table>
 
+In our original image-to-image translation, we simply used the prompt 'a high quality image'. Instead, we can change this prompt to something more specific.
+
+<br>
+<br>
 <div align="center">
     <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
         <div class="column" style="width:20%; text-align: center;">
@@ -766,15 +791,43 @@ We can apply this same technique to images from the internet (brainrot) and hand
     <left><h2>1.8. Visual Anagrams</h2></left>
 </table>
 
+We can also use the denoiser to do some interesting visual illusions. At each step, by running the model to estimate noise for one prompt, and running the model to estimate noise for a different prompt on the flipped image at the same time, we can make the image look like something different when flipped upside down.
+
+<br>
+<br>
 <div align="center">
-    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+    <div class="row" style="display: flex; justify-content: center; align-items: top; gap: 5px;">
         <div class="column" style="width:20%; text-align: center;">
             <img src="media/1.8/flip-man-campfire-2.png" style="width: 100%;">
-            <p>i_start=1</p>
+            <p>'an oil painting of an old man' + 'an oil painting of people around a campfire'</p>
         </div>
         <div class="column" style="width:20%; text-align: center;">
             <img src="media/1.8/flip-snowy-campfire.png" style="width: 100%;">
-            <p>i_start=1</p>
+            <p>'an oil painting of a snowy mountain village' + 'an oil painting of people around a campfire'</p>
+        </div>
+    </div>
+</div>
+
+Using the prompts 'an oil painting of people around a campfire' and 'a photo of the amalfi coast' produces particularly reliable and pretty results.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: top; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.8/flip-campfire-coast-1.png" style="width: 100%;">
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.8/flip-campfire-coast-2.png" style="width: 100%;">
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.8/flip-campfire-coast-3.png" style="width: 100%;">
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.8/flip-campfire-coast-4.png" style="width: 100%;">
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.8/flip-campfire-coast-5.png" style="width: 100%;">
         </div>
     </div>
 </div>
@@ -783,11 +836,23 @@ We can apply this same technique to images from the internet (brainrot) and hand
     <left><h2>1.9. Hybrid Images</h2></left>
 </table>
 
+We can also create hybrid images using a similar technique that look like something different if you squint.
+
+<br>
+<br>
 <div align="center">
-    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+    <div class="row" style="display: flex; justify-content: center; align-items: top; gap: 5px;">
         <div class="column" style="width:20%; text-align: center;">
             <img src="media/1.9/hybrid-skull-waterfalls.png" style="width: 100%;">
-            <p>i_start=1</p>
+            <p>'a lithograph of a skull' + 'a lithograph of waterfalls'</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.9/hybrid-oldman-coast.png" style="width: 100%;">
+            <p>'an oil painting of an old man' + 'a photo of the amalfi coast'</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1.9/hybrid-man-coast.png" style="width: 100%;">
+            <p>'a photo of a man' + 'a photo of the amalfi coast'</p>
         </div>
     </div>
 </div>
@@ -810,10 +875,6 @@ We can apply this same technique to images from the internet (brainrot) and hand
 <!-- <table align=center></table>
     <left><h2>1.1. Implementing the UNet</h2></left>
 </table> -->
-
-<table align=center></table>
-    <center><h1>Part 2: Training a Diffusion Model</h1></center>
-</table>
 
 In this part, we will implement and train our own diffusion model from scratch on the MNIST digits dataset!
 
@@ -859,6 +920,10 @@ Training our model with the Adam optimizer with learning rate 1e-4, we get FIXME
         </div>
     </div>
 </div>
+
+<table align=center></table>
+    <center><h1>Part 2: Training a Diffusion Model</h1></center>
+</table>
 
 <table align=center></table>
     <left><h2>Adding Time-Conditioning to the UNet</h2></left>
@@ -995,7 +1060,7 @@ It works!
     <center><h1>Reflection</h1></center>
 </table>
 
-Possibly the most challenging solo project I've ever done. Debugging the neural networks in Part B was extremely difficult, as unlike other code, it's difficult to pinpoint where issues come from in ML. However, I also feel that this is one of the most worthwhile and interesting projects I've ever done. I learned a lot about PyTorch, diffusion models, and machine learning in general.
+Possibly the most challenging solo project I've ever done. Debugging the neural networks in Part B was extremely difficult, as unlike in other code, it's difficult to pinpoint where issues come from in ML. However, I also feel that this is one of the most worthwhile and interesting projects I've ever done. I learned a lot about PyTorch, diffusion models, and machine learning in general.
 <br>
 <br>
 
