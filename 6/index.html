@@ -1,0 +1,373 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<!-- ======================================================================= -->
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js">
+  </script>
+<style type="text/css">
+    table {
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+    body {
+        font-family: "Titillium Web", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 300;
+        font-size: 18px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;
+    }
+
+    h1 {
+        font-weight: 300;
+    }
+
+    .disclaimerbox {
+        background-color: #eee;
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        padding: 20px;
+    }
+
+    video.header-vid {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    img {
+        width: 100%
+    }
+
+    img.header-img {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    img.rounded {
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    a:link, a:visited {
+        color: #1367a7;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #208799;
+    }
+
+    td.dl-link {
+        height: 160px;
+        text-align: center;
+        font-size: 22px;
+    }
+
+    .layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35), /* The third layer shadow */ 15px 15px 0 0px #fff, /* The fourth layer */ 15px 15px 1px 1px rgba(0, 0, 0, 0.35), /* The fourth layer shadow */ 20px 20px 0 0px #fff, /* The fifth layer */ 20px 20px 1px 1px rgba(0, 0, 0, 0.35), /* The fifth layer shadow */ 25px 25px 0 0px #fff, /* The fifth layer */ 25px 25px 1px 1px rgba(0, 0, 0, 0.35); /* The fifth layer shadow */
+        margin-left: 10px;
+        margin-right: 45px;
+    }
+
+
+    .layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35); /* The third layer shadow */
+        margin-top: 5px;
+        margin-left: 10px;
+        margin-right: 30px;
+        margin-bottom: 5px;
+    }
+
+    .vert-cent {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+
+    .mask{
+        background-color:aqua
+    }
+
+
+    #authors td {
+        padding-bottom: 5px;
+        padding-top: 30px;
+    }
+
+</style>
+
+
+<head>
+    <title>Fun with Diffusion Models!</title>
+    <meta property="og:title" content="CS180 Project 5"/>
+</head>
+
+<body>
+<center>
+    <span style="font-size:36px">CS180 Project 6: Neural Radiance Fields (NeRF)</span>
+    <br>
+    <br>
+    <table align=center>
+        <tr>
+            <span style="font-size:24px"><a >Kenny Wang</a></span> &nbsp;
+            
+        </tr><br>
+        <tr>
+            <span style="font-size:16px"><a>SID: 3037341680</a></span> &nbsp;
+        </tr><br>
+        <tr>
+    </tr>
+    </table>
+
+    <table align=center></table>
+        <tr>
+            <td align=center>
+                <center>
+                    <span style="font-size:20px">
+                        UC Berkeley 
+                    </span>
+                </center>
+            </td>
+        </tr>
+    </table>
+    <br>
+</center>
+
+<div align=center>
+    <div>
+        <img src="media/30k-anim.gif" style="width:40%">
+    </div>
+</div>
+
+<table align=center></table>
+    <center><h1>Overview</h1></center>
+</table>
+
+In this project, we train a neural radiance field representation for this cute little lego tracked loader.
+
+<br>
+<br>
+<hr>
+<hr>
+<hr>
+
+<center>
+    <h1>Part 1: Fitting a Neural Field to a 2D Image</h1>
+</center>
+
+We can use a Neural Radiance Field (NeRF) to represent a 3D scene, but let's start by practicing on a 2D example. We can train a Neural Field to represent a 2D image, predicting R, G, B values from x, y coordinates.
+
+<br>
+<br>
+
+Here is the neural network architecture we will use, a 4-layer multi-layer perceptron (MLP) architecture.
+
+<br>
+<br>
+<center>
+    <img src="media/1/nerf2d-arch.jpg" style="width:50%">
+</center>
+
+To sample for each batch/epoch, we will randomly select 10,000 points (with replacement, just to make the code faster/simpler) from the image. We're using the Adam optimizer with <code>lr=1e-2</code>, and MSE loss. Training until 20k epochs only takes about 1 minute!
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1/fox-100.jpg" style="width: 100%;">
+            <p>100 epochs</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1/fox-500.jpg" style="width: 100%;">
+            <p>500 epochs</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1/fox-20000.jpg" style="width: 100%;">
+            <p>20k epochs</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1/fox.jpg" style="width: 100%;">
+            <p>Original</p>
+        </div>
+    </div>
+</div>
+
+Here's the PSNR curve.
+
+<center>
+    <img src="media/1/psnr.png" style="width:40%">
+</center>
+
+<hr>
+<hr>
+<hr>
+
+<center>
+    <h1>Part 2: Fitting a Neural Radiance Field from Multi-view Images</h1>
+</center>
+
+<left><h3>2.1: Creating Rays from Cameras</h3></left>
+
+Before we can train our model, we can create some useful helper functions first.
+
+<br>
+<br>
+<b>Camera to World Coordinate Conversion.</b>
+First, we implement <code>x_w = transform(c2w, x_c)</code>, which takes in batched 3D camera coordinates <code>x_c</code> and a 4x4 camera-to-world matrix <code>c2w</code> and outputs batched 3D world coordinates. This is a straightforward matrix multiplication, but internally, the function also converts to and from homogeneous coordinates.
+
+<br>
+<br>
+<b>Pixel to Camera Coordinate Conversion.</b>
+<code>x_c = pixel_to_camera(K, uv, s)</code> takes in 3x3 intrinsic matrix <code>K</code>, batched 2D (u,v) pixel coordinates <code>uv</code>, and depth scalar <code>s</code>. It outputs the batched pixel coordinates converted into 3D camera coordinates. This involves just a bit of linear algebra.
+
+<br>
+<br>
+<b>Pixel to Ray.</b>
+<code>ray_o, ray_d = pixel_to_ray(K, c2w, uv)</code> converts pixel (u,v) coordinates into the origin and direction of their associated 3D ray. The function takes in 3x3 intrinsic matrix <code>K</code>, batched 4x4 camera-to-world matrices <code>c2w</code>, and batched 2D (u,v) pixel coordinates <code>uv</code>. It outputs <code>ray_o</code>, the 3D origin vector, and <code>ray_d</code>, the 3D direction vector of the ray.
+
+<left><h3>2.2: Sampling</h3></left>
+
+<b>Sampling Rays from Images.</b>
+I implemented a <code>RaysData</code> class to act as a dataloader, taking as parameters the intrinsic matrix <code>K</code>, a collection of images <code>imgs</code>, and the corresponding 4x4 camera-to-world matrices <code>c2ws</code>. It stores all the pixels in its set of images into one long flattened array, and has the method <code>sample_rays</code>. This method randomly selects <code>batch_size</code> pixels from the entire set of images, returning <code>ray_o</code> and <code>ray_d</code>, representing the rays for each of those pixels, and <code>rgb</code>, the RGB pixel values. This sampling function uses the helper functions we created earlier.
+
+<br>
+<br>
+<b>Sampling Points along Rays.</b>
+To sample points along rays, I implemented the function <code>sample_along_rays</code>, which takes in <code>ray_o</code> and <code>ray_d</code> to represent a batch of rays. It then outputs the 3D coordinates of 64 points along each ray between distances 2.0 and 6.0. The optional <code>perturb</code> parameter determines whether to add slight randomness to the otherwise evenly-spaced points, and is useful for training.
+
+<left><h3>2.3: Dataloading</h3></left>
+
+Using the visualization code, we can see an example of how rays and points would be sampled for one iteration of training our neural network. However, since we train using 10,000 rays at a time, I'll just show 100 of them.
+
+<br>
+<br>
+<center>
+    <img src="media/2/sample-points.png" style="width:40%">
+</center>
+
+<left><h3>2.4: Neural Radiance Field</h3></left>
+
+Now it's time to actually create our neural network. We will use a pretty big multi-layer perceptron network, much deeper than the 2D example. Note that this model takes in both 3d coordinates and the ray direction, and it needs to predict both RGB and density values.
+
+<br>
+<br>
+<center>
+    <img src="media/2/nerf-arch.png" style="width:80%">
+</center>
+
+<br>
+For training, we'll use the Adam optimizer with <code>lr=5e-4</code>.
+
+<left><h3>2.5: Volume Rendering</h3></left>
+
+The last step before training the model is to set up volume rendering. The volume rendering equation is:
+
+\[\begin{align}
+C(\mathbf{r})=\int_{t_n}^{t_f} T(t) \sigma(\mathbf{r}(t)) \mathbf{c}(\mathbf{r}(t), \mathbf{d}) d t, \text { where } T(t)=\exp \left(-\int_{t_n}^t \sigma(\mathbf{r}(s)) d s\right)
+\end{align}\]
+
+But we'll use the discrete approximation:
+
+\[\begin{align}
+    \hat{C}(\mathbf{r})=\sum_{i=1}^N T_i\left(1-\exp \left (-\sigma_i \delta_i\right)\right) \mathbf{c}_i, \text { where } T_i=\exp \left(-\sum_{j=1}^{i-1} \sigma_j \delta_j\right) 
+\end{align}\]
+
+where \(\textbf{c}_i\) is the RGB color output from our network at sample location \(i\), \(T_i\) is the probability of the ray <em>not</em> terminating before sample location \(i\), and \(1 - e^{-\sigma_i \delta_i}\) is the probability of terminating at sample location \(i\).
+
+<br>
+<br>
+Following this equation, we now write the function <code>volrend(sigmas, rgbs, step_size)</code> which takes in batched densities <code>sigmas</code>, batched RGB pixel values <code>rgbs</code>, and the distance between points in the ray <code>step_size</code>. The function outputs the final observed RGB pixel value.
+
+<left><h2>Putting it All Together</h2></left>
+
+After getting some initial results, I decided to train the model to 30,000 iterations overnight on my laptop. Here we can visualize the results of our model at different stages of training. Training for the full amount of time really helped nail down the small details, like the studs and holes in the lego pieces.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/2/100-20.jpg" style="width: 100%;">
+            <p>100 epochs</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/2/200-20.jpg" style="width: 100%;">
+            <p>200 epochs</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/2/500-20.jpg" style="width: 100%;">
+            <p>500 epochs</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/2/1k-20.jpg" style="width: 100%;">
+            <p>1k epochs</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/2/10k-20.jpg" style="width: 100%;">
+            <p>10k epochs</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/2/30k-20.jpg" style="width: 100%;">
+            <p>30k epochs</p>
+        </div>
+    </div>
+</div>
+
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:35%; text-align: center;">
+            <img src="media/1k-anim.gif" style="width: 100%;">
+            <p>1k epochs (< 20 minutes)</p>
+        </div>
+        <div class="column" style="width:35%; text-align: center;">
+            <img src="media/30k-anim.gif" style="width: 100%;">
+            <p>30k epochs (~9 hours)</p>
+        </div>
+    </div>
+</div>
+
+Here's the PSNR curve for training to 30k epochs.
+
+<center>
+    <img src="media/2/psnr.png" style="width:40%">
+</center>
+
+<center><h1>Reflection</h1></center>
+
+Possibly the second most challenging solo project I've ever done, after the diffusion project. Debugging tensor dimensions was an enormous pain, and the nature of neural networks makes debugging not so straightforward. However, I gained even more familiarity with PyTorch and learned more about ML.
+<br>
+<br>
+
+<table align=center style="margin-bottom: 50px">
+    <tr>
+        <td>
+            <left>
+                <center><h1>Acknowledgements</h1></center>
+            This project is a course project for CS 180. Website template is used with permission from Bill Zheng in the Fall 2023 iteration of the class.
+            </left>
+        </td>
+    </tr>
+</table>
+
+</body>
