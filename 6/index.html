@@ -221,7 +221,7 @@ Here's the PSNR curve.
 
 <br>
 <br>
-We can try messing with the hyperparameters too. Here's two examples. One is using <code>L=5</code> instead of 10, which we can see is worse. Another is using <code>lr=1e-3</code> instead of <code>lr=1e-2</code>, which is actually ... better than the standard params!!
+We can try messing with the hyperparameters too. Here's two examples. One is using <code>L=5</code> instead of 10 for the positional encoding, which we can see is worse. Another is using <code>lr=1e-3</code> instead of <code>lr=1e-2</code>, which is actually ... better than the standard params!!
 
 <br>
 <br>
@@ -436,15 +436,15 @@ To change the background color from black to something else, we just need to sli
     <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
         <div class="column" style="width:35%; text-align: center;">
             <img src="media/2/1k-white-20.jpg" style="width: 100%;">
-            <p>1k epochs (< 20 minutes)</p>
         </div>
         <div class="column" style="width:35%; text-align: center;">
             <img src="media/2/1k-blue-20.jpg" style="width: 100%;">
-            <p>30k epochs (~9 hours)</p>
         </div>
     </div>
 </div>
 
+<br>
+<br>
 Using this with the highly-trained model (30k iterations) actually reveals what I'm pretty sure is a black table that the model is resting on!
 
 <br>
