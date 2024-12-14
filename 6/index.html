@@ -219,6 +219,54 @@ Here's the PSNR curve.
     <img src="media/1/psnr.png" style="width:40%">
 </center>
 
+<br>
+<br>
+We can try messing with the hyperparameters too. Here's two examples. One is using <code>L=5</code> instead of 10, which we can see is worse. Another is using <code>lr=1e-3</code> instead of <code>lr=1e-2</code>, which is actually ... better than the standard params!!
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1/fox-L5-20000.jpg" style="width: 100%;">
+            <p>L=5</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1/fox-20000.jpg" style="width: 100%;">
+            <p>Standard Params</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1/fox-lr3-20000.jpg" style="width: 100%;">
+            <p>lr=1e-3</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1/fox.jpg" style="width: 100%;">
+            <p>Original</p>
+        </div>
+    </div>
+</div>
+
+Here's the PSNR curves for comparison.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:30%; text-align: center;">
+            <img src="media/1/psnr-L5.png" style="width: 100%;">
+            <p>L=5</p>
+        </div>
+        <div class="column" style="width:30%; text-align: center;">
+            <img src="media/1/psnr.png" style="width: 100%;">
+            <p>Standard Params</p>
+        </div>
+        <div class="column" style="width:30%; text-align: center;">
+            <img src="media/1/psnr-lr3.png" style="width: 100%;">
+            <p>lr=1e-3</p>
+        </div>
+    </div>
+</div>
+
 Let's try on another image.
 
 <br>
