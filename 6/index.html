@@ -219,6 +219,31 @@ Here's the PSNR curve.
     <img src="media/1/psnr.png" style="width:40%">
 </center>
 
+Let's try on another image.
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1/berkeley-100.jpg" style="width: 100%;">
+            <p>100 epochs</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1/berkeley-500.jpg" style="width: 100%;">
+            <p>500 epochs</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1/berkeley-20000.jpg" style="width: 100%;">
+            <p>20k epochs</p>
+        </div>
+        <div class="column" style="width:20%; text-align: center;">
+            <img src="media/1/berkeley.jpg" style="width: 100%;">
+            <p>Original</p>
+        </div>
+    </div>
+</div>
+
 <hr>
 <hr>
 <hr>
@@ -352,6 +377,31 @@ Here's the PSNR curve for training to 30k epochs.
 <center>
     <img src="media/2/psnr.png" style="width:40%">
 </center>
+
+<left><h2>Changing Background Color</h2></left>
+
+To change the background color from black to something else, we just need to slightly modify the volume rendering equation by adding one weighted extra term at the end for the background color. First, let's try with the less-trained model (1k iterations).
+
+<br>
+<br>
+<div align="center">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <div class="column" style="width:35%; text-align: center;">
+            <img src="media/2/1k-white-20.jpg" style="width: 100%;">
+            <p>1k epochs (< 20 minutes)</p>
+        </div>
+        <div class="column" style="width:35%; text-align: center;">
+            <img src="media/2/1k-blue-20.jpg" style="width: 100%;">
+            <p>30k epochs (~9 hours)</p>
+        </div>
+    </div>
+</div>
+
+Using this with the highly-trained model (30k iterations) actually reveals what I'm pretty sure is a black table that the model is resting on!
+
+<br>
+<br>
+<center><img src="media/30k-white-anim.gif" style="width:40%"></center>
 
 <center><h1>Reflection</h1></center>
 
