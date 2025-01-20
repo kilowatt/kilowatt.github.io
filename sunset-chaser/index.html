@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<link rel="stylesheet" href="style.css">
+
+<head>
+    <title>Sunset Chaser</title>
+    <meta property="og:title" content="Sunset Chaser"/>
+</head>
+
+<body>
+<center>
+    <span style="font-size:36px">Sunset Chaser</span>
+</center>
+
+<div style="text-align: center; font-size:32px; margin-top: 20px;">
+    Today's Sunset Time: <span id="sunset-time">Loading...</span>
+</div>
+
+<center>
+<img id="lawrence-image" src="https://www.ocf.berkeley.edu/~thelawrence/images/newview.jpg" alt="Lawrence View" style="width:80%">
+</center>
+
+<script>
+    function updateImage() {
+        const image = document.getElementById('lawrence-image');
+        const timestamp = new Date().getTime(); // Prevent caching by appending a unique query string
+        image.src = `https://www.ocf.berkeley.edu/~thelawrence/images/newview.jpg?time=${timestamp}`;
+    }
+
+    // Fetch today's sunset time
+    function fetchSunsetTime() {
+        // Use the Geolocation API to get the user's location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+
+                // Fetch sunset time using Sunrise-Sunset API
+                fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const sunsetUTC = new Date(data.results.sunset); // Sunset time in UTC
+                        const sunsetLocal = sunsetUTC.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        document.getElementById('sunset-time').textContent = sunsetLocal;
+                        // scheduleNotification(sunsetLocal); // Schedule notification
+                    })
+                    .catch(error => {
+                        document.getElementById('sunset-time').textContent = 'Unable to fetch sunset time.';
+                        console.error('Error fetching sunset time:', error);
+                    });
+            }, () => {
+                document.getElementById('sunset-time').textContent = 'Location permission denied.';
+            });
+        } else {
+            document.getElementById('sunset-time').textContent = 'Geolocation not supported.';
+        }
+    }
+
+    // Request notification permission
+    function requestNotificationPermission() {
+        if (Notification.permission === 'default') {
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    console.log('Notification permission granted.');
+                } else {
+                    console.log('Notification permission denied.');
+                }
+            });
+        }
+    }
+
+    // Schedule a notification 30 minutes before sunset
+    function scheduleNotification(sunsetTime) {
+        if (Notification.permission !== 'granted') {
+            console.log('Notifications are not permitted.');
+            return;
+        }
+
+        const currentTime = new Date();
+        const timeBeforeSunset = new Date(sunsetTime.getTime() - 30 * 60 * 1000); // 30 minutes before sunset
+        const delay = timeBeforeSunset.getTime() - currentTime.getTime();
+
+        if (delay > 0) {
+            console.log(`Notification scheduled for ${timeBeforeSunset.toLocaleTimeString()}`);
+            setTimeout(() => {
+                sendNotification();
+            }, delay);
+        } else {
+            console.log('Sunset is less than 30 minutes away or has already passed.');
+        }
+    }
+
+    // Function to send a notification with the current dynamic image
+    function sendNotification() {
+        if (Notification.permission === 'granted') {
+            const image = document.getElementById('lawrence-image');
+            const notificationOptions = {
+                body: "Lawrence",
+                icon: image.src,
+                image: image.src,
+            };
+
+            new Notification('Sunset Chaser', notificationOptions);
+        } else {
+            console.log('Notifications are not permitted.');
+        }
+    }
+
+    // Update sunset time and schedule daily
+    function scheduleDailyUpdate() {
+        // Fetch sunset time immediately on load
+        fetchSunsetTime();
+
+        // Schedule updates every 24 hours (86400000 ms)
+        setInterval(() => {
+            fetchSunsetTime();
+        }, 86400000);
+    }
+
+    // Request notification permission on page load
+    requestNotificationPermission();
+    fetchSunsetTime();
+
+    setInterval(updateImage, 30000); // every 30 seconds
+    setInterval(fetchSunsetTime, 3600000); // hourly
+    scheduleDailyUpdate();
+    
+</script>
+</body>
+</html>
