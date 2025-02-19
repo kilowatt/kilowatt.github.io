@@ -1,0 +1,201 @@
+<html>
+	<head>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+		<style>
+			h1 {
+				text-align: center;
+			}
+
+			.container {
+				margin: 0 auto;
+				padding: 60px 20%;
+			}
+
+			figure {
+				text-align: center;
+			}
+
+			img {
+				display: inline-block;
+			}
+
+			body {
+				font-family: 'Inter', sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+		<h1>CS184/284A Spring 2025 Homework 1 Write-Up</h1>
+		<div style="text-align: center;">Names: Kenny Wang, Harris Thai</div>
+
+		<br>
+
+		Link to webpage: <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+		
+		<br>
+
+		Link to GitHub repository: <a href="https://github.com/cal-cs184-student/sp25-hw1-abgs-all-bout-graphics">ABGs</a>
+
+		<!-- <figure>
+			<img src="images/image1.png" alt="Lion" style="width:50%"/>
+			<figcaption>You can add images with captions!</figcaption>
+		</figure> -->
+
+		<!--
+		We've already added one heading per task, to make your write-up as navigable when grading. Please fit your write-up within these sections!
+		-->
+
+		<h2>Overview</h2>
+		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+
+		<h2>Task 1: Drawing Single-Color Triangles</h2>
+		We rasterize triangles by iterating through the bounding box of the triangle and filling it if it is inside the triangle as determined by the line equation tests. The bounding box is given by the smallest and largest x and y coordinates among the triangle’s vertices. For a point to be inside, evaluating the line equations must either result in values all less than or equal to 0, or they are all greater than or equal to 0.
+		Our algorithm is no worse than one that checks each sample within the bounding box of the triangle because it literally checks each sample within the bounding box of the triangle.		
+
+        <br>
+
+        <center>
+        <img src="images/task1-zoom.png" width="40%">
+        <figcaption>Note clear aliasing effects</figcaption>
+        </center>
+
+		<!-- <p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="images/image1.png" width="400px"/>
+				  <figcaption>Caption goes here.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="images/image2.png" width="400px"/>
+				  <figcaption>Caption goes here.</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="images/image3.png" width="400px"/>
+				  <figcaption>Caption goes here.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="images/image4.png" width="400px"/>
+				  <figcaption>Caption goes here.</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div> -->
+		
+		<h2>Task 2: Antialiasing by Supersampling</h2>
+		To supersample, we divide each pixel into sample_rate subpixels and rasterize them. Therefore, we populate the sample buffer with sample_rate values per entry in the frame buffer. We resolve to framebuffer by taking the average of the sample_rate subpixels corresponding to each pixel. Supersampling is useful because taking more samples and then downsampling means that the image is smoother and there are less jaggies. To support supersampling, we had to modify fill_pixel to populate sample_rate subpixels in sample buffer for every pixel so that resolving to framebuffer would still work for rasterize_point and rasterize_line. The smoothing that supersampling provides helps us antialias the jagged edges on our triangles.
+
+        <br>
+        <br>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="images/task2-1.png" width="100%"/>
+				  <figcaption>Supersample Rate 1</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="images/task2-4.png" width="100%"/>
+				  <figcaption>Supersample Rate 4</figcaption>
+				</td>
+                <td style="text-align: center;">
+                    <img src="images/task2-16.png" width="100%"/>
+                    <figcaption>Supersample Rate 16</figcaption>
+                  </td>
+			  </tr>
+			</table>
+		</div>
+
+		<h2>Task 3: Transforms</h2>
+        <center>
+        <img src="images/task3-cubeman.png" width="50%">
+        <figcaption>We were trying to make cubeman pose as if it is running.</figcaption>
+        </center>
+
+		<h2>Task 4: Barycentric coordinates</h2>
+		<center>
+		<img src="images/task4-wheel.png" width="50%">
+		<figcaption>The color wheel.</figcaption>
+		</center>
+		Barycentric coordinates are coordinates that represent points by their relative distance from the vertices of a triangle.
+		<center>
+		<img src="images/task4-triangle.png" width="50%">
+		<figcaption>A color triangle.</figcaption>
+		</center>
+		To demonstrate, above is a triangle whose vertices are red, green and blue with the colors in between interpolated using barycentric coordinates. For example, the barycentric coordinates at the red corner are (1, 0, 0), indicating that the point is maximally close to the red corner and therefore, the color should be as close to red as possible. The point directly in between the red and green corners has barycentric coordinates (0.5, 0.5, 0), showing that it is equidistant from the red and green corners and it should therefore be a color that is 50% red and 50% green, corresponding to their barycentric coefficients. Lastly, the point in the middle has barycentric coordinates (⅓, ⅓, ⅓), which implies an equal mixing of red, green, and blue.
+
+		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
+		Pixel sampling involves picking a point from one image and using it as the color for another. In other words, it is the process of mapping (u, v) texture coordinates to (x, y) image coordinates to apply a texture to an image. We convert (x, y) coordinates to (u, v) coordinates by first converting to barycentric coordinates. We then use the barycentric coordinate coefficients (alpha, beta, gamma) and apply them to the (u, v) coordinates at the vertices of the triangle to get the (u, v) point. We obtain the color at that point by scaling up u and v by width and height, respectively, and sampling on the texture with that scaled point. The nearest pixel sampling method involves selecting the color at the pixel closest to the specified (u, v) point and the linear pixel sampling method involves finding the colors of the 4 nearest pixels to the point and interpolating them.
+		Compared to the nearest pixel sampling method, the bilinear pixel sampling method is noticeably smoother and has less aliasing. Since choosing the nearest pixel means that some pixels are entirely skipped, so bilinearly interpolating does a better job of capturing small details with minimal aliasing.
+
+        <br>
+        <br>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="images/task5-nearest-1.png" width="100%"/>
+				  <figcaption>Nearest PSM Sampling Rate 1</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="images/task5-nearest-16.png" width="100%"/>
+				  <figcaption>Nearest PSM Sampling Rate 16</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+                <td style="text-align: center;">
+                  <img src="images/task5-bilinear-1.png" width="100%"/>
+                  <figcaption>Bilinear PSM Sampling Rate 1</figcaption>
+				</td>
+				<td style="text-align: center;">
+                  <img src="images/task5-bilinear-16.png" width="100%"/>
+                  <figcaption>Bilinear PSM Sampling Rate 16</figcaption>
+				</td>
+			  </tr> 
+			</table>
+		</div>
+
+		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
+		Level sampling is pixel sampling from textures of different sizes, depending on the size of the detail. We determine the size of a feature by calculating the (u, v) values at (x, y), (x + 1, y), and (x, y + 1) and subtracting them to estimate the derivative of (u, v) in the x and y directions. Based on the log magnitude of these derivatives, we calculate a float level value. For the nearest level sampling method, we simply rounded to the nearest level and clipped it, but for the linear level sampling method, we got the color at the adjacent levels of the mipmap and linearly interpolated between them.
+		Increasing samples per pixel, or supersampling, is effective at antialiasing by smoothing out jagged edges, but the sample buffer requires sample_rate times more memory and processing this data makes rendering many times slower. Pixel sampling is useful for applying textures, but does not necessarily help with antialiasing. It also does not use much memory, just enough for the 0th layer texture, and is not much slower than normal rendering unless it is using the linear pixel sampling method, which causes a noticeable slowdown. Level sampling applies textures and provides a level of antialiasing, while using a moderate amount of memory for the mipmap levels and significant compute for rendering, especially if using the linear level sampling method.
+
+		<br>
+        <br>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="images/task6-goldbean-zero-nearest.png" width="100%"/>
+				  <figcaption>Zero LSM Nearest PSM Sampling Rate 1</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="images/task6-goldbean-zero-bilinear.png" width="100%"/>
+				  <figcaption>Zero LSM Bilinear PSM Sampling Rate 1</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+                <td style="text-align: center;">
+                  <img src="images/task6-goldbean-nearest-nearest.png" width="100%"/>
+                  <figcaption>Nearest LSM Nearest PSM Sampling Rate 1</figcaption>
+				</td>
+				<td style="text-align: center;">
+                  <img src="images/task6-goldbean-nearest-linear.png" width="100%"/>
+                  <figcaption>Nearest LSM Bilinear PSM Sampling Rate 1</figcaption>
+				</td>
+			  </tr> 
+			</table>
+		</div>
+		
+		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</div>
+	</body>
+</html>
