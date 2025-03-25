@@ -53,7 +53,7 @@
         <img src="media/4/CBbunny_s1024_l4_m5.png" width="800px"/>
         <br>
         <br>
-        <figcaption>Bunny!</figcaption>
+        <figcaption>Bunny! <3</figcaption>
 
 		<h2>Overview</h2>
 		TODO TODO
@@ -160,6 +160,73 @@
 				  <figcaption>Peter</figcaption>
 				</td>
 			  </tr>
+			</table>
+		</div>
+
+        <h3>BVH Timing Analysis</h3>
+
+        Using BVH gives us an enormous speedup in rendering! Here's some numbers. Note that building the BVH takes time too, but this is negligible, especially compared to the savings.
+
+        <br>
+        <br>
+
+        <div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+                <tr>
+                    <td style="text-align: center;">
+                        <figcaption>File</figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <figcaption>No BVH</figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <figcaption>With BVH</figcaption>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <figcaption>Teapot</figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <figcaption>6.7</figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <figcaption>0.19</figcaption>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <figcaption>Cow</figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <figcaption>17.2</figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <figcaption>0.17</figcaption>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <figcaption>Banana</figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <figcaption>3.6</figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <figcaption>0.14</figcaption>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <figcaption>Max Planck</figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <figcaption>498.6</figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <figcaption>0.56</figcaption>
+                    </td>
+                </tr>
 			</table>
 		</div>
 
