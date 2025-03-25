@@ -56,22 +56,22 @@
         <figcaption>Bunny! <3</figcaption>
 
 		<h2>Overview</h2>
-		TODO TODO
+		
+        In this assignment, our work very much built on top of itself. We implemented a large part of a rendering pipeline, starting with having rays sample the scene and detecting where they intersect primitives like triangles and spheres. We then implement a way to do this efficiently with Bounding Volume Hierarchies that split the mesh in a binary tree fashion to dramatically speed up the process of finding an intersection. We move on to direct lighting with zero-bounce illumination and then one-bounce illumination with both hemisphere and importance sampling on light sources. Naturally, we implement N-bounce lighting, or global illumination, and we implement a simple but effective technique for reducing computation time: Russian Roulette. Finally, we implement a highly effective yet still fast optimization called Adaptive Sampling, which samples rays until its value converges or it hits num_samples, whatever comes first. We learned a lot from completing this assignment, from the relatively simple math of intersections and pointer manipulation for constructing a BVH space efficiently, to the conceptually challenging but rewarding task of illuminating a point in space, first from light sources and extending our understanding to further bounces of light, all wrapped up nicely with a statistically satisfying adaptive sampling algorithm.
 
 		<h2>Part 1: Ray Generation and Scene Intersection</h2>
+
 		In the rendering pipeline, we start raytracing by dividing up the scene into tiles and then calling raytrace_pixel() for each pixel inside its extent. This function generates rays pointing out of the camera to detect what needs to be considered when rendering the pixel. The primitive intersection functions are useful to determine what surfaces these rays are incident upon.
-        <br>
-        <br>
+
+        <h3>Triangle Intersection Algorithm</h3>
+
         The triangle intersection algorithm we implemented was the Möller-Trumbore intersection algorithm. This algorithm uses the points of a triangle to calculate edges, and uses those edges along with the ray origin and direction to calculate the time t at which it intersects, as well as the barycentric coordinates at which it does.
 
+        <h3>Sphere Intersection Algorithm</h3>
 
-        <br>
-        <br>
+        We implemented the sphere intersection algorithm from the lecture slide, where we use the ray origin direction as well as the radius and center of the sphere to calculate quadratic coefficients. Solving this quadratic equation, we get either 0, 1, or 2 real, unique values of t, which we make sure is at least 0 to confirm that it happens on the direction of the ray, not in the opposite direction.
 
-        Here's a few early renders:
-
-        <br>
-        <br>
+        <h3>Some Renders</h3>
 
         <div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
@@ -165,7 +165,7 @@
 
         <h3>BVH Timing Analysis</h3>
 
-        Using BVH gives us an enormous speedup in rendering! Here's some numbers. Note that building the BVH takes time too, but this is negligible, especially compared to the savings.
+        Using BVH gives us an enormous speedup in rendering! Here's some numbers. Note that building the BVH takes time too, but this is negligible, especially compared to the savings. Without BVH, we need to run an O(N) check for every primitive, for each ray. Using BVH, we can cut that to O(log(N)) instead.
 
         <br>
         <br>
