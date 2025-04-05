@@ -1,0 +1,135 @@
+<html>
+	<head>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+		<style>
+			h1 {
+				text-align: center;
+			}
+
+			.container {
+				margin: 0 auto;
+				padding: 60px 20%;
+			}
+
+			figure {
+				text-align: center;
+			}
+
+			img {
+				display: inline-block;
+			}
+
+			body {
+				font-family: 'Inter', sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+		<h1>CS184/284A Spring 2025 Final Project</h1>
+		<h1>You Are My Sunshine: Realistic Sunset Rendering</h1>
+		<div style="text-align: center;">Names: Kenny Wang, Harris Thai, William Li, Max Phillips</div>
+
+		<br>
+
+		Link to webpage: <a href="kilowatt.github.io/final/proposal.html">kilowatt.github.io/final/proposal.html</a>
+
+		<!--
+		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
+		-->
+
+		<h2>Overview</h2>
+		We'd like to create a sunset rendering application that will allow us to simulate and, thus, figure out what days will have 'prettier' sunsets. We hope to include parameters including but not limited to: temperature, humidity, air quality, weather conditions, clouds, and foreground objects. Sunsetz are so cool!!!
+
+		<h2>Problem Description</h2>
+		We believe in the beauty of sunsets as part of what it means to be human. We wish to bring this life-changing experience to those unlucky few who are trapped within the confines of Soda and Cory. 
+
+		There are a lot of nuances and specifics in how the sky appears, and the math and physics involved in simulating this is very complicated and is something we would like to explore. For example, we need to implement Rayleigh scattering, refraction, clouds, and potentially other atmospheric effects like Mie scattering.
+		
+		<h2>Goals and Deliverables</h2>
+		We aim to create a sunset simulator which renders images of simulated sunsets. Starting with either Homework 3's rendering engine or implementing a shader, we plan to incorporate the following features:
+		<ul>
+			<li>The sun (plan)
+				<ul>
+					<li>We will model as a collection of light sources to account for the various wavelengths of light that the sun emits</li>
+					<li>The desired result is a sunset with streaks of many different colors</li>
+				</ul>
+			</li>
+			<li>Weather/atmospheric conditions such as temperature, humidity, and air quality (plan)
+				<ul>
+					<li>We expect to do this through some research on the physics and mathematical relationship between these conditions and how they reflect, refract, and scatter different wavelengths of light</li>
+					<li>The desired result is that when conditions are adjusted, renders vary to the naked eye and look approximately correct relative to real-life images</li>
+				</ul>
+			</li>
+			<li>Clouds, which we will probably model using Blender (plan)
+				<ul>
+					<li>We can initially model them as semi-transparent solids before modelling them as textured voxel spaces</li>
+					<li>The desired result is that we have clouds that look good visually and appropriately interact with the sunset and surrounding environment</li>
+				</ul>
+			</li>
+			<li>Foreground geometry like hills, buildings, and the Campanile (hope)
+				<ul>
+					<li>We would like to model these structures in a 3D modelling software like Blender</li>
+					<li>The desired result is structures that are properly lit by the sunset and are pleasant to the naked eye and with respect to reference photos</li>
+				</ul>
+			</li>
+			<li>Find the parameters that lead to a pretty sunset (hope)
+				<ul>
+					<li>We want to tune hyperparameters based on how subjectively pretty we find these sunsets to be</li>
+					<li>The desired result is the mathematically most beautiful sunset</li>
+				</ul>
+			</li>
+		</ul>
+		The demo we will create is a video of the sun going down, created by rendering sunsets with the sun at different angles relative to the horizon. We will measure the quality of our system by eye, comparing it to our own sunset photos.
+
+		<h2>Schedule</h2>
+		<ul>
+			<li>Week of April 7th:
+				<ul>
+					<li>We will figure out our rendering engine (homework 3 engine or third-party software like CUDA or OpenGL)</li>
+					<li>We will research the physics and math behind the relevant science (ie. atmospheric refraction, weather stuff)</li>
+				</ul>
+			</li>
+			<li>Week of April 14th:
+				<ul>
+					<li>We will implement basic sunset (no foreground objects, no weather, just sunlight passing through the atmosphere)</li>
+					<li>Goal for this week is to render some sunset simulations.</li>
+				</ul>
+			</li>
+			<li>Week of April 21st:
+				<ul>
+					<li>Simulate different parameters in the atmosphere, and generate renders of these effects
+						<ul>
+							<li>i.e. temperature, humidity, visibility</li>
+						</ul>
+					</li>
+					<li>Add clouds, simulate different physics through clouds
+						<ul>
+							<li>Try out different methods of creating clouds (blender?)</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>Week of April 28th:
+				<ul>
+					<li>Simulate foreground geometry, and make sure the sunset is reflected on this geometry accurately.</li>
+				</ul>
+			</li>
+		</ul>
+
+		<h2>Resources</h2>
+		We think we will initially start with Homework 3's rendering engine, but we hope to write a shader to save on processing time.
+		<ul>
+			<li>https://bensimonds.com/2014/10/02/atmospheric-rendering-with-osl/</li>
+			<li>https://github.com/BenSimonds/NishitaSky</li>
+			<li>https://developer.nvidia.com/gpugems/gpugems2/part-ii-shading-lighting-and-shadows/chapter-16-accurate-atmospheric-scattering</li>
+			<li>https://leifnode.com/2014/04/atmospheric-scattering-skybox-and-logarithmic-depth-buffering/</li>
+			<li>https://github.com/wwwtyro/glsl-atmosphere</li>
+			<li>https://cal-cs184-student.github.io/project-webpages-sp23-qs/final/final_report/final_report.html</li>
+			<li>https://youtu.be/DxfEbulyFcY?si=LfEUhIBaybmbW03T</li>
+			<li>https://www.youtube.com/watch?v=mBO0H1gvz5M</li>
+		</ul>
+		</div>
+	</body>
+</html>
