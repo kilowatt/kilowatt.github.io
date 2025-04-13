@@ -58,7 +58,7 @@
 
 		<h2>Overview</h2>
 		
-        In this project, we implement a physics-based cloth simulation, and only vaguely related, we also mess with some shaders!
+        In this project, we implement a physics-based cloth simulation, representing the cloth with a set of point masses and springs, simulating movement via numerical integration, and handling collisions with self and other objects. Only vaguely related, we also mess with some shaders!
 
 		<h2>Part 1: Masses and Springs</h2>
 
@@ -80,6 +80,21 @@
         </div>
 		
 		<h2>Part 2: Simulation via Numerical Integration</h2>
+
+        <div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+                <tr>
+                    <td style="text-align: center;">
+                        <img src="media/part2/2pinned.png" height="400px"/>
+                        <figcaption>2 pins</figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="media/part2/4pinned.png" height="400px"/>
+                        <figcaption>4 pins</figcaption>
+                    </td>
+                </tr>
+			</table>
+		</div>
 
         <h4>Describe the effects of changing the spring constant ks; how does the cloth behave from start to rest with a very low ks? A high ks?</h4>
 
@@ -462,6 +477,9 @@
                 </tr>
 			</table>
 		</div>
+        <br>
+        <br>
+        Unlike bump mapping, displacement mapping actually changes the locations of the vertices. This is more visible with the cloth than the sphere in this particular case. With coarsely defined points, displacement mapping can cause the surface to look a lot more jagged than it should be. On the other hand, if there are enough points, displacement mapping could perhaps a little bit more realistic since it's actually bumpy rather than just creating the illusion of bumpiness by modifying normals. Note that maybe we chose a suboptimal texture to showcase the differences between the two.
 
         <h3>Mirror Shading</h3>
 
@@ -479,7 +497,7 @@
                 </tr>
 			</table>
 		</div>
-        
+
 		</div>
 	</body>
 </html>
