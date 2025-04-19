@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+		<style>
+			h1 {
+				text-align: center;
+			}
+
+			.container {
+				margin: 0 auto;
+				padding: 60px 20%;
+			}
+
+			figure {
+				text-align: center;
+			}
+
+			img {
+				display: inline-block;
+			}
+
+			body {
+				font-family: 'Inter', sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+		<h1>CS184/284A Spring 2025 Final Project Checkpoint Write-Up</h1>
+		<div style="text-align: center;">Names: Kenny Wang, Harris Thai, Max Phillips, William Li</div>
+
+		<br>
+
+		Link to webpage: <a href="https://kilowatt.github.io/cs184/final/checkpoint.html">https://kilowatt.github.io/cs184/final/checkpoint.html</a>
+		
+		<br>
+
+		Link to GitHub repository: <a href="https://github.com/kilowatt/you-are-my-sunshine">https://github.com/kilowatt/you-are-my-sunshine</a>
+		<br>
+		Link to Slides: <a href="https://docs.google.com/presentation/d/1boYm0oVVnuwGY99kWB0qonKicNZ33P7kDJEDJFEE0ew/edit?usp=sharing">https://docs.google.com/presentation/d/1boYm0oVVnuwGY99kWB0qonKicNZ33P7kDJEDJFEE0ew/edit?usp=sharing</a>
+		<br>
+		Link to Video: <a href="https://drive.google.com/file/d/1zJf5GekGrx9mQf4TkkHC2XPlRq84uIlA/view?usp=sharing">https://drive.google.com/file/d/1zJf5GekGrx9mQf4TkkHC2XPlRq84uIlA/view?usp=sharing
+		<br>
+		</a>
+
+		<h2>Overview</h2>
+		This is our milestone website for the final project, You Are My Sunshine: Sunset Simulator. 
+
+
+		<h2>Summary of Progress</h2>
+		<p>
+			We deep-dived into the math and physics behind sunsets, including how the sunlight is scattered in the atmosphere. We read many articles and papers to get a deeper knowledge of the subject.
+		</p>
+		<p>
+			We decided to use ShaderToy as the platform for us to create our sunset simulator. Using ShaderToy, we implemented our basic sunset simulator that implements Rayleigh Scattering and Mie Scattering, giving us our desired goals for the milestone.
+		</p>
+		<p>
+			Our project has been progressing according to plan, as we planned to achieve a basic sunset simulator, and we have achieved exactly that. We will proceed as planned to the next steps, refining our sunset simulator and researching how to add other things to the simulator (ie. different atmospheric parameters or objects like clouds)
+		</p>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+                <td style="text-align: center;">
+                    <img src="rayleigh20.png" width="400px"/>
+                    <figcaption>Rayleigh scattering with sun brightness 20<br><br> </figcaption>
+                </td>
+                <td style="text-align: center;">
+                    <img src="mie5.png" width="400px"/>
+                    <figcaption>Mie scattering with sun brightness 5<br><br> </figcaption>
+                </td>
+				<td style="text-align: center;">
+				    <img src="mie2rayleigh20.png" width="400px"/>
+				    <figcaption>Rayleigh scattering + Mie scattering with sun brightness 20 and Mie effective sun brightness 2</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		</div>
+	</body>
+</html>

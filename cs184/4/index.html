@@ -453,6 +453,7 @@
 
         <h3>Displacement Mapping</h3>
 
+        <h4>Not so high</h4>
         <div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
                 <tr>
@@ -479,7 +480,34 @@
 		</div>
         <br>
         <br>
-        Unlike bump mapping, displacement mapping actually changes the locations of the vertices. This is more visible with the cloth than the sphere in this particular case. With coarsely defined points, displacement mapping can cause the surface to look a lot more jagged than it should be. On the other hand, if there are enough points, displacement mapping could perhaps a little bit more realistic since it's actually bumpy rather than just creating the illusion of bumpiness by modifying normals. Note that maybe we chose a suboptimal texture to showcase the differences between the two.
+        <h4>Cranked up</h4>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+                <tr>
+                    <td style="text-align: center;">
+                        <img src="media/part5/displacement_coarse2.png" height="300px"/>
+                        <figcaption>Coarse</figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="media/part5/displacement_coarse_sphere2.png" height="300px"/>
+                        <figcaption>Coarse (Sphere)</figcaption>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <img src="media/part5/displacement_fine2.png" height="300px"/>
+                        <figcaption>Fine</figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="media/part5/displacement_fine_sphere2.png" height="300px"/>
+                        <figcaption>Fine (Sphere)</figcaption>
+                    </td>
+                </tr>
+			</table>
+		</div>
+        <br>
+        <br>
+        Unlike bump mapping, displacement mapping actually changes the locations of the vertices. We've cranked up the height suuuper high so you can see. With coarsely defined points, displacement mapping can cause the surface to look a lot more jagged than it should be. On the other hand, if there are enough points, displacement mapping could perhaps a little bit more realistic since it's actually bumpy rather than just creating the illusion of bumpiness by modifying normals.
 
         <h3>Mirror Shading</h3>
 
