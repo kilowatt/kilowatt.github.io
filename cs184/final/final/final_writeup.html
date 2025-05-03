@@ -44,10 +44,9 @@
 		Link to Video: (TODO)
 
 		<h2>Abstract</h2>
-        We created a sunset rendering application that will allow us to simulate and, thus, figure out what days will have 'prettier' sunsets. We included weather factors, such as temperature, humidity, and air quality, to change the scattering of sunlight through the atmosphere. 
+        We created a sunset rendering application that will allow us to simulate pretty sunsets! It calculates and simulates Rayleigh and Mie atmospheric scattering, generating physically accurate skies. 
         
-        We also implemented clouds and foreground objects to simulate not just looking out into the ocean. We were inspired by the research papers we read(see below) to make our simulation as physically accurate as possible. 
-
+        We included tunable weather factors, such as temperature, humidity, and air quality, to change the scattering of sunlight through the atmosphere. We also implemented clouds and foreground objects to make our results even prettier.
 
 		<h2>Technical Approach</h2>
         <h3>Overview</h3>
@@ -74,7 +73,7 @@
 
 		$$L(P_c,P_a) = \int_{P_c}^{P_a} T(P_c, X) L_{sun}(X) ds$$
 
-		Transmittance T, representing the fraction of light that reaches between two points (doesn't get scattered away), can be calculated like so:
+		Transmittance T, representing the fraction of light that reaches between two points (doesn't get scattered away), can be calculated like so (note that we will eventually need to account for both Rayleigh and Mie scattering):
 
 		$$T(P_a, P_b) = \frac{L_a}{L_b} = \text{exp} \left\{ -\sum\limits_{P_a}^{P_b} \text{exp} ( \beta(h) ds )\right\}$$
 
@@ -102,7 +101,7 @@
 
 		$$\text{SkyColor}(P_c, P_a) = \text{SkyColor}_R(P_c, P_a) + \text{SkyColor}_M(P_c, P_a)$$
 
-		In our final code, we take a few algebraic shortcuts that allow us to reduce repeated computation.
+		In our final code, we also take a few algebraic shortcuts that allow us to reduce repeated computation.
         </p>
         <p>
             In the process of implementing our sunset simulator since the milestone, we noticed some bugs in our implementation. In our implementation of the sunset during the milestone, we saw that there would be artifacts when the sun was near the horizon, where the sun would be overly large, and light would "stick" to the sun as it moved. To fix this issue, we realized we had to normalize the color of the sun, which made the simulation look much more realistic. Below is a comparison of the two implementations:
