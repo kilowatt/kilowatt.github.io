@@ -63,12 +63,12 @@
         <div style="display: flex; flex-direction: column; align-items: center;">
             <table style="width: 100%; text-align: center; border-collapse: collapse;">
                 <td style="text-align: center;">
-                    <img src="diagram1.png" width="400px"/>
+                    <img src="diagram_1.png" width="400px"/>
                     <figcaption>Diagram<br><br> </figcaption>
                 </td>
             </table>
         </div>
-        <p>
+        <p></p>
 		For each pixel, we wish to calculate the total luminance, which we can represent with this equation. X represents a point along the ray that we're integrating over.
 
 		$$L(P_c,P_a) = \int_{P_c}^{P_a} T(P_c, X) L_{sun}(X) ds$$
@@ -102,7 +102,6 @@
 		$$\text{SkyColor}(P_c, P_a) = \text{SkyColor}_R(P_c, P_a) + \text{SkyColor}_M(P_c, P_a)$$
 
 		In our final code, we also take a few algebraic shortcuts that allow us to reduce repeated computation.
-        </p>
         <p>
             In the process of implementing our sunset simulator since the milestone, we noticed some bugs in our implementation. In our implementation of the sunset during the milestone, we saw that there would be artifacts when the sun was near the horizon, where the sun would be overly large, and light would "stick" to the sun as it moved. To fix this issue, we realized we had to normalize the color of the sun, which made the simulation look much more realistic. Below is a comparison of the two implementations:
         </p>
@@ -122,9 +121,9 @@
 
 
         <h3>Cloud Rendering</h3>
-        <p>Our shader generates dynamic, realistic clouds using fractal Brownian motion (fBm) to create detailed, evolving noise patterns. The process begins by computing a directional ray from the camera for each pixel and checking if it intersects the Earth, such that clouds are only rendered if the view ray doesn't hit the ground. </p>
-		<p>To simulate cloud motion, a time-dependent drift is added to the noise input, and the resulting coordinates are rotated to align the cloud layer at an angle, mimicking atmospheric perspective. The fBm function, built from multiple layers of 2D value noise, produces smooth, organic variations that resemble natural cloud structures. This raw noise value is transformed into a soft cloud mask using a smoothstep threshold, which controls where clouds appear based on density. </p>
-		<p>The mask is further modulated by altitude, fading clouds out near the horizon, and is limited to a specific area on the screen to keep clouds constrained to the sky. Lighting is then applied by mixing a sunlit cloud color with the sky's atmospheric radiance, and the final cloud color is blended into the scene based on cloud opacity and solar elevation, resulting in a soft, drifting cloudscape that evolves over time. </p>
+		<p>Using fractal Brownian motion to create detailed, natural patterns, our shader generates dynamic, realistic clouds. The process begins by computing a directional ray from the camera for each pixel and checking if it intersects the Earth, such that clouds are only rendered if the view ray doesn't hit the ground or other objects.</p>
+		<p></p>To simulate motion, time-dependent drift is added to the cloud, and the resulting coordinates are projected to align the cloud layer at an angle, mimicking atmospheric perspective. The fractal Brownian motion function, built from multiple layers of 2D value noise, produces smooth, natural variations that resemble natural cloud structures. This raw noise value is transformed into a soft cloud mask using a smoothstep threshold, which controls where clouds appear based on density.</p>
+		<p>The mask is further modified by altitude, fading clouds out near the horizon, and is limited to a specific area on the screen to keep clouds constrained to the sky. Lighting is then applied by mixing a sunlit cloud color with the sky's color, and the final cloud color is blended into the scene based on cloud opacity and solar elevation, resulting in a sky of fluffy clouds.</p>
 		<p>To give the illusion of depth, we rotate the vertical plane that the clouds are on by 80 degrees into the screen, such that it gives perspective to the viewer. This was accomplished by creating a rotation matrix and projecting onto it to determine the position at which we should sample.</p>
 		<p>We also have a few tunable knobs in our cloud implementation, particularly around the density of clouds(controlled by the lower and upper bound of the inputs to the smoothstep used to calculate the cloud mask, which controls the density of the clouds). The smoothstep function is used to turn raw FBM noise - which is continuous and wavy - into discrete, cloud-like regions with soft, fuzzy edges.</p>
         <p>We finally have 2 points to determine where the upper right and lower left bounds of the “cloudy region” is. In the final implementation, we render clouds across the entire width, and go from half way up to the top, ie, our bottom left coordinate would be (0.5, 0) and the top right coordinate would be (1, 1). We use this to only display clouds into certain locations, avoiding conflict with empty sky.</p>
@@ -191,6 +190,19 @@
             </table>
         </div>
         <h3>Sunset Simulation with Foreground Geometry</h3>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+                <td style="text-align: center;">
+                    <img src="campanile.png" width="400px"/>
+                    <figcaption>Realistic Berkeley Campus in the Foreground<br><br> </figcaption>
+                </td>
+                <td style="text-align: center;">
+                    <img src="cube.png" width="400px"/>
+                    <figcaption>Cube in the foreground<br><br> </figcaption>
+                </td>
+			  </tr>
+			</table>
+		</div>
         <h3>Sunset Simulation with Clouds</h3>
         <p>TODO: insert different clouds n shi</p>
         <div style="display: flex; flex-direction: column; align-items: center;">
@@ -207,60 +219,90 @@
 				    <img src="mie2rayleigh20.png" width="400px"/>
 				    <figcaption>Rayleigh scattering + Mie scattering with sun brightness 20 and Mie effective sun brightness 2</figcaption>
 				</td>
-			  </tr>
 			</table>
 		</div>
 
         <h3>Temperature and Relative Humidity</h3>
-        <p>Our shader renders the sky and environment based on physically accurate parameters. For example, Rayleigh scattering is the phenomenon that makes the sky appear blue, and our Rayleigh scattering coefficients are ddynamically computed depending on temperature, pressure, and relatie</p>
-        <p>Our shader generates dynamic, realistic clouds using fractal Brownian motion (fBm) to create detailed, evolving noise patterns. The process begins by computing a directional ray from the camera for each pixel and checking if it intersects the Earth, such that clouds are only rendered if the view ray doesn't hit the ground. </p>
-		<p>To simulate cloud motion, a time-dependent drift is added to the noise input, and the resulting coordinates are rotated to align the cloud layer at an angle, mimicking atmospheric perspective. The fBm function, built from multiple layers of 2D value noise, produces smooth, organic variations that resemble natural cloud structures. This raw noise value is transformed into a soft cloud mask using a smoothstep threshold, which controls where clouds appear based on density. </p>
-		<p>The mask is further modulated by altitude, fading clouds out near the horizon, and is limited to a specific area on the screen to keep clouds constrained to the sky. Lighting is then applied by mixing a sunlit cloud color with the sky's atmospheric radiance, and the final cloud color is blended into the scene based on cloud opacity and solar elevation, resulting in a soft, drifting cloudscape that evolves over time. </p>
-		<p>To give the illusion of depth, we rotate the vertical plane that the clouds are on by 80 degrees into the screen, such that it gives perspective to the viewer. This was accomplished by creating a rotation matrix and projecting onto it to determine the position at which we should sample.</p>
-		<p>We also have a few tunable knobs in our cloud implementation, particularly around the density of clouds(controlled by the lower and upper bound of the inputs to the smoothstep used to calculate the cloud mask, which controls the density of the clouds). The smoothstep function is used to turn raw FBM noise - which is continuous and wavy - into discrete, cloud-like regions with soft, fuzzy edges.</p>
-        <p>We finally have 2 points to determine where the upper right and lower left bounds of the “cloudy region” is. In the final implementation, we render clouds across the entire width, and go from half way up to the top, ie, our bottom left coordinate would be (0.5, 0) and the top right coordinate would be (1, 1). We use this to only display clouds into certain locations, avoiding conflict with empty sky.</p>
-		
-		<h3>Clouds with varied box size</h3>
+        <p>Our shader renders the sky and environment based on physically accurate parameters.</p>
+        <p>For example, Rayleigh scattering is the phenomenon that makes the sky appear blue, and our Rayleigh scattering coefficients are dynamically computed depending on light wavelength, temperature, and relative humidity.</p>
+        <p>The parameters we have exposed are cloudiness from 0.0 to 1.0 (see above), temperature in Celsius, and relative humidity from 0.0 to 1.0</p>
+
+        <h3>Equations</h3>
         <div style="display: flex; flex-direction: column; align-items: center;">
                 <table style="width: 100%; text-align: center; border-collapse: collapse;">
             <td style="text-align: center;">
-                <img src="clouds_2_4.png" width="400px"/>
-                <figcaption>cloud with corners (.2, .2) and (.8, .8)<br><br> </figcaption>
+                <img src="n_tp.png" width="400px"/>
+                <figcaption>Equation for air's index of refraction at given temperature and pressure<br><br> </figcaption>
             </td>
             <td style="text-align: center;">
-				<img src="clouds-4x6.png" width="400px"/>
-                <figcaption>cloud with corners (.4, .4) and (.6, .6)<br><br> </figcaption>
+				<img src="n_s.png" width="400px"/>
+                <figcaption>Equation for air's index of refraction at standard pressure and temperature given wavenumber of light<br><br> </figcaption>
+            </td>
+                  </tr>
+                </table>
+            <td style="text-align: center;">
+				<img src="rho.png" width="400px"/>
+                <figcaption>Equation for air density based on temperature and humidity<br><br> </figcaption>
             </td>
                   </tr>
                 </table>
             </div>
-			
-		<h3>Clouds with varied cloud densities</h3>
-			<div style="display: flex; flex-direction: column; align-items: center;">
-					<table style="width: 100%; text-align: center; border-collapse: collapse;">
-				<td style="text-align: center;">
-					<img src="clouds_2_4.png" width="400px"/>
-					<figcaption>cloud smoothstep(.2, .4)<br><br> </figcaption>
-				</td>
-				<td style="text-align: center;">
-					<img src="clouds_6_8.png" width="400px"/>
-					<figcaption>cloud smoothstep(.6, .8)<br><br> </figcaption>
-				</td>
-				<td style="text-align: center;">
-					<img src="clouds_8_1.png" width="400px"/>
-					<figcaption>cloud smoothstep(.8, 1)<br><br> </figcaption>
-				</td>
-					  </tr>
-					</table>
-				</div>
+
+        <p>A higher relative humidity increases the density and consequently, molecular density of the air.</body>p>
+            <p>This decreases the Rayleigh scattering coefficients, so a more humid day will be more washed out and a drier day will be more visibly crisp.</p>
+                
+            <h3>Skies with varied relative humidities</h3>
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                    <td style="text-align: center;">
+                        <img src="humidity_0.png" width="400px"/>
+                        <figcaption>A clear sky at 15 degrees Celsius with 0% relative humidity (clearer)<br><br> </figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="humidity_05.png" width="400px"/>
+                        <figcaption>A clear sky at 15 degrees Celsius with 50% relative humidity<br><br> </figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="humidity_1.png" width="400px"/>
+                        <figcaption>A clear sky at 15 degrees Celsius with 100% relative humidity (hazier)<br><br> </figcaption>
+                    </td>
+                            </tr>
+                        </table>
+                    </div>
+
+        <p>A lower temperature increases the density of the air, which decreases the Rayleigh scattering coefficients, making the sky lighter and yellower. The opposite is also true, with a hot day making the sky's colors appear bluer and darker.</p>
+        <p>This is the opposite to what happens in real life. This is because cooler temperatures are strongly associated with lower humidity, which makes the sky clearer and bluer overall. The opposite is true as well, so hotter days tend to be a bit hazier, with warmer colors in the sky.</p>
+		
+		<h3>Skies with varied temperature</h3>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+                <table style="width: 100%; text-align: center; border-collapse: collapse;">
+            <td style="text-align: center;">
+                <img src="temperature_15.png" width="400px"/>
+                <figcaption>Clear sky at 15 degrees Celsius<br><br> </figcaption>
+            </td>
+            <td style="text-align: center;">
+				<img src="temperature_-15.png" width="400px"/>
+                <figcaption>Clear sky at -15 degrees Celsius (the sky is lighter/yellower)<br><br> </figcaption>
+            </td>
+                  </tr>
+                </table>
+            <td style="text-align: center;">
+				<img src="temperature_45.png" width="400px"/>
+                <figcaption>Clear sky at 45 degress Celsius (the sky is bluer/darker)<br><br> </figcaption>
+            </td>
+                  </tr>
+                </table>
+            </div>
 
         <h2>References</h2>
 		<ul>
-			<li><a href=""></a></li>
+			<li><a href="https://www.engineeringtoolbox.com/density-air-d_680.html">https://www.engineeringtoolbox.com/density-air-d_680.html</a></li>
             <li><a href="https://www.scratchapixel.com/lessons/procedural-generation-virtual-worlds/simulating-sky/simulating-colors-of-the-sky.html">https://www.scratchapixel.com/lessons/procedural-generation-virtual-worlds/simulating-sky/simulating-colors-of-the-sky.html</a></li>
+            <li><a href="http://jupiter.chem.uoa.gr/thanost/papers/papers4/Metrol_30(1993)155.pdf">http://jupiter.chem.uoa.gr/thanost/papers/papers4/Metrol_30(1993)155.pdf</a></li>
+			<li><a href="https://cdn.instructables.com/ORIG/FIF/0BT5/I7CCDOSF/FIF0BT5I7CCDOSF.pdf">https://cdn.instructables.com/ORIG/FIF/0BT5/I7CCDOSF/FIF0BT5I7CCDOSF.pdf</a></li>
+			<li><a href="https://opg.optica.org/ao/fulltext.cfm?uri=ao-57-26-7559&id=396859">https://opg.optica.org/ao/fulltext.cfm?uri=ao-57-26-7559&id=396859</a></li>
 			<li><a href="https://thebookofshaders.com/13/">https://thebookofshaders.com/13/</a></li>
 		</ul>
-        TODO: add more references.
 
 
         
