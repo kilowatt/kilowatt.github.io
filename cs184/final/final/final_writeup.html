@@ -1,0 +1,286 @@
+<html>
+	<head>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+		<style>
+			h1 {
+				text-align: center;
+			}
+
+			.container {
+				margin: 0 auto;
+				padding: 60px 20%;
+			}
+
+			figure {
+				text-align: center;
+			}
+
+			img {
+				display: inline-block;
+			}
+
+			body {
+				font-family: 'Inter', sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+		<h1>CS184/284A Spring 2025 Final Project Write-Up: You Are My Sunshine (YAMS): Realistic Sunset Rendering
+        </h1>
+		<div style="text-align: center;">Names: Kenny Wang, Harris Thai, Max Phillips, William Li</div>
+
+		<br>
+
+		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+		
+		<br>
+
+		Link to GitHub repository: <a href="https://github.com/kilowatt/you-are-my-sunshine">https://github.com/kilowatt/you-are-my-sunshine</a>
+		<br>
+		Link to Slides: <a href="https://docs.google.com/presentation/d/1nEb2LeuaO7ef6H_2uaM0hM884B5f2vRffjy2qxN-HLM/edit?usp=sharing">https://docs.google.com/presentation/d/1nEb2LeuaO7ef6H_2uaM0hM884B5f2vRffjy2qxN-HLM/edit?usp=sharing</a>
+		<br>
+		Link to Video: (TODO)
+
+		<h2>Abstract</h2>
+        We created a sunset rendering application that will allow us to simulate and, thus, figure out what days will have 'prettier' sunsets. We included weather factors, such as temperature, humidity, and air quality, to change the scattering of sunlight through the atmosphere. 
+        
+        We also implemented clouds and foreground objects to simulate not just looking out into the ocean. We were inspired by the research papers we read(see below) to make our simulation as physically accurate as possible. 
+
+
+		<h2>Technical Approach</h2>
+        <h3>Overview</h3>
+		<p>
+            We based our implementation of sunset and atmosphere simulation largely on Nishita (1993). We simulated the earth and atmosphere as two concentric spheres, and the sun as a light source that is infinitely far away (so that all rays are parallel).
+		</p>
+        <h3>Raymarching and Rayleigh + Mie Scattering</h3>
+		<p>
+            We implemented a ray marching algorithm that simulates both Rayleigh and Mie scattering. To estimate the radiance of a given pixel, we first project a ray from the camera to the pixel, and extend this ray out until it intersects the edge of the atmosphere. Along this camera-pixel ray, we cast secondary rays in regular intervals from the point along the camera-pixel ray in the direction of the sun. We also compute the height of the sample point to determine the local Rayleigh and Mie scattering densities. 
+		</p>
+		<p>
+            We compute the additional optical depth along the secondary rays, and apply the Rayleigh and Mie phase functions. We combine the accumulated Rayleigh and Mie terms, and scale by the brightness of the sun. This yields the given radiance. 
+		</p>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                <td style="text-align: center;">
+                    <img src="diagram_1.png" width="400px"/>
+                    <figcaption>Diagram<br><br> </figcaption>
+                </td>
+            </table>
+        </div>
+        <p></p>
+		For each pixel, we wish to calculate the total luminance, which we can represent with this equation. X represents a point along the ray that we're integrating over.
+
+		$$L(P_c,P_a) = \int_{P_c}^{P_a} T(P_c, X) L_{sun}(X) ds$$
+
+		Transmittance T, representing the fraction of light that reaches between two points (doesn't get scattered away), can be calculated like so:
+
+		$$T(P_a, P_b) = \frac{L_a}{L_b} = \text{exp} \left\{ -\sum\limits_{P_a}^{P_b} \text{exp} ( \beta(h) ds )\right\}$$
+
+		and scattering coefficient beta, which depends on altitude h and atmospheric scale height H (a constant we can tweak), can be represented as
+
+		$$\beta_s(h) = \beta_s(0) \exp \left( -\frac{h}{H} \right)$$
+
+		which simplifies the previous transmittance equation to
+
+		$$T(P_a, P_b) = \exp \left\{ -\beta_s(0) \sum\limits_{P_a}^{P_b} \exp \left( -\frac{h}{H} \right) \right\}$$
+
+		L_sun represents the light that reaches a given point X from the sun (reduced by atmospheric scattering before it reaches the point) and is then scattered towards the camera.
+
+		$$L_{\text{sun}}(X) = \text{SunIntensity} * T(X, P_s) * P(V, L) * \beta_s(h)$$
+
+		where V is the viewing direction, L is the light/sun direction, and P is the *phase function* that defines how much light is scattered in each direction.
+		<br>
+		<br>
+		Finally, we need to compute the final sky color, which uses both Rayleigh and Mie scattering, which have different phase functions and scattering coefficients beta. Here's the equation for just Rayleigh scattering:
+
+		$$\text{SkyColor}_R(P_c, P_a) = \int_{P_c}^{P_a} T(P_c, X) L_{\text{sun}}(X) ds$$
+		$$= \text{SunIntensity} * P(V, L) \int_{P_c}^{P_a} T(P_c, X) * T(X, P_s) * \beta_s(h) ds$$
+
+		and to get the final sky color, we simply add the effects of Rayleigh and Mie.
+
+		$$\text{SkyColor}(P_c, P_a) = \text{SkyColor}_R(P_c, P_a) + \text{SkyColor}_M(P_c, P_a)$$
+
+		In our final code, we take a few algebraic shortcuts that allow us to reduce repeated computation.
+        </div>p></p>
+        <p>
+            In the process of implementing our sunset simulator since the milestone, we noticed some bugs in our implementation. In our implementation of the sunset during the milestone, we saw that there would be artifacts when the sun was near the horizon, where the sun would be overly large, and light would "stick" to the sun as it moved. To fix this issue, we realized we had to normalize the color of the sun, which made the simulation look much more realistic. Below is a comparison of the two implementations:
+        </p>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                <td style="text-align: center;">
+                    <img src="old_sunset.png" width="400px"/>
+                    <figcaption>Old Sunset Implementation<br><br> </figcaption>
+                </td>
+                <td style="text-align: center;">
+                    <img src="new_sunset.png" width="400px"/>
+                    <figcaption>New Sunset Implementation<br><br> </figcaption>
+                </td>
+            </table>
+        </div>
+        <p>It is clear that the old implementation, while vibrant and striking in color, is clearly unrealistic, while the new implementation has a much smoother, more realistic tone of the sunset.</p>
+
+
+        <h3>Cloud Rendering</h3>
+        <p>Our shader generates dynamic, realistic clouds using fractal Brownian motion (fBm) to create detailed, evolving noise patterns. The process begins by computing a directional ray from the camera for each pixel and checking if it intersects the Earth, such that clouds are only rendered if the view ray doesn't hit the ground. </p>
+		<p>To simulate cloud motion, a time-dependent drift is added to the noise input, and the resulting coordinates are rotated to align the cloud layer at an angle, mimicking atmospheric perspective. The fBm function, built from multiple layers of 2D value noise, produces smooth, organic variations that resemble natural cloud structures. This raw noise value is transformed into a soft cloud mask using a smoothstep threshold, which controls where clouds appear based on density. </p>
+		<p>The mask is further modulated by altitude, fading clouds out near the horizon, and is limited to a specific area on the screen to keep clouds constrained to the sky. Lighting is then applied by mixing a sunlit cloud color with the sky's atmospheric radiance, and the final cloud color is blended into the scene based on cloud opacity and solar elevation, resulting in a soft, drifting cloudscape that evolves over time. </p>
+		<p>To give the illusion of depth, we rotate the vertical plane that the clouds are on by 80 degrees into the screen, such that it gives perspective to the viewer. This was accomplished by creating a rotation matrix and projecting onto it to determine the position at which we should sample.</p>
+		<p>We also have a few tunable knobs in our cloud implementation, particularly around the density of clouds(controlled by the lower and upper bound of the inputs to the smoothstep used to calculate the cloud mask, which controls the density of the clouds). The smoothstep function is used to turn raw FBM noise - which is continuous and wavy - into discrete, cloud-like regions with soft, fuzzy edges.</p>
+        <p>We finally have 2 points to determine where the upper right and lower left bounds of the “cloudy region” is. In the final implementation, we render clouds across the entire width, and go from half way up to the top, ie, our bottom left coordinate would be (0.5, 0) and the top right coordinate would be (1, 1). We use this to only display clouds into certain locations, avoiding conflict with empty sky.</p>
+		
+		<h3>Clouds with varied box size</h3>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+                <table style="width: 100%; text-align: center; border-collapse: collapse;">
+            <td style="text-align: center;">
+                <img src="clouds_2_4.png" width="400px"/>
+                <figcaption>cloud with corners (.2, .2) and (.8, .8)<br><br> </figcaption>
+            </td>
+            <td style="text-align: center;">
+				<img src="clouds-4x6.png" width="400px"/>
+                <figcaption>cloud with corners (.4, .4) and (.6, .6)<br><br> </figcaption>
+            </td>
+                  </tr>
+                </table>
+            </div>
+			
+		<h3>Clouds with varied cloud densities</h3>
+			<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<td style="text-align: center;">
+					<img src="clouds_2_4.png" width="400px"/>
+					<figcaption>cloud smoothstep(.2, .4)<br><br> </figcaption>
+				</td>
+				<td style="text-align: center;">
+					<img src="clouds_6_8.png" width="400px"/>
+					<figcaption>cloud smoothstep(.6, .8)<br><br> </figcaption>
+				</td>
+				<td style="text-align: center;">
+					<img src="clouds_8_1.png" width="400px"/>
+					<figcaption>cloud smoothstep(.8, 1)<br><br> </figcaption>
+				</td>
+					  </tr>
+					</table>
+				</div>
+		
+		<h3>Foreground Geometry</h3>
+        <p>We also implemented rendering of foreground geometry that reflects the colors of the sky and sunset. We utilized a Lua script found online that converted .obj files to matrix of vertices in GLSL. To render the geometry onto the screen, we first defined rotation and translation matrices. We then used these to transform the coordinates of the vertices into the camera space, which are then projected into the 2D space of the screen.</p>
+        <p>To determine the contribution of each triangle to the final render, we calculated how much a given pixel lies inside a given triangle. For each pixel inside a triangle, we calculate the normal of the triangle and use it to contribute the lighting contribution based on the angle between the surface of the triangle and the light source.</p>
+        <p>The final color of the geometry was determined by mixing the reflected color of the sky and sunset with the contribution of the triangle, which allowed the geometry to reflect the natural color of the environment. We did this in two separate ways. One way was to simply sample the color of the sky once along the direction of the normal of the triangle, and use that as the color of the object. The second, more computationally intensive way was using cosine-weighted hemisphere sampling to sample multiple directions per pixel to generate a more realistic blended lighting for the geometry.</p>
+        <h2>Results</h2>
+        <h3>Sunset Simulation (just the sunset)</h3>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+			<video controls autoplay loop muted>
+                <source src="demo_gif.webm" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <figcaption>Demo of Sunset Simulation</figcaption>
+		</div>
+        <p>Atmosphere simulation with only Rayleigh or only Mie</p>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <table style="width: 100%; text-align: center; border-collapse: collapse;">
+        <td style="text-align: center;">
+            <img src="rayleigh_only.png" width="400px"/>
+            <figcaption>Rayleigh scattering<br><br> </figcaption>
+        </td>
+        <td style="text-align: center;">
+            <img src="mie_only.png" width="400px"/>
+            <figcaption>Mie scattering only<br><br> </figcaption>
+        </td>
+                </tr>
+            </table>
+        </div>
+        <h3>Sunset Simulation with Foreground Geometry</h3>
+        <h3>Sunset Simulation with Clouds</h3>
+        <p>TODO: insert different clouds n shi</p>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+                <td style="text-align: center;">
+                    <img src="rayleigh20.png" width="400px"/>
+                    <figcaption>Rayleigh scattering with sun brightness 20<br><br> </figcaption>
+                </td>
+                <td style="text-align: center;">
+                    <img src="mie5.png" width="400px"/>
+                    <figcaption>Mie scattering with sun brightness 5<br><br> </figcaption>
+                </td>
+				<td style="text-align: center;">
+				    <img src="mie2rayleigh20.png" width="400px"/>
+				    <figcaption>Rayleigh scattering + Mie scattering with sun brightness 20 and Mie effective sun brightness 2</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+        <h3>Temperature and Relative Humidity</h3>
+        <p>Our shader renders the sky and environment based on physically accurate parameters.</p>
+        <p>For example, Rayleigh scattering is the phenomenon that makes the sky appear blue, and our Rayleigh scattering coefficients are dynamically computed depending on light wavelength, temperature, pressure, and relative humidity.</p>
+        <p>We do not have an intuitive grasp of air pressure, so the parameters we have exposed are cloudiness from 0.0 to 1.0 (see above), temperature in Celsius, and relative humidity from 0.0 to 1.0</p>
+
+        <p>A lower temperature increases the density of the air and therefore increases the Rayleigh scattering coefficients, making the sky darker. The opposite is also true, with a hot day making the sky's colors appear warmer.</p>
+		
+		<h3>Skies with varied temperature</h3>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+                <table style="width: 100%; text-align: center; border-collapse: collapse;">
+            <td style="text-align: center;">
+                <img src="temperature_15.png" width="400px"/>
+                <figcaption>Clear sky at 15 degrees Celsius<br><br> </figcaption>
+            </td>
+            <td style="text-align: center;">
+				<img src="temperature_-15.png" width="400px"/>
+                <figcaption>Clear sky at -15 degrees Celsius (the sky is bluer/darker)<br><br> </figcaption>
+            </td>
+                  </tr>
+                </table>
+            <td style="text-align: center;">
+				<img src="temperature_45.png" width="400px"/>
+                <figcaption>Clear sky at 45 degress Celsius (the sky is lighter/yellower)<br><br> </figcaption>
+            </td>
+                  </tr>
+                </table>
+            </div>
+
+        <p>A higher relative humidity increases the density and consequently, molecular density of the air.</body>p>
+        <p>This decreases the Rayleigh scattering coefficients, so a more humid day will be more washed out and a drier day will be more visibly crisp.</p>
+			
+		<h3>Skies with varied relative humidities</h3>
+			<div style="display: flex; flex-direction: column; align-items: center;">
+					<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<td style="text-align: center;">
+					<img src="humidity_0.png" width="400px"/>
+					<figcaption>A clear sky at 15 degrees Celsius with 0% relative humidity (clearer)<br><br> </figcaption>
+				</td>
+				<td style="text-align: center;">
+					<img src="humidity_1.png" width="400px"/>
+					<figcaption>A clear sky at 15 degrees Celsius with 100% relative humidity (hazier)<br><br> </figcaption>
+				</td>
+					  </tr>
+					</table>
+				</div>
+
+        <h2>References</h2>
+		<ul>
+			<li><a href="https://www.engineeringtoolbox.com/density-air-d_680.html">https://www.engineeringtoolbox.com/density-air-d_680.html</a></li>
+""></a></li>
+            <li><a href="https://www.scratchapixel.com/lessons/procedural-generation-virtual-worlds/simulating-sky/simulating-colors-of-the-sky.html">https://www.scratchapixel.com/lessons/procedural-generation-virtual-worlds/simulating-sky/simulating-colors-of-the-sky.html</a></li>			<li><a href="http://jupiter.chem.uoa.gr/thanost/papers/papers4/Metrol_30(1993)155.pdf">http://jupiter.chem.uoa.gr/thanost/papers/papers4/Metrol_30(1993)155.pdf</a></li>
+			<li><a href="https://cdn.instructables.com/ORIG/FIF/0BT5/I7CCDOSF/FIF0BT5I7CCDOSF.pdf">https://cdn.instructables.com/ORIG/FIF/0BT5/I7CCDOSF/FIF0BT5I7CCDOSF.pdf</a></li>
+			<li><a href="https://opg.optica.org/ao/fulltext.cfm?uri=ao-57-26-7559&id=396859">https://opg.optica.org/ao/fulltext.cfm?uri=ao-57-26-7559&id=396859</a></li>
+			<li><a href="https://thebookofshaders.com/13/">https://thebookofshaders.com/13/</a></li>
+		</ul>
+        TODO: add more references.
+
+
+        
+        <h2>Contributions</h2>
+        <h3>William Li</h3>
+        <p>Contributed to the project proposal and final deliverables. Debugged the sunset implementation, and responsible for implementing the foreground geometry feature of the project.</p>
+        <h3>Max Phillips</h3>
+		<p>Contributed to the project proposal and final deliverables. Primarily implemented the clouds on our project, both implementation and research.</p>
+        <h3>Kenny Wang</h3>
+
+        <h3>Harris Thai</h3>
+
+		</div>
+        </h2>
+	</body>
+</html>
