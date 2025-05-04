@@ -3,16 +3,13 @@
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 		<style>
-            body {
-                margin: 0px
-            }
 			h1 {
 				text-align: center;
 			}
 
 			.container {
 				margin: 0 auto;
-				padding: 60px 0%;
+				padding: 60px 10%;
 			}
 
 			figure {
@@ -44,7 +41,7 @@
 		<br>
 		Link to Slides: <a href="https://docs.google.com/presentation/d/1nEb2LeuaO7ef6H_2uaM0hM884B5f2vRffjy2qxN-HLM/edit?usp=sharing">https://docs.google.com/presentation/d/1nEb2LeuaO7ef6H_2uaM0hM884B5f2vRffjy2qxN-HLM/edit?usp=sharing</a>
 		<br>
-		Link to Video: (TODO)
+		Link to Video: <a href="https://drive.google.com/file/d/1fG-JBEdjBukK5a-6YZDq89fMBn0jty4I/view?usp=sharing">https://drive.google.com/file/d/1fG-JBEdjBukK5a-6YZDq89fMBn0jty4I/view?usp=sharing</a>
 
 		<h2>Abstract</h2>
         We created a sunset rendering application that will allow us to simulate pretty sunsets! It calculates and simulates Rayleigh and Mie atmospheric scattering, generating physically accurate skies. 
@@ -68,7 +65,7 @@
                 <td style="text-align: center;">
                     <img src="diagram_1.png" width="400px"/>
                     <figcaption>Diagram<br><br> </figcaption>
-                </td>c:\Users\kenne\cs184\you-are-my-sunshine\betaR.png
+                </td>
             </table>
         </div>
         <p></p>
@@ -169,6 +166,34 @@
         <p>We also implemented rendering of foreground geometry that reflects the colors of the sky and sunset. We utilized a Lua script found online that converted .obj files to matrix of vertices in GLSL. To render the geometry onto the screen, we first defined rotation and translation matrices. We then used these to transform the coordinates of the vertices into the camera space, which are then projected into the 2D space of the screen.</p>
         <p>To determine the contribution of each triangle to the final render, we calculated how much a given pixel lies inside a given triangle. For each pixel inside a triangle, we calculate the normal of the triangle and use it to contribute the lighting contribution based on the angle between the surface of the triangle and the light source.</p>
         <p>The final color of the geometry was determined by mixing the reflected color of the sky and sunset with the contribution of the triangle, which allowed the geometry to reflect the natural color of the environment. We did this in two separate ways. One way was to simply sample the color of the sky once along the direction of the normal of the triangle, and use that as the color of the object. The second, more computationally intensive way was using cosine-weighted hemisphere sampling to sample multiple directions per pixel to generate a more realistic blended lighting for the geometry.</p>
+        <h3>Temperature and Relative Humidity</h3>
+        <p>Our shader renders the sky and environment based on physically accurate parameters.</p>
+        <p>For example, Rayleigh scattering is the phenomenon that makes the sky appear blue, and our Rayleigh scattering coefficients are dynamically computed depending on light wavelength, temperature, and relative humidity.</p>
+        <p>The parameters we have exposed are cloudiness from 0.0 to 1.0 (see above), temperature in Celsius, and relative humidity from 0.0 to 1.0</p>
+
+        <h3>Equations</h3>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+                <table style="width: 100%; text-align: center; border-collapse: collapse;">
+            <td style="text-align: center;">
+                <img src="n_tp.png" width="400px"/>
+                <figcaption>Equation for air's index of refraction at given temperature and pressure<br><br> </figcaption>
+            </td>
+            <td style="text-align: center;">
+				<img src="n_s.png" width="400px"/>
+                <figcaption>Equation for air's index of refraction at standard pressure and temperature given wavenumber of light<br><br> </figcaption>
+            </td>
+                  </tr>
+                </table>
+            <td style="text-align: center;">
+				<img src="rho.png" width="400px"/>
+                <figcaption>Equation for air density based on temperature and humidity<br><br> </figcaption>
+            </td>
+                  </tr>
+                </table>
+            </div>
+
+        <p>A higher relative humidity increases the density and consequently, molecular density of the air.</p>
+            <p>This decreases the Rayleigh scattering coefficients, so a more humid day will be more washed out and a drier day will be more visibly crisp.</p>
         <h2>Results</h2>
         <h3>Sunset Simulation (just the sunset)</h3>
         <div style="display: flex; flex-direction: column; align-items: center;">
@@ -178,7 +203,7 @@
             </video>
             <figcaption>Demo of Sunset Simulation</figcaption>
 		</div>
-        <p>Atmosphere simulation with only Rayleigh or only Mie</p>
+        <h3>Atmosphere simulation with only Rayleigh or only Mie</h3>
         <div style="display: flex; flex-direction: column; align-items: center;">
             <table style="width: 100%; text-align: center; border-collapse: collapse;">
         <td style="text-align: center;">
@@ -205,42 +230,7 @@
                 </td>
 			  </tr>
 			</table>
-		</div>        
-
-        <h3>Temperature and Relative Humidity</h3>
-        <p>Our shader renders the sky and environment based on physically accurate parameters.</p>
-        <p>For example, Rayleigh scattering is the phenomenon that makes the sky appear blue, and our Rayleigh scattering coefficients are dynamically computed depending on light wavelength, temperature, and relative humidity.</p>
-        <p>The parameters we have exposed are cloudiness from 0.0 to 1.0 (see above), temperature in Celsius, and relative humidity from 0.0 to 1.0</p>
-
-        <h3>Equations</h3>
-        <div style="display: flex; flex-direction: column; align-items: center;">
-                <table style="width: 100%; text-align: center; border-collapse: collapse;">
-            <td style="text-align: center;">
-                <img src="betaR.png" width="400px"/>
-                <figcaption>Equation for Rayleigh scattering coefficient based on index of refraction and molecular density<br><br> </figcaption>
-            </td>
-                    </tr>
-                </table>
-            <td style="text-align: center;">
-                <img src="n_tp.png" width="400px"/>
-                <figcaption>Equation for air's index of refraction at given temperature and pressure<br><br> </figcaption>
-            </td>
-            <td style="text-align: center;">
-				<img src="n_s.png" width="400px"/>
-                <figcaption>Equation for air's index of refraction at standard pressure and temperature given wavenumber of light<br><br> </figcaption>
-            </td>
-                  </tr>
-                </table>
-            <td style="text-align: center;">
-				<img src="rho.png" width="400px"/>
-                <figcaption>Equation for air density based on temperature and humidity<br><br> </figcaption>
-            </td>
-                  </tr>
-                </table>
-            </div>
-
-        <p>A higher relative humidity increases the density and consequently, molecular density of the air.</body>p>
-            <p>This decreases the Rayleigh scattering coefficients, so a more humid day will be more washed out and a drier day will be more visibly crisp.</p>
+		</div>
                 
             <h3>Skies with varied relative humidities</h3>
                 <div style="display: flex; flex-direction: column; align-items: center;">
