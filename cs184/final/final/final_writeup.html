@@ -3,13 +3,16 @@
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 		<style>
+            body {
+                margin: 0px
+            }
 			h1 {
 				text-align: center;
 			}
 
 			.container {
 				margin: 0 auto;
-				padding: 60px 20%;
+				padding: 60px 0%;
 			}
 
 			figure {
@@ -103,7 +106,7 @@
 
 		In our final code, we also take a few algebraic shortcuts that allow us to reduce repeated computation.
         <p>
-            In the process of implementing our sunset simulator since the milestone, we noticed some bugs in our implementation. In our implementation of the sunset during the milestone, we saw that there would be artifacts when the sun was near the horizon, where the sun would be overly large, and light would "stick" to the sun as it moved. To fix this issue, we realized we had to normalize the color of the sun, which made the simulation look much more realistic. Below is a comparison of the two implementations:
+            In the process of implementing our sunset simulator since the milestone, we noticed some issues in our earlier implementation. In our implementation of the sunset for the milestone, we saw that there would be artifacts when the sun was near the horizon, where the sun would be overly large, and light would "stick" to the sun as it moved. To fix this issue, we realized we had to normalize the color of the sun, which made the simulation look much more realistic, and in our opinion, better than our references. Below is a comparison of the two implementations:
         </p>
         <div style="display: flex; flex-direction: column; align-items: center;">
             <table style="width: 100%; text-align: center; border-collapse: collapse;">
@@ -189,7 +192,7 @@
                 </tr>
             </table>
         </div>
-        <h3>Sunset Simulation with Foreground Geometry</h3>
+        <h3>Sunset Simulation with Foreground Geometry and Clouds</h3>
         <div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
                 <td style="text-align: center;">
@@ -202,25 +205,7 @@
                 </td>
 			  </tr>
 			</table>
-		</div>
-        <h3>Sunset Simulation with Clouds</h3>
-        <p>TODO: insert different clouds n shi</p>
-        <div style="display: flex; flex-direction: column; align-items: center;">
-			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-                <td style="text-align: center;">
-                    <img src="rayleigh20.png" width="400px"/>
-                    <figcaption>Rayleigh scattering with sun brightness 20<br><br> </figcaption>
-                </td>
-                <td style="text-align: center;">
-                    <img src="mie5.png" width="400px"/>
-                    <figcaption>Mie scattering with sun brightness 5<br><br> </figcaption>
-                </td>
-				<td style="text-align: center;">
-				    <img src="mie2rayleigh20.png" width="400px"/>
-				    <figcaption>Rayleigh scattering + Mie scattering with sun brightness 20 and Mie effective sun brightness 2</figcaption>
-				</td>
-			</table>
-		</div>
+		</div>        
 
         <h3>Temperature and Relative Humidity</h3>
         <p>Our shader renders the sky and environment based on physically accurate parameters.</p>
@@ -230,6 +215,12 @@
         <h3>Equations</h3>
         <div style="display: flex; flex-direction: column; align-items: center;">
                 <table style="width: 100%; text-align: center; border-collapse: collapse;">
+            <td style="text-align: center;">
+                <img src="betaR.png" width="400px"/>
+                <figcaption>Equation for Rayleigh scattering coefficient based on index of refraction and molecular density<br><br> </figcaption>
+            </td>
+                    </tr>
+                </table>
             <td style="text-align: center;">
                 <img src="n_tp.png" width="400px"/>
                 <figcaption>Equation for air's index of refraction at given temperature and pressure<br><br> </figcaption>
@@ -288,11 +279,29 @@
                 </table>
             <td style="text-align: center;">
 				<img src="temperature_45.png" width="400px"/>
-                <figcaption>Clear sky at 45 degress Celsius (the sky is bluer/darker)<br><br> </figcaption>
+                <figcaption>Clear sky at 45 degrees Celsius (the sky is bluer/darker)<br><br> </figcaption>
             </td>
                   </tr>
                 </table>
             </div>
+
+        <p>Overall, a lower temperature and humidity lead to slightly bluer, clearer skies and a higher temperature and humidity lead to slightly yellower, hazier skies.</p>
+        <p>However, we must note that this effect may be quite hard to notice.</p>
+
+        <h3>Seasonal Skies</h3>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                    <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                <td style="text-align: center;">
+                    <img src="winter.png" width="400px"/>
+                    <figcaption>Clear sky at 5 degrees Celsius and 25% humidity<br><br> </figcaption>
+                </td>
+                <td style="text-align: center;">
+                    <img src="summer.png" width="400px"/>
+                    <figcaption>Clear sky at 25 degrees Celsius and 75% humidity<br><br> </figcaption>
+                </td>
+                      </tr>
+                    </table>
+                </div>
 
         <h2>References</h2>
 		<ul>
@@ -302,6 +311,7 @@
 			<li><a href="https://cdn.instructables.com/ORIG/FIF/0BT5/I7CCDOSF/FIF0BT5I7CCDOSF.pdf">https://cdn.instructables.com/ORIG/FIF/0BT5/I7CCDOSF/FIF0BT5I7CCDOSF.pdf</a></li>
 			<li><a href="https://opg.optica.org/ao/fulltext.cfm?uri=ao-57-26-7559&id=396859">https://opg.optica.org/ao/fulltext.cfm?uri=ao-57-26-7559&id=396859</a></li>
 			<li><a href="https://thebookofshaders.com/13/">https://thebookofshaders.com/13/</a></li>
+            <li><a href="http://nishitalab.org/user/nis/cdrom/sig93_nis.pdf">http://nishitalab.org/user/nis/cdrom/sig93_nis.pdf</a></li>
 		</ul>
 
 
@@ -312,7 +322,7 @@
         <h3>Max Phillips</h3>
 		<p>Contributed to the project proposal and final deliverables. Primarily implemented the clouds on our project, both implementation and research.</p>
         <h3>Kenny Wang</h3>
-        <p>Contributed to the project proposal and final deliverables. Together with Harris, implemented the core scattering functionality, debugged scattering, and provided *artistic direction*</p>
+        <p>Contributed to the project proposal and final deliverables. Together with Harris, implemented the core scattering functionality, debugged scattering, and provided *artistic direction*.</p>
         <h3>Harris Thai</h3>
         <p>Contributed to the project proposal and final deliverables. Helped implement the Rayleigh and Mie scattering algorithms, rotated the clouds and adjusted their color, and made the scattering coefficients dynamically dependent on temperature and relative humidity.</p>
 		</div>
